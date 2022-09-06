@@ -42,6 +42,8 @@ public class characterController : MonoBehaviour
         if (_horizontal != 0 || _vertical != 0)
         {
             movement();
+            
+            //Debug.Log(rb.velocity.magnitude);
         }
 
         drag();
@@ -50,8 +52,8 @@ public class characterController : MonoBehaviour
     public void movement()
     {
         
-        _move = new Vector2(_horizontal, _vertical);
-        _move *= (_moveAcceleration);
+        _move = new Vector2(_horizontal, _vertical).normalized;
+        _move *= (_moveAcceleration );
 
         //to make beinging moevment snappy 
         if (rb.velocity.magnitude == 0)
@@ -65,12 +67,18 @@ public class characterController : MonoBehaviour
 
         //checks to see what velcoity the character is at, if it is bigger or equal to max move speed it then clamps it to the max move speed 
 
-        if (Mathf.Abs(rb.velocity.x) >= _maxMoveSpeed)
+        if ((Mathf.Abs(rb.velocity.x) >= _maxMoveSpeed) || (Mathf.Abs(rb.velocity.y) >= _maxMoveSpeed))
         {
             Debug.Log("AT MAX MOVE SPEED");
-            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -_maxMoveSpeed, _maxMoveSpeed), rb.velocity.y);
+            //rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -_maxMoveSpeed, _maxMoveSpeed), rb.velocity.y);
+            rb.velocity = new Vector2((Mathf.Clamp(rb.velocity.x, -_maxMoveSpeed, _maxMoveSpeed)), Mathf.Clamp(rb.velocity.y, -_maxMoveSpeed, _maxMoveSpeed));
             Debug.Log("VELOCITY IS " + rb.velocity.x);
         }
+        
+        
+
+
+        
 
     }
     
