@@ -10,25 +10,22 @@ public class ropeSegement : MonoBehaviour
     void Start()
     {
         //makes sure that each segment is positioned in the right spot
-        _connectAbove = GetComponent<HingeJoint2D>().connectedBody.gameObject;
+        _connectAbove = gameObject.GetComponent<HingeJoint2D>().connectedBody.gameObject;
         ropeSegement aboveSegment = _connectAbove.GetComponent<ropeSegement>();
 
         if(aboveSegment != null)
         {
             aboveSegment._connectBelow = gameObject;
-            float spriteBottom = _connectAbove.GetComponent<SpriteRenderer>().bounds.size.y;
-            GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(0, spriteBottom * -1);
-
+            float spriteBott = _connectAbove.GetComponentInChildren<SpriteRenderer>().bounds.size.y;
+            gameObject.GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(0, spriteBott * -1);
         }
         else
         {
-            GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(0, 0);
+            gameObject.GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(0, 0);
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
+     
+    
+   
 }
