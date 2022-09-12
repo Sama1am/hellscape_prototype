@@ -7,16 +7,18 @@ TagManager:
   - Body
   - Hook2
   - Rope
+  - enemy
+  - obstacle
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - rope
   - Water
   - UI
-  - 
-  - 
-  - 
+  - body
+  - player
+  - obstacles
   - 
   - 
   - 
