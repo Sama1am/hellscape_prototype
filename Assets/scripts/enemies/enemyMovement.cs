@@ -208,36 +208,31 @@ public class enemyMovement : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //if (collision.gameObject.CompareTag("enemy"))
-        //{
-        //    Debug.Log("COLLIDED WITH AN ENEMY!");
-        //    //rb.velocity = Vector3.zero;
-        //    knockBackPlayer();
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    //if (collision.gameObject.CompareTag("enemy"))
+    //    //{
+    //    //    Debug.Log("COLLIDED WITH AN ENEMY!");
+    //    //    //rb.velocity = Vector3.zero;
+    //    //    knockBackPlayer();
 
-        //}
+    //    //}
 
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("COLLIDED WITH THE PLAYER!");
-            target.GetComponent<playerManager>().takeDamage(damage);
-            knockBackPlayer();
-            //rb.velocity = Vector3.zero;
+    //    if (collision.gameObject.CompareTag("Body"))
+    //    {
+    //        Debug.Log("COLLIDED WITH THE PLAYER!");
+    //        //target.GetComponent<playerManager>().takeDamage(damage);
+    //        knockBackPlayer();
+    //        //rb.velocity = Vector3.zero;
 
-        }
+    //    }
 
-        if(collision.gameObject.CompareTag("obstacle"))
-        {
-            knockBackPlayer();
-        }
+    //    if(collision.gameObject.CompareTag("obstacle"))
+    //    {
+    //        knockBackPlayer();
+    //    }
 
-        //if(collision.gameObject.CompareTag("boss"))
-        //{
-        //    rb.velocity = Vector3.zero;
-        //    knockBackPlayer();
-        //}
-    }
+    //}
 
 
     private IEnumerator moveWait()

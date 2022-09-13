@@ -69,10 +69,10 @@ public class characterController : MonoBehaviour
 
         if ((Mathf.Abs(rb.velocity.x) >= _maxMoveSpeed) || (Mathf.Abs(rb.velocity.y) >= _maxMoveSpeed))
         {
-            Debug.Log("AT MAX MOVE SPEED");
+           // Debug.Log("AT MAX MOVE SPEED");
             //rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -_maxMoveSpeed, _maxMoveSpeed), rb.velocity.y);
             rb.velocity = new Vector2((Mathf.Clamp(rb.velocity.x, -_maxMoveSpeed, _maxMoveSpeed)), Mathf.Clamp(rb.velocity.y, -_maxMoveSpeed, _maxMoveSpeed));
-            Debug.Log("VELOCITY IS " + rb.velocity.x);
+            //Debug.Log("VELOCITY IS " + rb.velocity.x);
         }
         
         

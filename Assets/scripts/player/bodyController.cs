@@ -7,66 +7,117 @@ public class bodyController : MonoBehaviour
 
     private float _horizontal;
     private float _vertical;
-    private bool changeDir;
+    private bool _changeDir;
     [SerializeField] private float _dragForce;
+    [SerializeField] public float multiplyer;
+    [SerializeField] private float _time;
+    [SerializeField] private float _timeEleapsed;
+    [SerializeField] private float _speed;
+
     private float _dam;
 
-
-    private Rigidbody2D rb;
-
-    playerManager PM;
+    private GameObject _player;
+    private Rigidbody2D _rb;
+    private playerManager _PM;
     // Start is called before the first frame update
     void Start()
     {
-        PM = gameObject.GetComponent<playerManager>();
-        _dam = PM.damage;
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _PM = GameObject.FindGameObjectWithTag("Player").GetComponent<playerManager>();
+        _dam = _PM.damage;
+        _rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         changeDirection();
+        reelIn();
+        shootOut();
     }
 
     private void FixedUpdate()
     {
         drag();
+
     }
 
     private void drag()
     {
 
-        if ((_horizontal == 0) || (changeDir) || (_vertical == 0))
+        if ((_horizontal == 0) || (_changeDir) || (_vertical == 0))
         {
-            rb.drag = _dragForce;
+            _rb.drag = _dragForce;
         }
     }
 
 
     private void changeDirection()
     {
-        if ((rb.velocity.x > 0f && _horizontal < 0f) || (rb.velocity.x < 0f && _horizontal > 0f))
+        if ((_rb.velocity.x > 0f && _horizontal < 0f) || (_rb.velocity.x < 0f && _horizontal > 0f))
         {
-            changeDir = true;
+            _changeDir = true;
         }
 
-        if ((rb.velocity.y > 0f && _vertical < 0f) || (rb.velocity.y < 0f && _vertical > 0f))
+        if ((_rb.velocity.y > 0f && _vertical < 0f) || (_rb.velocity.y < 0f && _vertical > 0f))
         {
-            changeDir = true;
+            _changeDir = true;
         }
     }
 
-
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    void reelIn()
     {
-        if(collision.gameObject.CompareTag("enemy"))
+        if(Input.GetMouseButton(1))
         {
-            collision.gameObject.GetComponent<enemyManager>().takeDamage(_dam);
+            Debug.Log("SHOULD REEL IN");
+
+            if (_time > 1)
+            {
+                _time = 1;
+            }
+
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, _player.transform.position, _time);
+            _time += Time.deltaTime / multiplyer;
+
+            if(gameObject.transform.position == _player.transform.position)
+            {
+                gameObject.transform.position = _player.transform.position;
+            }
+
         }
+        else
+        {
+            _time = 0;
+        }
+
     }
 
+
+    void shootOut()
+    {
+        if(Input.GetMouseButtonUp(1))
+        {
+            Debug.Log("SHOULD SHOOT OUT!");
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector3 dir = (worldPosition - gameObject.transform.position).normalized;
+
+            if (_timeEleapsed > 1)
+            {
+                _timeEleapsed = 1;
+            }
+
+            gameObject.GetComponent<Rigidbody2D>().velocity = dir * _speed;
+
+            _timeEleapsed += Time.deltaTime / multiplyer;
+        }
+        else
+        {
+            _timeEleapsed = 0;
+        }
+
+        
+    }
 
 
 }

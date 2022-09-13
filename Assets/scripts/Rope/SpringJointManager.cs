@@ -10,12 +10,15 @@ public class SpringJointManager : MonoBehaviour
     //public float maxdis;
     public SpringJoint2D SJ;
 
-    [SerializeField] private float _maxDist;
+    [SerializeField] public float maxDist;
+    public float ogMaxDist;
     //public playerManager pM;
     // Start is called before the first frame update
     void Start()
     {
-        SJ.enabled = false;
+        ogMaxDist = maxDist;
+        SJ.enabled = true;
+        SJ.distance = maxDist;
         //pM = this.gameObject.GetComponent<playerManager>();
     }
 
@@ -23,17 +26,18 @@ public class SpringJointManager : MonoBehaviour
     void Update()
     {
         distance = Vector2.Distance(player.transform.position, body.transform.position);
-        SJ.distance = _maxDist;
+        // SJ.distance = maxDist;
 
+        SJ.distance = maxDist;
 
-        if (distance >= _maxDist)
-        {
-            SJ.enabled = true;
-        }
-        else
-        {
-            SJ.enabled = false;
-        }
+        //if (distance >= maxDist)
+        //{
+        //    SJ.enabled = true;
+        //}
+        //else
+        //{
+        //    SJ.enabled = false;
+        //}
 
 
     }
