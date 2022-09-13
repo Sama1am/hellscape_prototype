@@ -220,9 +220,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dragForce: 0.5
   multiplyer: 10
-  lerpMulti: 2
-  _minDist: 3
-  _maxDist: 0
   _time: 0
   _timeEleapsed: 0
   _speed: 100
@@ -532,7 +529,7 @@ MonoBehaviour:
   player: {fileID: 435353448}
   body: {fileID: 211653430}
   SJ: {fileID: 435353453}
-  maxDist: 3
+  maxDist: 5
   ogMaxDist: 0
 --- !u!114 &435353455
 MonoBehaviour:

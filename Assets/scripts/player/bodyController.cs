@@ -69,7 +69,8 @@ public class bodyController : MonoBehaviour
     {
         if(Input.GetMouseButton(1))
         {
-            Debug.Log("SHOULD REEL IN");
+            //Debug.Log("SHOULD REEL IN");
+            _timeEleapsed += Time.deltaTime;
 
             if (_time > 1)
             {
@@ -78,6 +79,8 @@ public class bodyController : MonoBehaviour
 
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, _player.transform.position, _time);
             _time += Time.deltaTime / multiplyer;
+
+            
 
             if(gameObject.transform.position == _player.transform.position)
             {
@@ -88,6 +91,7 @@ public class bodyController : MonoBehaviour
         else
         {
             _time = 0;
+            
         }
 
     }
@@ -97,26 +101,47 @@ public class bodyController : MonoBehaviour
     {
         if(Input.GetMouseButtonUp(1))
         {
-            Debug.Log("SHOULD SHOOT OUT!");
+            if(_timeEleapsed <= 0.2f)
+            {
+                _timeEleapsed = 0f;
+                return;
+            }
+            determineVelocity(_timeEleapsed);
+            //Debug.Log("SHOULD SHOOT OUT!");
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             Vector3 dir = (worldPosition - gameObject.transform.position).normalized;
 
-            if (_timeEleapsed > 1)
-            {
-                _timeEleapsed = 1;
-            }
 
             gameObject.GetComponent<Rigidbody2D>().velocity = dir * _speed;
 
-            _timeEleapsed += Time.deltaTime / multiplyer;
+            //_timeEleapsed += Time.deltaTime / multiplyer;
+            _timeEleapsed = 0;
         }
         else
         {
-            _timeEleapsed = 0;
+           // _timeEleapsed = 0;
         }
 
         
+    }
+
+
+    void determineVelocity(float time)
+    {
+        if(time >= 0.6f)
+        {
+            _speed = 125f;
+        }
+        else if((time < 06f) && (time >= 0.4f))
+        {
+            _speed = 100f;
+        }
+        else if(time <= 0.3f)
+        {
+            _speed = 75f;
+        }
+
     }
 
 
