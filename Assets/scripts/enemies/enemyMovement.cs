@@ -47,7 +47,7 @@ public class enemyMovement : MonoBehaviour
     #endregion
 
 
-    GameObject target;
+    public GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
     // Start is called before the first frame update
@@ -59,14 +59,14 @@ public class enemyMovement : MonoBehaviour
 
         try
         {
-            targetPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            targetPos = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         }
         catch
         {
 
         }
         
-        target = GameObject.FindGameObjectWithTag("Player");
+        target = GameObject.FindGameObjectWithTag("Body");
         InvokeRepeating("updatePath", 0f, .5f);
         //damage = gameObject.GetComponent<EnemyManager>().damage;
         canMove = false;
@@ -100,8 +100,7 @@ public class enemyMovement : MonoBehaviour
 
         while (true)
         {
-            // If you want maximum performance you can check the squared distance instead to get rid of a
-            // square root calculation. But that is outside the scope of this tutorial.
+            
             distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
             if (distanceToWaypoint < nextWaypointDistance)
             {
@@ -113,7 +112,6 @@ public class enemyMovement : MonoBehaviour
                 else
                 {
                     // Set a status variable to indicate that the agent has reached the end of the path.
-                    // You can use this to trigger some special code if your game requires that.
                     reachedEndOfPath = true;
                     break;
                 }
@@ -170,7 +168,7 @@ public class enemyMovement : MonoBehaviour
             
 
         }
-        else if (velocityMove)
+        else if(velocityMove)
         {
             Vector3 posA = target.transform.position;
             Vector3 posB = rb.position;
@@ -208,32 +206,7 @@ public class enemyMovement : MonoBehaviour
     }
 
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    //if (collision.gameObject.CompareTag("enemy"))
-    //    //{
-    //    //    Debug.Log("COLLIDED WITH AN ENEMY!");
-    //    //    //rb.velocity = Vector3.zero;
-    //    //    knockBackPlayer();
-
-    //    //}
-
-    //    if (collision.gameObject.CompareTag("Body"))
-    //    {
-    //        Debug.Log("COLLIDED WITH THE PLAYER!");
-    //        //target.GetComponent<playerManager>().takeDamage(damage);
-    //        knockBackPlayer();
-    //        //rb.velocity = Vector3.zero;
-
-    //    }
-
-    //    if(collision.gameObject.CompareTag("obstacle"))
-    //    {
-    //        knockBackPlayer();
-    //    }
-
-    //}
-
+   
 
     private IEnumerator moveWait()
     {

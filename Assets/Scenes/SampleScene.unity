@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 211653432}
   - component: {fileID: 211653431}
   - component: {fileID: 211653434}
+  - component: {fileID: 211653435}
   m_Layer: 6
   m_Name: body
   m_TagString: Body
@@ -161,7 +162,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &211653432
 BoxCollider2D:
@@ -176,7 +177,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.49774325, y: 0}
+  m_Offset: {x: -0.006004572, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -223,6 +224,22 @@ MonoBehaviour:
   _time: 0
   _timeEleapsed: 0
   _speed: 100
+  dam: 0
+  isAttacking: 0
+--- !u!114 &211653435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211653430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda739317c13ef341b41d4fc6266b1e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  health: 5
 --- !u!1 &368143963
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +422,6 @@ GameObject:
   - component: {fileID: 435353449}
   - component: {fileID: 435353453}
   - component: {fileID: 435353454}
-  - component: {fileID: 435353455}
   m_Layer: 7
   m_Name: player
   m_TagString: Player
@@ -448,7 +464,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &435353451
 BoxCollider2D:
@@ -531,20 +547,6 @@ MonoBehaviour:
   SJ: {fileID: 435353453}
   maxDist: 5
   ogMaxDist: 0
---- !u!114 &435353455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435353448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dda739317c13ef341b41d4fc6266b1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  health: 5
 --- !u!1 &457444015
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,7 +591,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -834,7 +836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1045290749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,12 +882,13 @@ MonoBehaviour:
   nextWaypointDistance: 1
   reachedEndOfPath: 0
   targetPos: {fileID: 435353452}
-  knockBackForce: 2
+  knockBackForce: 10
   maxMoveSpeed: 5
   velocityMove: 0
   transformMove: 1
   moveWaitDone: 0
   damage: 1
+  target: {fileID: 0}
 --- !u!61 &1045290751
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -961,7 +964,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0055d9168ba4f0d4c84795fcd0ac0ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
+  damage: 0.5
+  knockBackForce: 10
 --- !u!1 &1302389133
 GameObject:
   m_ObjectHideFlags: 0

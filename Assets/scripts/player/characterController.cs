@@ -43,7 +43,6 @@ public class characterController : MonoBehaviour
         {
             movement();
             
-            //Debug.Log(rb.velocity.magnitude);
         }
 
         drag();
@@ -74,10 +73,6 @@ public class characterController : MonoBehaviour
             rb.velocity = new Vector2((Mathf.Clamp(rb.velocity.x, -_maxMoveSpeed, _maxMoveSpeed)), Mathf.Clamp(rb.velocity.y, -_maxMoveSpeed, _maxMoveSpeed));
             //Debug.Log("VELOCITY IS " + rb.velocity.x);
         }
-        
-        
-
-
         
 
     }

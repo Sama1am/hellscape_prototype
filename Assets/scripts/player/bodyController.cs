@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class bodyController : MonoBehaviour
 {
-
+    #region Movement stuff
+    [Header("Movement Stuff")]
     private float _horizontal;
     private float _vertical;
     private bool _changeDir;
     [SerializeField] private float _dragForce;
+    #endregion
+
+    #region Throw body stuff
+    [Header("throw body stuff")]
     [SerializeField] public float multiplyer;
     [SerializeField] private float _time;
     [SerializeField] private float _timeEleapsed;
     [SerializeField] private float _speed;
+    #endregion
 
-    private float _dam;
+    public float dam;
+    public bool isAttacking;
 
     private GameObject _player;
     private Rigidbody2D _rb;
@@ -23,8 +30,8 @@ public class bodyController : MonoBehaviour
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
-        _PM = GameObject.FindGameObjectWithTag("Player").GetComponent<playerManager>();
-        _dam = _PM.damage;
+        _PM = gameObject.GetComponent<playerManager>();
+        dam = _PM.damage;
         _rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -101,6 +108,7 @@ public class bodyController : MonoBehaviour
     {
         if(Input.GetMouseButtonUp(1))
         {
+            StartCoroutine("attackDelay");
             if(_timeEleapsed <= 0.2f)
             {
                 _timeEleapsed = 0f;
@@ -117,10 +125,12 @@ public class bodyController : MonoBehaviour
 
             //_timeEleapsed += Time.deltaTime / multiplyer;
             _timeEleapsed = 0;
+            
         }
         else
         {
-           // _timeEleapsed = 0;
+            // _timeEleapsed = 0;
+            
         }
 
         
@@ -132,17 +142,28 @@ public class bodyController : MonoBehaviour
         if(time >= 0.6f)
         {
             _speed = 125f;
+            _PM.damage = 2;
         }
         else if((time < 06f) && (time >= 0.4f))
         {
             _speed = 100f;
+            _PM.damage = 1;
         }
         else if(time <= 0.3f)
         {
             _speed = 75f;
+            _PM.damage = 0.5f;
         }
 
     }
+
+    private IEnumerator attackDelay()
+    {
+        isAttacking = true;
+        yield return new WaitForSeconds(0.5f);
+        isAttacking = false;
+    }
+
 
 
 }
