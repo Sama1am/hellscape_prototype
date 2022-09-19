@@ -507,8 +507,9 @@ Transform:
   - {fileID: 432767565}
   - {fileID: 211653433}
   - {fileID: 1302389135}
+  - {fileID: 519420032}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!231 &435353453
 SpringJoint2D:
@@ -578,7 +579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAQIexZuqLhWgIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzqUDTiDj3lpDSA9JmNBMLr4IaY01yJJHHwGS4b93JdvYodMT4r23u29XK38SoWwNzGmzMoI/ag7kx4iEM/k26skHONKdVhvxAZ3mTXBXBhGNmhfqhEZ8GsKsrsAZwX6qnQziCYJeiUKbasl3kGnrLMIFlRaQMtqFaIXQ54gc8WechpATnpK7cPrAUzoZnfHIQDkwvbQTdrJG5RWTtKqBB8u9OOnU0yTKFDbTKoJxpqUUtnVC3KmOnWa0th77QAEXFDuL5YO+BLErXcg7DH4uCguutWToaSEMDqjJSn7pZmoVtfvG1zuVPtRJZvPoqUn6+A8/nka6MLp66OpOJ6GGKwXbv9ATo9YNxjqEF1+Ne3Wgck+3Et5KUE96ZbRXHElnfAj1FpJF//fSWlYC2/d4Y/UK9PX/Lyf0cI7dHzMpqm2gvt82wEbqOO949WDwZn6j4bgYtk2BaHDxauEP3Q03qCXuhbEOqbZLFexttTdBSpZxZqEb7zJtFES4NV2DotKd1pjGXV/hFTcoe8Xc0/BW2uIt1z2Bq5AI9/rJ5Ipa68PlsmypD49gy2fvpFDQmw7EE84p00o1GzacSRe28aagbBC284J/XS3C+SxhsL2Z3t5MirRIx3czmhQpo0k6n87maULi7gmFfVK5boy248FbU31yhXvWfUJGK0PruO3c0MNKfFR6MHKhCr1hBkA9NxkuxsFgEXyVfMkFDmgDzgkV75t85kRqtgeeXxLlsdPl0Rma91lyUot37QKSkyx+M3IS4Msurw28CziE4l2yMzn/BVBLAwQUAAAICAAAECHseuOEs20AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0UkqKqVFyapKxoYmxQZplmqWuuWmiUZplcqKRpZmhqZmlkVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAECHsWbqi4VoCAAASBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAECHseuOEs20AAAB4AAAACQAkAAAAAAAAAAAAAACnAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAF8DAAAAAA==
+    dataString: UEsDBBQAAAgIAAAQIewasyp1WwIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk0HnEDq3lpDSA8kTGgnF1+EtMYaZMmjjwDJ8N+7km3s0OkJ8d7b3berlT+IULYG5rRZGsFXmgP5PiLhTL6MevIRjnSn1Ua8Q6d5FdyVQUSj5oU6oRGfhDCrK3BGsB9qJ4N4jKBXotCmWvAdZNo6i3BBpQWkjHYhWiH0MSJH/LlJQ8gJT8l9OL3jKR2PznhkoByYXtoJO1mj8opJWtXAg+VePPvWqidJlClsplUE40xLKWzrhLhTHTvNaG099oECLih2FssHfQliV7rgchj8XBQWXGvJ0NNcGBxQk5X81M3UKmr3ja83Kn2ok0xn0VOTdPUPfzOJdGF09djVnYxDDVcKtn+hJ0atG4x1CM8/G/fqQOWebiW8lqCe9NJorziSzvgQ6i0k8/7vpbWsBLbv8cbqFejr/19O6OEcuz9mUlTbQH29a4CN1HHe8erB4M38QsNxMWybAtHg4o+F33Q33KCWeBDGOqTaLlWwt9XeBClZxJmFbrzLtFEQ4dZ0DYpKd1pjGnd9hVfcoOwV80DDW2mLt1z3BK5CItzrx+Mraq0Pl8uypT6swJbP3kmhoDcdiCecU6aVajZsOJMubONNQdkgbOcF/7xahPNpwmB7O7m7HRdpkd7cT2lSpIwm6WwynaUJibsnFPZJ5box2o4Hb031yRXuWfcJGS0NreO2c0MPS/Fe6cHIhSr0hhkA9dxkuBgHg0XwVfIFFzigDTgnVLxv8pETqdkeeH5JlMdOF0dnaN5nyUkt3rQLSE6y+M3ISYAvu7w28CbgEIp3yc7k/BdQSwMEFAAACAgAABAh7HrjhLNtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFJKiqlRcmqSsaGJsUGaZZqlrrlpolGaZXKikaWZoamZpZFSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAABAh7BqzKnVbAgAAEgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAABAh7HrjhLNtAAAAeAAAAAkAJAAAAAAAAAAAAAAAqAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABgAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -664,7 +665,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &458196625
 GameObject:
@@ -813,8 +814,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 435353452}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1045290748
 GameObject:
@@ -881,13 +882,18 @@ MonoBehaviour:
   speed: 2
   nextWaypointDistance: 1
   reachedEndOfPath: 0
-  targetPos: {fileID: 435353452}
+  targetPos: {fileID: 0}
   knockBackForce: 10
   maxMoveSpeed: 5
   velocityMove: 0
   transformMove: 1
   moveWaitDone: 0
   damage: 1
+  _activationDist: 25
+  _chaseDist: 15
+  _returnDist: 35
+  _dist: 0
+  active: 0
   target: {fileID: 0}
 --- !u!61 &1045290751
 BoxCollider2D:
@@ -944,13 +950,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045290748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.09, y: 0, z: 0}
+  m_LocalPosition: {x: -33.26, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 368143964}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1045290754
 MonoBehaviour:

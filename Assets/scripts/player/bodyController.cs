@@ -142,7 +142,8 @@ public class bodyController : MonoBehaviour
         if(time >= 0.6f)
         {
             _speed = 125f;
-            _PM.damage = 2;
+            //PM.damage = 2;
+            crit();
         }
         else if((time < 06f) && (time >= 0.4f))
         {
@@ -165,5 +166,21 @@ public class bodyController : MonoBehaviour
     }
 
 
+    private void crit()
+    {
+        float temp;
+
+        temp = Random.Range(0, 11);
+
+        if(temp <= 3)
+        {
+            _PM.damage = 2;
+        }
+        else if(temp > 7 && temp <= 10)
+        {
+            _PM.damage = 3;
+        }
+        
+    }
 
 }

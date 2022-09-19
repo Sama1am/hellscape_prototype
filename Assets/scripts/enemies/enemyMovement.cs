@@ -27,6 +27,7 @@ public class enemyMovement : MonoBehaviour
     [Header("movementStuff")]
 
     public Transform targetPos;
+    
 
     [SerializeField]
     private float knockBackForce;
@@ -41,11 +42,20 @@ public class enemyMovement : MonoBehaviour
     private bool transformMove, moveWaitDone;
     #endregion
 
-
     #region privateVar
     [SerializeField] private float damage;
     #endregion
 
+    #region distacne shit
+    [Header("distacne shit")]
+    [SerializeField] private float _activationDist;
+    [SerializeField] private float _chaseDist;
+    [SerializeField] private float _returnDist;
+    private Vector3 _ogPos;
+    [SerializeField] private float _dist;
+    public bool active;
+
+    #endregion
 
     public GameObject target;
     Rigidbody2D rb;
@@ -53,6 +63,8 @@ public class enemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        active = false;
+        _ogPos = transform.position;
         rb = gameObject.GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
 
@@ -67,7 +79,7 @@ public class enemyMovement : MonoBehaviour
         }
         
         target = GameObject.FindGameObjectWithTag("Body");
-        InvokeRepeating("updatePath", 0f, .5f);
+      //InvokeRepeating("updatePath", 0f, .5f);
         //damage = gameObject.GetComponent<EnemyManager>().damage;
         canMove = false;
         StartCoroutine("moveWait");
@@ -79,63 +91,95 @@ public class enemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkDist();
 
-        if (path == null)
+        if (_dist <= _activationDist)
         {
-            // We have no path to follow yet, so don't do anything
-            return;
-        }
-
-        if (currentWaypoint >= path.vectorPath.Count) // checking to see if we have reached end of path 
-        {
-            reachedEndOfPath = true;
-            return;
+            active = true;
         }
         else
         {
-            reachedEndOfPath = false;
+            active = false;
         }
 
 
-
-        while (true)
+        if (active)
         {
-            
-            distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
-            if (distanceToWaypoint < nextWaypointDistance)
+            if (path == null)
             {
-                // Check if there is another waypoint or if we have reached the end of the path
-                if (currentWaypoint + 1 < path.vectorPath.Count)
-                {
-                    currentWaypoint++;
-                }
-                else
-                {
-                    // Set a status variable to indicate that the agent has reached the end of the path.
-                    reachedEndOfPath = true;
-                    break;
-                }
+                // We have no path to follow yet, so don't do anything
+                return;
+            }
+
+            if (currentWaypoint >= path.vectorPath.Count) // checking to see if we have reached end of path 
+            {
+                reachedEndOfPath = true;
+                return;
             }
             else
             {
-                break;
+                reachedEndOfPath = false;
             }
+
+
+
+            while (true)
+            {
+
+                distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+                if (distanceToWaypoint < nextWaypointDistance)
+                {
+                    // Check if there is another waypoint or if we have reached the end of the path
+                    if (currentWaypoint + 1 < path.vectorPath.Count)
+                    {
+                        currentWaypoint++;
+                    }
+                    else
+                    {
+                        // Set a status variable to indicate that the agent has reached the end of the path.
+                        reachedEndOfPath = true;
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (canMove)
+            {
+                if(_dist <= _chaseDist)
+                {
+                    movement();
+                }
+                else if(_dist >= _returnDist)
+                {
+                    //move back to orignial postion 
+                }
+                
+            }
+
+
+
+            //if(moveWaitDone)
+            //{
+            //    if((rb.velocity.x == 0) && (rb.velocity.y == 0))
+            //    {
+            //        Destroy(gameObject);
+            //    }
+            //}
         }
 
-        if(canMove)
+    }
+
+    private void FixedUpdate()
+    {
+        if(active)
         {
-            movement();
+            updatePath();
         }
-
-
-        //if(moveWaitDone)
-        //{
-        //    if((rb.velocity.x == 0) && (rb.velocity.y == 0))
-        //    {
-        //        Destroy(gameObject);
-        //    }
-        //}
-
+        
     }
 
     public void OnPathComplete(Path p)
@@ -197,7 +241,7 @@ public class enemyMovement : MonoBehaviour
         {
             seeker.StartPath(transform.position, targetPos.position, OnPathComplete);
         }
-
+        
     }
 
     public void knockBackPlayer()
@@ -205,8 +249,17 @@ public class enemyMovement : MonoBehaviour
         rb.AddForce(-targetPos.position * knockBackForce, ForceMode2D.Impulse);
     }
 
+    public void checkDist()
+    {
+        _dist = Vector3.Distance(gameObject.transform.position, target.transform.position);
 
+      
+    }
    
+    public void goBakc()
+    {
+       //argetPos = _ogPos;
+    }
 
     private IEnumerator moveWait()
     {
