@@ -9,17 +9,25 @@ public class enemyManager : MonoBehaviour
     public float damage;
     public float knockBackForce;
     Rigidbody2D rb;
+    public float force;
+
+    private GameObject _player;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        _player = GameObject.FindGameObjectWithTag("Body");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(rb.velocity.x > 2 || rb.velocity.y > 2 || rb.velocity.x > -2 || rb.velocity.y > -2)
+        {
+            rb.velocity = Vector2.zero;
+            Debug.Log("velocity is high!");
+        }
     }
 
 
@@ -34,6 +42,15 @@ public class enemyManager : MonoBehaviour
     }
 
 
+    void knockBack()
+    {
+        //Debug.Log("SHOULD KNOCK BACK!");
+        Vector2 direction = (transform.position - _player.transform.position).normalized;
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
+       // Debug.Log("complete");
+
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Body"))
@@ -43,8 +60,14 @@ public class enemyManager : MonoBehaviour
             if (collision.gameObject.GetComponent<bodyController>().isAttacking == false)
             {
                 //GetComponent<enemyMovement>().knockBackPlayer();
-                //takeDamage(collision.gameObject.GetComponent<playerManager>().damage);
+                
                 collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
+                knockBack();
+                Debug.Log("Should knock back!");
+            }
+            else if(collision.gameObject.GetComponent<bodyController>().isAttacking == true)
+            {
+                StartCoroutine("velocityDelay");
             }
             
 
@@ -66,5 +89,6 @@ public class enemyManager : MonoBehaviour
         rb.mass = 1;
         
     }
+
 
 }

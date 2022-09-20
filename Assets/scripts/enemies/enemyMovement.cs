@@ -27,7 +27,8 @@ public class enemyMovement : MonoBehaviour
     [Header("movementStuff")]
 
     public Transform targetPos;
-    
+
+    public Transform player;
 
     [SerializeField]
     private float knockBackForce;
@@ -50,12 +51,15 @@ public class enemyMovement : MonoBehaviour
     [Header("distacne shit")]
     [SerializeField] private float _activationDist;
     [SerializeField] private float _chaseDist;
-    [SerializeField] private float _returnDist;
-    private Vector3 _ogPos;
+    [SerializeField] private float _maxChaseDist;
     [SerializeField] private float _dist;
     public bool active;
 
     #endregion
+
+
+    public bool returning;
+    public bool chasing;
 
     public GameObject target;
     Rigidbody2D rb;
@@ -63,8 +67,8 @@ public class enemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         active = false;
-        _ogPos = transform.position;
         rb = gameObject.GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
 
@@ -79,12 +83,7 @@ public class enemyMovement : MonoBehaviour
         }
         
         target = GameObject.FindGameObjectWithTag("Body");
-      //InvokeRepeating("updatePath", 0f, .5f);
-        //damage = gameObject.GetComponent<EnemyManager>().damage;
-        canMove = false;
-        StartCoroutine("moveWait");
-       
-       
+        //InvokeRepeating("updatePath", 0f, .5f);
 
     }
 
@@ -93,82 +92,25 @@ public class enemyMovement : MonoBehaviour
     {
         checkDist();
 
-        if (_dist <= _activationDist)
+        if(_dist <= _chaseDist)
         {
-            active = true;
+            chasing = true;
+            targetPos = player;
+        }
+
+        if((returning) || (chasing))
+        {
+            canMove = true;
         }
         else
         {
-            active = false;
+            canMove = false;
         }
 
 
-        if (active)
+        if(active)
         {
-            if (path == null)
-            {
-                // We have no path to follow yet, so don't do anything
-                return;
-            }
-
-            if (currentWaypoint >= path.vectorPath.Count) // checking to see if we have reached end of path 
-            {
-                reachedEndOfPath = true;
-                return;
-            }
-            else
-            {
-                reachedEndOfPath = false;
-            }
-
-
-
-            while (true)
-            {
-
-                distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
-                if (distanceToWaypoint < nextWaypointDistance)
-                {
-                    // Check if there is another waypoint or if we have reached the end of the path
-                    if (currentWaypoint + 1 < path.vectorPath.Count)
-                    {
-                        currentWaypoint++;
-                    }
-                    else
-                    {
-                        // Set a status variable to indicate that the agent has reached the end of the path.
-                        reachedEndOfPath = true;
-                        break;
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            if (canMove)
-            {
-                if(_dist <= _chaseDist)
-                {
-                    movement();
-                }
-                else if(_dist >= _returnDist)
-                {
-                    //move back to orignial postion 
-                }
-                
-            }
-
-
-
-            //if(moveWaitDone)
-            //{
-            //    if((rb.velocity.x == 0) && (rb.velocity.y == 0))
-            //    {
-            //        Destroy(gameObject);
-            //    }
-            //}
+            pathFinding();
         }
 
     }
@@ -182,6 +124,66 @@ public class enemyMovement : MonoBehaviour
         
     }
 
+    void pathFinding()
+    {
+        if (path == null)
+        {
+            // We have no path to follow yet, so don't do anything
+            return;
+        }
+
+        if (currentWaypoint >= path.vectorPath.Count) // checking to see if we have reached end of path 
+        {
+            reachedEndOfPath = true;
+            return;
+        }
+        else
+        {
+            reachedEndOfPath = false;
+        }
+
+
+
+        while (true)
+        {
+
+            distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+            if (distanceToWaypoint < nextWaypointDistance)
+            {
+                // Check if there is another waypoint or if we have reached the end of the path
+                if (currentWaypoint + 1 < path.vectorPath.Count)
+                {
+                    currentWaypoint++;
+                }
+                else
+                {
+                    // Set a status variable to indicate that the agent has reached the end of the path.
+                    reachedEndOfPath = true;
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (canMove)
+        {
+            if(chasing)
+            {
+                movement();
+            }
+            else if (returning)
+            {
+                movement();
+            }
+
+
+        }
+
+    }
+
     public void OnPathComplete(Path p)
     {
 
@@ -192,7 +194,6 @@ public class enemyMovement : MonoBehaviour
         }
 
     }
-
 
     private void movement()
     {
@@ -255,17 +256,6 @@ public class enemyMovement : MonoBehaviour
 
       
     }
-   
-    public void goBakc()
-    {
-       //argetPos = _ogPos;
-    }
 
-    private IEnumerator moveWait()
-    {
-
-        yield return new WaitForSeconds(0.5f);
-        canMove = true;
-        moveWaitDone = true;
-    }
+    
 }
