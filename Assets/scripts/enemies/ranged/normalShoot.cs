@@ -5,17 +5,12 @@ using UnityEngine;
 public class normalShoot : MonoBehaviour
 {
 
-    [SerializeField]
-    GameObject projectile;
+    [SerializeField] GameObject projectile;
+    [SerializeField] private float nextShot;
+    [SerializeField] private float timeBetweenShots;
+    [SerializeField] private float speed;
+    [SerializeField] private float shootRange;
 
-    [SerializeField]
-    private float nextShot;
-
-    [SerializeField]
-    private float timeBetweenShots;
-
-    [SerializeField]
-    private float speed;
 
     private Vector2 playerPos;
     private Vector2 pos;
@@ -28,19 +23,26 @@ public class normalShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Body");
         StartCoroutine("startDelay");
+    }
+    private void Update()
+    {
+        if((Vector2.Distance(transform.position, player.GetComponent<Transform>().position)) <= (shootRange))
+        {
+            if (canShoot)
+            {
+                if (Time.time > nextShot)
+                {
+                    shoot();
+                }
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        if(canShoot)
-        {
-            if (Time.time > nextShot)
-            {
-                shoot();
-            }
-        }
+        
         
     }
 

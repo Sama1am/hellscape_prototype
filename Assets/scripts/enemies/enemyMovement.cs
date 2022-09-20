@@ -54,12 +54,20 @@ public class enemyMovement : MonoBehaviour
     [SerializeField] private float _maxChaseDist;
     [SerializeField] private float _dist;
     public bool active;
-
     #endregion
 
+    #region ranged
+    [Header("ranged stuff")]
+    [SerializeField] private float retreatRange;
+    [SerializeField] public float stopRange;
+    public bool ranged;
+    #endregion
 
+    #region states
+    [Header("state stuff")]
     public bool returning;
     public bool chasing;
+    #endregion
 
     public GameObject target;
     Rigidbody2D rb;
@@ -168,19 +176,55 @@ public class enemyMovement : MonoBehaviour
             }
         }
 
-        if (canMove)
+        
+
+        if(ranged)
         {
-            if(chasing)
+            if(canMove)
             {
-                movement();
+                if(chasing)
+                {
+                    if ((Vector2.Distance(transform.position, player.GetComponent<Transform>().position)) < (stopRange) && (Vector2.Distance(transform.position, player.GetComponent<Transform>().position)) > (retreatRange))
+                    {
+                        //stop 
+                    }
+                    else if (Vector2.Distance(transform.position, player.GetComponent<Transform>().position) < retreatRange)
+                    {
+                        Debug.Log("should retreat!");
+                        retreat();
+                    }
+                    else
+                    {
+                        movement();
+                    }
+                }
+                else if (returning)
+                {
+                    movement();
+                }
             }
-            else if (returning)
-            {
-                movement();
-            }
-
-
         }
+        else if(!ranged)
+        {
+            if (canMove)
+            {
+                if (chasing)
+                {
+                    movement();
+                }
+                else if (returning)
+                {
+                    movement();
+                }
+
+
+            }
+        }
+
+        
+
+
+
 
     }
 
@@ -257,5 +301,21 @@ public class enemyMovement : MonoBehaviour
       
     }
 
-    
+    void retreat()
+    {
+        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        Vector2 force = -direction * speed * Time.deltaTime;
+
+        rb.velocity = rb.velocity + force;
+        //rb.AddForce(force);
+
+        //transform.position = Vector2.MoveTowards(transform.position, direction, speed * Time.deltaTime);
+
+        //float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
+
+        if ((Vector2.Distance(rb.position, path.vectorPath[currentWaypoint])) < (nextWaypointDistance))
+        {
+            currentWaypoint++;
+        }
+    }
 }
