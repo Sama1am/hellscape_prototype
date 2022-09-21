@@ -12,43 +12,44 @@ public class enemyManager : MonoBehaviour
     public float force;
 
     private GameObject _player;
+    private SpriteRenderer _sp;
+    private Color ogColor;
 
     // Start is called before the first frame update
     void Start()
     {
+        _sp = GetComponentInChildren<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Body");
+        ogColor = _sp.color;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(rb.velocity.x > 2 || rb.velocity.y > 2 || rb.velocity.x > -2 || rb.velocity.y > -2)
-        {
-            rb.velocity = Vector2.zero;
-            Debug.Log("velocity is high!");
-        }
+        
     }
 
 
     public void takeDamage(float dam)
     {
         health -= dam;
+        StartCoroutine("changeColour");
 
         if(health <= 0)
         {
             Destroy(gameObject);
+            GetComponentInParent<enemy_spawner>().isdead = true;
+            GetComponentInParent<enemy_spawner>().spawnedNewEnemy = false;
         }
     }
 
 
     void knockBack()
     {
-        //Debug.Log("SHOULD KNOCK BACK!");
-        Vector2 direction = (transform.position - _player.transform.position).normalized;
-        rb.AddForce(direction * force, ForceMode2D.Impulse);
-       // Debug.Log("complete");
-
+        Vector2 difference = transform.position - _player.transform.position;
+        Vector2 diff = difference * 1.5f;
+        transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -56,14 +57,12 @@ public class enemyManager : MonoBehaviour
         if(collision.gameObject.CompareTag("Body"))
         {
             rb.velocity = Vector2.zero;
-            StartCoroutine("velocityDelay");
+            //StartCoroutine("velocityDelay");
             if (collision.gameObject.GetComponent<bodyController>().isAttacking == false)
             {
-                //GetComponent<enemyMovement>().knockBackPlayer();
-                
                 collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
                 knockBack();
-                Debug.Log("Should knock back!");
+
             }
             else if(collision.gameObject.GetComponent<bodyController>().isAttacking == true)
             {
@@ -90,5 +89,13 @@ public class enemyManager : MonoBehaviour
         
     }
 
+    private IEnumerator changeColour()
+    {
+        _sp.color = Color.red;
 
+        yield return new WaitForSeconds(0.2f);
+
+        // _sp.color = Color.white;
+        _sp.color = ogColor;
+    }
 }

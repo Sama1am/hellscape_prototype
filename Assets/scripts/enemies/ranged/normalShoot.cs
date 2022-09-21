@@ -25,12 +25,13 @@ public class normalShoot : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Body");
         StartCoroutine("startDelay");
+        canShoot = true;
     }
     private void Update()
     {
         if((Vector2.Distance(transform.position, player.GetComponent<Transform>().position)) <= (shootRange))
         {
-            if (canShoot)
+            if(canShoot)
             {
                 if (Time.time > nextShot)
                 {

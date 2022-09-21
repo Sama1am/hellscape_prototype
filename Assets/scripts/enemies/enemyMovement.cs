@@ -56,22 +56,10 @@ public class enemyMovement : MonoBehaviour
     public bool active;
     #endregion
 
-    #region ranged
-    [Header("ranged stuff")]
-    [SerializeField] private float retreatRange;
-    [SerializeField] public float stopRange;
-    public bool ranged;
-    #endregion
-
-    #region states
-    [Header("state stuff")]
-    public bool returning;
-    public bool chasing;
-    #endregion
-
     public GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
+    enemy_spawner ES;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,7 +67,7 @@ public class enemyMovement : MonoBehaviour
         active = false;
         rb = gameObject.GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
-
+        ES = GetComponentInParent<enemy_spawner>();
 
         try
         {
@@ -99,14 +87,16 @@ public class enemyMovement : MonoBehaviour
     void Update()
     {
         checkDist();
+        changeTarget();
 
-        if(_dist <= _chaseDist)
+        if (_dist <= _chaseDist)
         {
-            chasing = true;
+            //chasing = true;
+            ES.chasing = true;
             targetPos = player;
         }
 
-        if((returning) || (chasing))
+        if((ES.returning) || (ES.chasing))
         {
             canMove = true;
         }
@@ -116,16 +106,18 @@ public class enemyMovement : MonoBehaviour
         }
 
 
-        if(active)
+        if(ES.active)
         {
             pathFinding();
         }
+
+       
 
     }
 
     private void FixedUpdate()
     {
-        if(active)
+        if(ES.active)
         {
             updatePath();
         }
@@ -176,54 +168,17 @@ public class enemyMovement : MonoBehaviour
             }
         }
 
-        
-
-        if(ranged)
+        if (canMove)
         {
-            if(canMove)
+            if (ES.chasing)
             {
-                if(chasing)
-                {
-                    if ((Vector2.Distance(transform.position, player.GetComponent<Transform>().position)) < (stopRange) && (Vector2.Distance(transform.position, player.GetComponent<Transform>().position)) > (retreatRange))
-                    {
-                        //stop 
-                    }
-                    else if (Vector2.Distance(transform.position, player.GetComponent<Transform>().position) < retreatRange)
-                    {
-                        Debug.Log("should retreat!");
-                        retreat();
-                    }
-                    else
-                    {
-                        movement();
-                    }
-                }
-                else if (returning)
-                {
-                    movement();
-                }
+                movement();
+            }
+            else if (ES.returning)
+            {
+                movement();
             }
         }
-        else if(!ranged)
-        {
-            if (canMove)
-            {
-                if (chasing)
-                {
-                    movement();
-                }
-                else if (returning)
-                {
-                    movement();
-                }
-
-
-            }
-        }
-
-        
-
-
 
 
     }
@@ -291,7 +246,13 @@ public class enemyMovement : MonoBehaviour
 
     public void knockBackPlayer()
     {
-        rb.AddForce(-targetPos.position * knockBackForce, ForceMode2D.Impulse);
+        //rb.AddForce(-targetPos.position * knockBackForce, ForceMode2D.Impulse);
+
+        Vector2 direction = player.transform.position - transform.position;
+        Vector2 dir = (-direction).normalized;
+        Debug.Log(dir);
+        rb.AddForce(dir * knockBackForce, ForceMode2D.Impulse);
+        
     }
 
     public void checkDist()
@@ -301,21 +262,34 @@ public class enemyMovement : MonoBehaviour
       
     }
 
-    void retreat()
+    void changeTarget()
     {
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = -direction * speed * Time.deltaTime;
-
-        rb.velocity = rb.velocity + force;
-        //rb.AddForce(force);
-
-        //transform.position = Vector2.MoveTowards(transform.position, direction, speed * Time.deltaTime);
-
-        //float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
-
-        if ((Vector2.Distance(rb.position, path.vectorPath[currentWaypoint])) < (nextWaypointDistance))
+        if(ES.returning)
         {
-            currentWaypoint++;
+            targetPos = GetComponentInParent<Transform>();
         }
+        else if(ES.chasing)
+        {
+            targetPos = player;
+        }
+
+        if(transform.position == ES.GetComponent<Transform>().position && !ES.home)
+        {
+            ES.home = true;
+            targetPos = player;
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Body"))
+        {
+            if (collision.gameObject.GetComponent<bodyController>().isAttacking == false)
+            {
+                knockBackPlayer();
+            }
+        }
+
     }
 }

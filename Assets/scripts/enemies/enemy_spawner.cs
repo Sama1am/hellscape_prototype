@@ -4,45 +4,72 @@ using UnityEngine;
 
 public class enemy_spawner : MonoBehaviour
 {
-
+    #region GameObjects
+    [Header("Game Objects")]
     public GameObject _enemyPrefab;
     public GameObject _enemy;
+    #endregion
+
+    #region distance
+    [Header("Distance stuff (do not set)")]
     [SerializeField] private float _distFromPlayer;
     [SerializeField] private float _distFromSpawner;
     [SerializeField] private float _enemyDist;
-    private GameObject _player;
+    #endregion
 
+    #region distance Varibles
+    [Header("Distacne Variables")]
     [SerializeField] private float _activationDist;
     [SerializeField] private float _maxDist;
     [SerializeField] private float _maxChaseDist;
+    #endregion
+
+    private GameObject _player;
+    [SerializeField] private float _spawnEnemyDelay;
+
+
+    #region state
+    [Header("State stuff (Do not set)")]
+    public bool active;
+    public bool returning;
+    public bool chasing; 
     public bool home;
+    public bool isdead;
+    public bool spawnedNewEnemy;
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
         _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
+        isdead = false;
         _player = GameObject.FindGameObjectWithTag("Body");
     }
 
     // Update is called once per frame
     void Update()
     {
-        checkDist();
 
-        activate();
-
-        goBack();
-
-        if(_enemy.transform.position == transform.position && !home)
+        if ((isdead) && (_enemy == null) && (!spawnedNewEnemy))
         {
-            _enemy.GetComponent<enemyMovement>().targetPos = _enemy.GetComponent<enemyMovement>().player;
-            _enemy.GetComponent<enemyMovement>().returning = false;
-            home = true;
+            StartCoroutine("spawnDelay");
         }
-
-        if(_enemy.transform.position != transform.position)
+        else if(!isdead)
         {
-            home = false;
+            checkDist();
+
+            activate();
+
+            goBack();
+
+
+            if (_enemy.transform.position != transform.position)
+            {
+                home = false;
+            }
         }
+        
+
+       
     }
 
 
@@ -51,6 +78,7 @@ public class enemy_spawner : MonoBehaviour
         _distFromPlayer = Vector3.Distance(transform.position, _player.transform.position);
         _distFromSpawner = Vector3.Distance(transform.position, _enemy.transform.position);
         _enemyDist = Vector3.Distance(_enemy.transform.position, _player.transform.position);
+
     }
 
 
@@ -59,13 +87,13 @@ public class enemy_spawner : MonoBehaviour
         if(_distFromPlayer <= _activationDist)
         {
             _enemy.SetActive(true);
-            _enemy.GetComponent<enemyMovement>().active = true;
+            active = true;
         }
         else if(_distFromPlayer > _activationDist)
         {
-            if((!_enemy.GetComponent<enemyMovement>().chasing) && (home == true))
+            if((!chasing) && (home == true))
             {
-                _enemy.GetComponent<enemyMovement>().active = false;
+                active = false;
                 _enemy.SetActive(false);
             }
             
@@ -77,10 +105,24 @@ public class enemy_spawner : MonoBehaviour
     {
         if ((_distFromSpawner >= _maxDist) && (_enemyDist >= _maxChaseDist))
         {
-            _enemy.GetComponent<enemyMovement>().returning = true;
-            _enemy.GetComponent<enemyMovement>().chasing = false;
-            _enemy.GetComponent<enemyMovement>().targetPos = gameObject.transform;
+            returning = true;
+            chasing = false;
+           
         }
+    }
+
+
+    IEnumerator spawnDelay()
+    {
+        yield return new WaitForSeconds(_spawnEnemyDelay);
+        if(_enemy == null && spawnedNewEnemy == false)
+        {
+            _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
+            spawnedNewEnemy = true;
+            isdead = false;
+
+        }
+
     }
 
 }
