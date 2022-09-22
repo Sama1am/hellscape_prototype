@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  speed: 3
+  speed: 4.5
   nextWaypointDistance: 0.5
   reachedEndOfPath: 0
   targetPos: {fileID: 0}
@@ -108,9 +108,9 @@ MonoBehaviour:
   transformMove: 1
   moveWaitDone: 0
   damage: 1
-  _activationDist: 25
-  _chaseDist: 15
-  _maxChaseDist: 25
+  _activationDist: 35
+  _chaseDist: 25
+  _maxChaseDist: 35
   _dist: 0
   active: 0
   target: {fileID: 0}

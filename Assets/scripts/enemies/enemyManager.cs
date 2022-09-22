@@ -57,8 +57,7 @@ public class enemyManager : MonoBehaviour
         if(collision.gameObject.CompareTag("Body"))
         {
             rb.velocity = Vector2.zero;
-            //StartCoroutine("velocityDelay");
-            if (collision.gameObject.GetComponent<bodyController>().isAttacking == false)
+            if(collision.gameObject.GetComponent<bodyController>().isAttacking == false)
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
                 knockBack();

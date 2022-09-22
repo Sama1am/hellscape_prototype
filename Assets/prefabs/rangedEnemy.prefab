@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
-  speed: 2
+  speed: 2.5
   nextWaypointDistance: 1
   reachedEndOfPath: 0
   targetPos: {fileID: 0}
@@ -170,9 +170,9 @@ MonoBehaviour:
   transformMove: 1
   moveWaitDone: 0
   damage: 1
-  _activationDist: 25
-  _chaseDist: 15
-  _maxChaseDist: 25
+  _activationDist: 45
+  _chaseDist: 25
+  _maxChaseDist: 35
   _dist: 0
   active: 0
   retreatRange: 5
@@ -180,6 +180,7 @@ MonoBehaviour:
   ranged: 1
   returning: 0
   chasing: 0
+  retreating: 0
   target: {fileID: 0}
 --- !u!1 &7262279780698227975
 GameObject:

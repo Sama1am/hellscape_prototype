@@ -94,6 +94,9 @@ public class bodyController : MonoBehaviour
                 gameObject.transform.position = _player.transform.position;
             }
 
+            _player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+
         }
         else
         {
