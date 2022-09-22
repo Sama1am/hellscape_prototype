@@ -68,6 +68,7 @@ public class enemy_spawner : MonoBehaviour
             }
         }
         
+       
 
        
     }
@@ -125,4 +126,21 @@ public class enemy_spawner : MonoBehaviour
 
     }
 
+
+    
+
+    private void OnDrawGizmos()
+    {
+        
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _activationDist);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _maxDist);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, _maxChaseDist);
+    }
 }

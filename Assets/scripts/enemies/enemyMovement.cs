@@ -49,9 +49,9 @@ public class enemyMovement : MonoBehaviour
 
     #region distacne shit
     [Header("distacne shit")]
-    [SerializeField] private float _activationDist;
+    //[SerializeField] private float _activationDist;
     [SerializeField] private float _chaseDist;
-    [SerializeField] private float _maxChaseDist;
+    //[SerializeField] private float _maxChaseDist;
     [SerializeField] private float _dist;
     public bool active;
     #endregion
@@ -291,5 +291,13 @@ public class enemyMovement : MonoBehaviour
             }
         }
 
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _chaseDist);
+        //Gizmos.DrawWireSphere(transform.position, _maxChaseDist);
     }
 }

@@ -5,8 +5,13 @@ using UnityEngine;
 public class playerManager : MonoBehaviour
 {
 
-    [SerializeField] public float damage;
+    [Header("set")]
     [SerializeField] public float health;
+
+
+    [Header("do not set")]
+    [SerializeField] public float damage;
+    public float currentHealth;
 
 
     private Rigidbody2D _rb;
@@ -18,6 +23,7 @@ public class playerManager : MonoBehaviour
         _sp = GetComponentInChildren<SpriteRenderer>();
         _rb = gameObject.GetComponent<Rigidbody2D>();
         ogColor = _sp.color;
+        currentHealth = health;
     }
 
     // Update is called once per frame
@@ -28,11 +34,11 @@ public class playerManager : MonoBehaviour
 
     public void takeDamage(float dam)
     {
-        health -= dam;
+        currentHealth -= dam;
         StartCoroutine("changeColour");
 
 
-        if(health <= 0)
+        if(currentHealth <= 0)
         {
             //gameOver
         }
@@ -40,7 +46,7 @@ public class playerManager : MonoBehaviour
 
     public void checkHealth()
     {
-        if(health <= 0)
+        if(currentHealth <= 0)
         {
             //gameOver
         }

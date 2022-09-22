@@ -108,9 +108,7 @@ MonoBehaviour:
   transformMove: 1
   moveWaitDone: 0
   damage: 1
-  _activationDist: 35
-  _chaseDist: 25
-  _maxChaseDist: 35
+  _chaseDist: 15
   _dist: 0
   active: 0
   target: {fileID: 0}
