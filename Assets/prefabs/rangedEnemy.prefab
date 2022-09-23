@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7262279780499625246}
   - component: {fileID: 7262279780499625240}
   - component: {fileID: 7262279780499625219}
+  - component: {fileID: 5450304712383700987}
   m_Layer: 10
   m_Name: rangedEnemy
   m_TagString: enemy
@@ -66,7 +67,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7262279780499625243}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -129,6 +130,7 @@ MonoBehaviour:
   damage: 1
   knockBackForce: 0
   force: 50
+  stunned: 0
 --- !u!114 &7262279780499625240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 6134175407906975407, guid: 21bc64d6fb660d548b5896d4c663a799, type: 3}
   nextShot: 1
-  timeBetweenShots: 1
+  timeBetweenShots: 3
   speed: 10
   shootRange: 15
 --- !u!114 &7262279780499625219
@@ -159,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
-  speed: 2.5
+  speed: 2
   nextWaypointDistance: 1
   reachedEndOfPath: 0
   targetPos: {fileID: 0}
@@ -182,6 +184,22 @@ MonoBehaviour:
   chasing: 0
   retreating: 0
   target: {fileID: 0}
+--- !u!58 &5450304712383700987
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7262279780499625243}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &7262279780698227975
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,9 +272,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5754717, g: 0.1704699, b: 0.4645276, a: 1}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 1e4345bd5e7499540a967eea615cd60e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

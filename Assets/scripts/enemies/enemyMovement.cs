@@ -54,15 +54,18 @@ public class enemyMovement : MonoBehaviour
     //[SerializeField] private float _maxChaseDist;
     [SerializeField] private float _dist;
     public bool active;
+    public bool stunned;
     #endregion
 
     public GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
     enemy_spawner ES;
+    enemyManager em;
     // Start is called before the first frame update
     void Start()
     {
+        em = GetComponent<enemyManager>();
         player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         active = false;
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -99,6 +102,10 @@ public class enemyMovement : MonoBehaviour
         if((ES.returning) || (ES.chasing))
         {
             canMove = true;
+        }
+        else if(em.stunned)
+        {
+            StartCoroutine("stunnedwait");
         }
         else
         {
@@ -250,7 +257,7 @@ public class enemyMovement : MonoBehaviour
 
         Vector2 direction = player.transform.position - transform.position;
         Vector2 dir = (-direction).normalized;
-        Debug.Log(dir);
+        //Debug.Log(dir);
         rb.AddForce(dir * knockBackForce, ForceMode2D.Impulse);
         
     }
@@ -299,5 +306,15 @@ public class enemyMovement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _chaseDist);
         //Gizmos.DrawWireSphere(transform.position, _maxChaseDist);
+    }
+
+
+    IEnumerator stunnedwait()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(2f);
+        canMove = true;
+        em.stunned = false;
+            
     }
 }

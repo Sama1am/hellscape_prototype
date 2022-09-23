@@ -71,7 +71,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.16754414}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -82,7 +82,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.6123488}
   m_EdgeRadius: 0
 --- !u!114 &6494923697806264583
 MonoBehaviour:
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  speed: 4.5
+  speed: 3
   nextWaypointDistance: 0.5
   reachedEndOfPath: 0
   targetPos: {fileID: 0}
@@ -111,6 +111,7 @@ MonoBehaviour:
   _chaseDist: 15
   _dist: 0
   active: 0
+  stunned: 0
   target: {fileID: 0}
 --- !u!114 &6494923697806264580
 MonoBehaviour:
@@ -156,6 +157,7 @@ MonoBehaviour:
   damage: 0.5
   knockBackForce: 16
   force: 100
+  stunned: 0
 --- !u!1 &6494923698170952098
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,9 +230,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.9056604, g: 0.09740115, b: 0.09740115, a: 1}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: d8e0d51ef9825864fa6e04e7ae03682c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

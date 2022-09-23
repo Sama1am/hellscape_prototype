@@ -31,7 +31,7 @@ public class bodyController : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _PM = gameObject.GetComponent<playerManager>();
-        dam = _PM.damage;
+        //dam = _PM.damage;
         _rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -151,12 +151,14 @@ public class bodyController : MonoBehaviour
         else if((time < 06f) && (time >= 0.4f))
         {
             _speed = 100f;
-            _PM.damage = 1;
+            // _PM.damage = 1;
+            dam = 1;
         }
         else if(time <= 0.3f)
         {
             _speed = 75f;
-            _PM.damage = 0.5f;
+            // _PM.damage = 0.5f;
+            dam = 0.5f;
         }
 
     }
@@ -164,7 +166,7 @@ public class bodyController : MonoBehaviour
     private IEnumerator attackDelay()
     {
         isAttacking = true;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         isAttacking = false;
     }
 
@@ -177,13 +179,28 @@ public class bodyController : MonoBehaviour
 
         if(temp <= 3)
         {
-            _PM.damage = 2;
+            dam = 2;
         }
         else if(temp > 7 && temp <= 10)
         {
-            _PM.damage = 3;
+            dam = 3;
         }
         
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if((isAttacking) && (collision.gameObject.CompareTag("enemy")))
+        {
+            _rb.velocity = Vector2.zero;
+            collision.gameObject.GetComponent<enemyManager>().takeDamage(dam);
+            Debug.Log("ENEMY SHOULD TAKE DAMAGE");
+        }
+        else if((!isAttacking) && (collision.gameObject.CompareTag("enemy")))
+        {
+            _rb.velocity = Vector2.zero;
+        }
     }
 
 }

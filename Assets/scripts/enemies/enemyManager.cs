@@ -14,6 +14,7 @@ public class enemyManager : MonoBehaviour
     private GameObject _player;
     private SpriteRenderer _sp;
     private Color ogColor;
+    public bool stunned;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,8 @@ public class enemyManager : MonoBehaviour
         Vector2 difference = transform.position - _player.transform.position;
         Vector2 diff = difference * 1.5f;
         transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y);
+        stunned = true;
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

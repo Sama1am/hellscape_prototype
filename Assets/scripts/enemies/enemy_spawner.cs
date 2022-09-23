@@ -27,7 +27,7 @@ public class enemy_spawner : MonoBehaviour
     private GameObject _player;
     [SerializeField] private float _spawnEnemyDelay;
 
-
+    public float currentTime;
     #region state
     [Header("State stuff (Do not set)")]
     public bool active;
@@ -43,17 +43,14 @@ public class enemy_spawner : MonoBehaviour
         _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
         isdead = false;
         _player = GameObject.FindGameObjectWithTag("Body");
+        currentTime = _spawnEnemyDelay;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if ((isdead) && (_enemy == null) && (!spawnedNewEnemy))
-        {
-            StartCoroutine("spawnDelay");
-        }
-        else if(!isdead)
+        if(!isdead)
         {
             checkDist();
 
@@ -68,8 +65,18 @@ public class enemy_spawner : MonoBehaviour
             }
         }
         
+        if((isdead) && (_enemy == null) && (!spawnedNewEnemy))
+        {
+            currentTime -= Time.deltaTime;
+        }
        
-
+        if((currentTime <= 0) && (_enemy == null) && (!spawnedNewEnemy))
+        {
+            _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
+            spawnedNewEnemy = true;
+            isdead = false;
+            currentTime = _spawnEnemyDelay;
+        }
        
     }
 
@@ -126,13 +133,11 @@ public class enemy_spawner : MonoBehaviour
 
     }
 
-
-    
-
-    private void OnDrawGizmos()
+    void spawnEnemy()
     {
-        
+
     }
+    
 
     private void OnDrawGizmosSelected()
     {

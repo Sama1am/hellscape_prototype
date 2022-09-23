@@ -7,10 +7,8 @@ public class player_UI : MonoBehaviour
 
     [SerializeField] private GameObject _pointer;
 
-    public Transform orb;
-    public float radius;
-
-    private Transform pivot;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _rotationModifirt;
 
     Rigidbody2D rb;
     // Start is called before the first frame update
@@ -18,23 +16,45 @@ public class player_UI : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        pivot = orb.transform;
+        
         //transform.parent = pivot;
-        pivot = gameObject.transform;
-        transform.position += Vector3.up * radius;
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //rotatePointer();
+        
 
-        Vector3 orbVector = Camera.main.WorldToScreenPoint(orb.position);
-        orbVector = Input.mousePosition - orbVector;
-        float angle = Mathf.Atan2(orbVector.y, orbVector.x) * Mathf.Rad2Deg;
+        
+    }
 
-        pivot.position = orb.position;
-        pivot.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+    private void FixedUpdate()
+    {
+        if(Input.GetMouseButton(1))
+        {
+            _pointer.SetActive(true);
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            //Vector3 dir = (worldPosition - gameObject.transform.position).normalized;
+            float angle = Mathf.Atan2(worldPosition.y, worldPosition.x) * Mathf.Rad2Deg - _rotationModifirt;
+            Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * _speed);
+        }
+        else if(Input.GetMouseButtonUp(1))
+        {
+            _pointer.SetActive(true);
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            //Vector3 dir = (worldPosition - gameObject.transform.position).normalized;
+            float angle = Mathf.Atan2(worldPosition.y, worldPosition.x) * Mathf.Rad2Deg - _rotationModifirt;
+            Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * _speed);
+        }
+        else
+        {
+            _pointer.SetActive(false);
+        }
+       
     }
 
 

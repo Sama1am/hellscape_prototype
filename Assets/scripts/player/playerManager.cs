@@ -58,7 +58,7 @@ public class playerManager : MonoBehaviour
         {
             _rb.velocity = Vector2.zero;
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            collision.gameObject.GetComponent<enemyManager>().takeDamage(damage);
+            //collision.gameObject.GetComponent<enemyManager>().takeDamage(damage);
         }
     }
 
