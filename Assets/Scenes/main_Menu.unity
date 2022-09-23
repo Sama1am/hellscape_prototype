@@ -699,11 +699,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "WASD to move \nAttack: \nHold in RIGHT MOUSE BUTTTON to reel body in.
+  m_text: "WASD to move \n\nAttack: \nHold in RIGHT MOUSE BUTTTON to reel body in.
     \n\nLet go of RIGHT MOUSE BUTTON to shoot the body out in the direction of the
-    mouse and attack enemies.\n\nKill the enemies using your body! \n\nEnemies will
-    respawn after 30 seconds \n\n(This prototype is to test the combat mechanic with
-    enemies)"
+    mouse. The longer you hold down the mouse the higher damage you do. \n\nFurther
+    away the mouse is from the body the higher the velocity the body will move at.\n\nKill
+    the enemies using your body! \n\nEnemies will respawn after 30 seconds \n\n(This
+    prototype is to test the combat mechanic with enemies)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -730,8 +731,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
