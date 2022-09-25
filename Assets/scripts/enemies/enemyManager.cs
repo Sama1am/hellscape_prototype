@@ -10,15 +10,19 @@ public class enemyManager : MonoBehaviour
     public float knockBackForce;
     Rigidbody2D rb;
     public float force;
+    public bool isdead;
 
     private GameObject _player;
     private SpriteRenderer _sp;
     private Color ogColor;
     public bool stunned;
 
+
+    dropManager _DM;
     // Start is called before the first frame update
     void Start()
     {
+        _DM = gameObject.GetComponent<dropManager>();
         _sp = GetComponentInChildren<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Body");
@@ -39,6 +43,7 @@ public class enemyManager : MonoBehaviour
 
         if(health <= 0)
         {
+            _DM.determineDrop();
             Destroy(gameObject);
             GetComponentInParent<enemy_spawner>().isdead = true;
             GetComponentInParent<enemy_spawner>().spawnedNewEnemy = false;
