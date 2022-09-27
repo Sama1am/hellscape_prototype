@@ -65,14 +65,16 @@ public class enemyManager : MonoBehaviour
         if(collision.gameObject.CompareTag("Body"))
         {
             rb.velocity = Vector2.zero;
-            if(collision.gameObject.GetComponent<bodyController>().isAttacking == false)
+            if((collision.gameObject.GetComponent<bodyController>().isAttacking == false) && (stunned == false))
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
                 knockBack();
 
+
             }
             else if(collision.gameObject.GetComponent<bodyController>().isAttacking == true)
             {
+                rb.velocity = Vector2.zero;
                 StartCoroutine("velocityDelay");
             }
             
@@ -88,12 +90,15 @@ public class enemyManager : MonoBehaviour
 
     private IEnumerator velocityDelay()
     {
+        rb.velocity = Vector2.zero;
+        Debug.Log("VELOCITY DELAY!");
         rb.mass = 2;
-        rb.drag = 0.5f;
+        rb.drag = 2f;
         yield return new WaitForSeconds(2);
         rb.drag = 0;
         rb.mass = 1;
-        
+        rb.velocity = Vector2.zero;
+
     }
 
     private IEnumerator changeColour()

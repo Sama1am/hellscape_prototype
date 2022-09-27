@@ -195,6 +195,8 @@ public class bodyController : MonoBehaviour
         {
             _rb.velocity = Vector2.zero;
             collision.gameObject.GetComponent<enemyManager>().takeDamage(dam);
+            collision.gameObject.GetComponent<enemyManager>().stunned = true;
+            Debug.Log("stunned = " + collision.gameObject.GetComponent<enemyManager>().stunned);
             Debug.Log("ENEMY SHOULD TAKE DAMAGE");
         }
         else if((!isAttacking) && (collision.gameObject.CompareTag("enemy")))

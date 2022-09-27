@@ -74,9 +74,11 @@ public class ranged_movement : MonoBehaviour
     Rigidbody2D rb;
     Seeker seeker;
     enemy_spawner ES;
+    enemyManager em;
     // Start is called before the first frame update
     void Start()
     {
+        em = GetComponent<enemyManager>();
         player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         active = false;
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -277,11 +279,6 @@ public class ranged_movement : MonoBehaviour
             seeker.StartPath(transform.position, targetPos.position, OnPathComplete);
         }
 
-    }
-
-    public void knockBackPlayer()
-    {
-        rb.AddForce(-targetPos.position * knockBackForce, ForceMode2D.Impulse);
     }
 
     public void checkDist()

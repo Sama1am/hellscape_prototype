@@ -12,6 +12,9 @@ TagManager:
   - pointer
   - itemManager
   - item
+  - Boss1
+  - Boss2
+  - FinalBoss
   layers:
   - Default
   - TransparentFX

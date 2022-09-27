@@ -99,12 +99,13 @@ public class enemyMovement : MonoBehaviour
             targetPos = player;
         }
 
-        if((ES.returning) || (ES.chasing))
+        if((ES.returning) || (ES.chasing) && (em.stunned != true))
         {
             canMove = true;
         }
         else if(em.stunned)
         {
+            canMove = false;
             StartCoroutine("stunnedwait");
         }
         else
@@ -113,11 +114,12 @@ public class enemyMovement : MonoBehaviour
         }
 
 
-        if(ES.active)
+        if (ES.active)
         {
             pathFinding();
         }
 
+        
        
 
     }
