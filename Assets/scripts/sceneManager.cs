@@ -22,4 +22,15 @@ public class sceneManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+
+    public void menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void exit()
+    {
+        Application.Quit();
+    }
 }

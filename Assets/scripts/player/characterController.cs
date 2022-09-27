@@ -8,7 +8,7 @@ public class characterController : MonoBehaviour
 
     #region Movement
     [Header("Movement")]
-    [SerializeField] private float _maxMoveSpeed;
+    [SerializeField] public float _maxMoveSpeed;
     [SerializeField] private float _moveAcceleration;
     [SerializeField] private float _dragForce;
     [SerializeField] private float _startBoost;

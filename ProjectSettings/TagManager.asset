@@ -11,6 +11,7 @@ TagManager:
   - obstacle
   - pointer
   - itemManager
+  - item
   layers:
   - Default
   - TransparentFX

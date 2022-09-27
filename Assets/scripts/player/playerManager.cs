@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerManager : MonoBehaviour
 {
@@ -38,17 +39,14 @@ public class playerManager : MonoBehaviour
         StartCoroutine("changeColour");
 
 
-        if(currentHealth <= 0)
-        {
-            //gameOver
-        }
+        checkHealth();
     }
 
     public void checkHealth()
     {
         if(currentHealth <= 0)
         {
-            //gameOver
+            SceneManager.LoadScene(2);
         }
     }
 
