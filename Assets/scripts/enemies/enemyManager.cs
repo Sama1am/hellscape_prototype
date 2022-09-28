@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemyManager : MonoBehaviour
 {
-
+    public bool simpleEnemy;
     public float health;
     public float damage;
     public float knockBackForce;
@@ -43,10 +43,15 @@ public class enemyManager : MonoBehaviour
 
         if(health <= 0)
         {
-            _DM.determineDrop();
             Destroy(gameObject);
-            GetComponentInParent<enemy_spawner>().isdead = true;
-            GetComponentInParent<enemy_spawner>().spawnedNewEnemy = false;
+            if(!simpleEnemy)
+            {
+                _DM.determineDrop();
+                Destroy(gameObject);
+                GetComponentInParent<enemy_spawner>().isdead = true;
+                GetComponentInParent<enemy_spawner>().spawnedNewEnemy = false;
+            }
+           
         }
     }
 
@@ -74,6 +79,7 @@ public class enemyManager : MonoBehaviour
             }
             else if(collision.gameObject.GetComponent<bodyController>().isAttacking == true)
             {
+                collision.gameObject.GetComponent<playerManager>().takeDamage(damage / 6);
                 rb.velocity = Vector2.zero;
                 StartCoroutine("velocityDelay");
             }
