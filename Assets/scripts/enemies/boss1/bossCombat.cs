@@ -51,14 +51,18 @@ public class bossCombat : MonoBehaviour
     #region rush Movement
     private GameObject _target;
     [SerializeField] private float _speed;
+    [SerializeField] private float closeEnough;
 
     private Vector3 _ogPos;
     #endregion
 
+    private bool _canMove;
     public bool shoot;
     public int num;
+    bossManager BM;
     void Start()
     {
+        BM = GetComponent<bossManager>();
         startPoint = gameObject.transform.position;
         _target = GameObject.FindGameObjectWithTag("Body");
         _ogPos = transform.position;
@@ -69,27 +73,77 @@ public class bossCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(shoot)
+       
+        if(BM.stageOne)
         {
-            rushTowardsPlayer();
+            try
+            {
+                if ((_canMove) && (canShoot == false))
+                {
+
+                    rushTowardsPlayer();
+
+                    if ((gameObject.transform.position == target.position) || (Vector2.Distance(transform.position, target.position)) <= (closeEnough))
+                    {
+                        _canMove = false;
+                        canShoot = true;
+                    }
+
+                }
+
+
+                if ((canShoot) && (_canMove == false))
+                {
+                    if (Time.time > nextShot)
+                    {
+                        circularShot(numberOfProjectiles);
+                    }
+
+                }
+            }
+            catch
+            {
+                error = true;
+            }
+        }
+        else if(BM.stageTwo)
+        {
+            try
+            {
+
+                if ((_canMove) && (canShoot == false))
+                {
+
+                    rushTowardsPlayer();
+
+                    if ((gameObject.transform.position == target.position) || (Vector2.Distance(transform.position, target.position)) <= (closeEnough))
+                    {
+                        _canMove = false;
+                        canShoot = true;
+                    }
+
+                }
+                else if ((canShoot) && (_canMove == false))
+                {
+                    Vector3 heading = target.position - transform.position;
+                    dirRight = checkLeftRight(transform.forward, heading, transform.up);
+                    dirUp = checkUpDown(transform.up, heading);
+
+                    determineAngle();
+
+                    if (Time.time > nextShotCluster)
+                        clusterShoot(numberOfProjectilesCluster);
+                }
+
+               
+            }
+            catch
+            {
+                error = true;
+            }
         }
 
-        //try
-        //{
-        //    Vector3 heading = target.position - transform.position;
-        //    dirRight = checkLeftRight(transform.forward, heading, transform.up);
-        //    dirUp = checkUpDown(transform.up, heading);
 
-        //    determineAngle();
-
-
-        //    if (Time.time > nextShotCluster)
-        //        clusterShoot(numberOfProjectilesCluster);
-        //}
-        //catch
-        //{
-
-        //}
     }
 
 
@@ -116,7 +170,9 @@ public class bossCombat : MonoBehaviour
             angle += angleStep;
         }
 
-        //nextShot = Time.time + timeBetweenShots;
+        nextShot = Time.time + timeBetweenShots;
+        canShoot = false;
+        _canMove = true;
     }
 
 
@@ -153,6 +209,8 @@ public class bossCombat : MonoBehaviour
         }
 
         nextShotCluster = Time.time + timeBetweenShotsCluster;
+        canShoot = false;
+        _canMove = true;
 
     }
 
@@ -183,7 +241,6 @@ public class bossCombat : MonoBehaviour
             randomAngleRangeMax = 178;
         }
     }
-
 
     float checkLeftRight(Vector3 fwd, Vector3 targetDir, Vector3 up)
         {
@@ -223,7 +280,6 @@ public class bossCombat : MonoBehaviour
                 return 0f;
             }
         }
-
 
     IEnumerator startDelay()
     {
