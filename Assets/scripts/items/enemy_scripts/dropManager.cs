@@ -13,7 +13,7 @@ public class dropManager : MonoBehaviour
     private int _holyShit;
 
     private bool _hasntDropped;
-
+    [SerializeField] private bool _isBoss;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +60,13 @@ public class dropManager : MonoBehaviour
                     Instantiate(_itemManager._holyshitRareItems[_holyShit], transform.position, Quaternion.identity);
                     _hasntDropped = false;
                 }
+            }
+
+            if(_isBoss)
+            {
+                _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length + 1);
+                Instantiate(_itemManager._holyshitRareItems[_holyShit], transform.position, Quaternion.identity);
+                _hasntDropped = false;
             }
             
         }

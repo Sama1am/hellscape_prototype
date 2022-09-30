@@ -18,7 +18,7 @@ public class bossCombat : MonoBehaviour
 
     [SerializeField] private float radius, moveSpeed;
 
-    private bool canShoot;
+    [SerializeField] private bool canShoot;
     #endregion
 
     #region ClusterShit
@@ -56,9 +56,10 @@ public class bossCombat : MonoBehaviour
     private Vector3 _ogPos;
     #endregion
 
-    private bool _canMove;
-    public bool shoot;
+    private Vector3 targetPos;
+    public bool _canMove;
     public int num;
+    [SerializeField] private int _numOfShots;
     bossManager BM;
     void Start()
     {
@@ -66,7 +67,7 @@ public class bossCombat : MonoBehaviour
         startPoint = gameObject.transform.position;
         _target = GameObject.FindGameObjectWithTag("Body");
         _ogPos = transform.position;
-
+        StartCoroutine("startDelay");
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
@@ -78,21 +79,7 @@ public class bossCombat : MonoBehaviour
         {
             try
             {
-                if ((_canMove) && (canShoot == false))
-                {
-
-                    rushTowardsPlayer();
-
-                    if ((gameObject.transform.position == target.position) || (Vector2.Distance(transform.position, target.position)) <= (closeEnough))
-                    {
-                        _canMove = false;
-                        canShoot = true;
-                    }
-
-                }
-
-
-                if ((canShoot) && (_canMove == false))
+                if((canShoot) && (_canMove == false))
                 {
                     if (Time.time > nextShot)
                     {
@@ -100,6 +87,20 @@ public class bossCombat : MonoBehaviour
                     }
 
                 }
+
+                if((_canMove) && (canShoot == false))
+                {
+                    
+                    rushTowardsPlayer();
+
+                    if((gameObject.transform.position == targetPos) || (Vector2.Distance(transform.position, targetPos)) <= (closeEnough))
+                    {
+                        _canMove = false;
+                        canShoot = true;
+                    }
+
+                }
+
             }
             catch
             {
@@ -111,28 +112,38 @@ public class bossCombat : MonoBehaviour
             try
             {
 
-                if ((_canMove) && (canShoot == false))
+                if((_canMove) && (canShoot == false))
                 {
 
                     rushTowardsPlayer();
 
-                    if ((gameObject.transform.position == target.position) || (Vector2.Distance(transform.position, target.position)) <= (closeEnough))
+                    if((gameObject.transform.position == targetPos))
                     {
                         _canMove = false;
-                        canShoot = true;
+                        canShoot = false;
+                        secdonryCircleShot(numberOfProjectiles);
+
+
+
                     }
 
                 }
-                else if ((canShoot) && (_canMove == false))
+
+                if((canShoot) && (_canMove == false))
                 {
-                    Vector3 heading = target.position - transform.position;
-                    dirRight = checkLeftRight(transform.forward, heading, transform.up);
-                    dirUp = checkUpDown(transform.up, heading);
+                    rushToHome();
+                    if(transform.position == _ogPos)
+                    {
+                        Vector3 heading = target.position - transform.position;
+                        dirRight = checkLeftRight(transform.forward, heading, transform.up);
+                        dirUp = checkUpDown(transform.up, heading);
 
-                    determineAngle();
+                        determineAngle();
 
-                    if (Time.time > nextShotCluster)
-                        clusterShoot(numberOfProjectilesCluster);
+                        if (Time.time > nextShotCluster)
+                            clusterShoot(numberOfProjectilesCluster);
+                    }
+                   
                 }
 
                
@@ -171,17 +182,66 @@ public class bossCombat : MonoBehaviour
         }
 
         nextShot = Time.time + timeBetweenShots;
-        canShoot = false;
-        _canMove = true;
+        _numOfShots++;
+
+        if(_numOfShots >= 3)
+        {
+            _numOfShots = 0;
+            StartCoroutine("moveBuildUp");
+        }
+       
     }
 
+    void secdonryCircleShot(int numberOfProjectiles)
+    {
+        float angleStep = 360f / numberOfProjectiles;
+        float angle = 0f;
 
+        for (int i = 0; i <= numberOfProjectiles - 1; i++)
+        {
+            startPoint = gameObject.transform.position;
+            float projectileDirXposition = startPoint.x + Mathf.Sin((angle * Mathf.PI) / 180) * radius;
+            float projectileDirYposition = startPoint.y + Mathf.Cos((angle * Mathf.PI) / 180) * radius;
+
+            Vector2 projectileVector = new Vector2(projectileDirXposition, projectileDirYposition);
+            Vector2 projectileMoveDirection = (projectileVector - startPoint).normalized * moveSpeed;
+
+            var proj = Instantiate(projectile, startPoint, Quaternion.identity);
+            proj.GetComponent<Rigidbody2D>().velocity =
+                new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
+
+            proj.transform.SetParent(gameObject.transform);
+
+            angle += angleStep;
+        }
+
+        nextShot = Time.time + timeBetweenShots;
+        _numOfShots++;
+
+        if (_numOfShots >= 1)
+        {
+            _numOfShots = 0;
+            _canMove = false;
+            canShoot = true;
+            
+        }
+    }
+
+    public void selectTarget()
+    {
+        targetPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position;
+        canShoot = false;
+
+    }
 
     void rushTowardsPlayer()
     {
-        Vector3 target = _target.transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, target, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, _speed * Time.deltaTime);
+    }
 
+    void rushToHome()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, _ogPos, _speed * Time.deltaTime);
     }
 
     void clusterShoot(int numOfProjectiles)
@@ -209,8 +269,13 @@ public class bossCombat : MonoBehaviour
         }
 
         nextShotCluster = Time.time + timeBetweenShotsCluster;
-        canShoot = false;
-        _canMove = true;
+        _numOfShots++;
+
+        if (_numOfShots >= 2)
+        {
+            _numOfShots = 0;
+            StartCoroutine("moveBuildUp");
+        }
 
     }
 
@@ -222,7 +287,7 @@ public class bossCombat : MonoBehaviour
 
         if (angle == 45)
         {
-            randomAngleRangeMin = 1;
+            randomAngleRangeMin = 0;
             randomAngleRangeMax = 87;
         }
         else if (angle == 135)
@@ -284,7 +349,21 @@ public class bossCombat : MonoBehaviour
     IEnumerator startDelay()
     {
         canShoot = false;
+        _canMove = false;
         yield return new WaitForSeconds(1f);
         canShoot = true;
+    }
+
+
+    private IEnumerator moveBuildUp()
+    {
+        _canMove = false;
+        canShoot = false;
+
+        yield return new WaitForSeconds(1f);
+
+        selectTarget();
+        _canMove = true;
+
     }
 }

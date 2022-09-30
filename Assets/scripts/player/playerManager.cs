@@ -37,7 +37,7 @@ public class playerManager : MonoBehaviour
     {
         currentHealth -= dam;
         StartCoroutine("changeColour");
-
+        //Debug.Log("THE PLAYER TOOK " + dam + "DAMAGE!");
 
         checkHealth();
     }
@@ -52,7 +52,7 @@ public class playerManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("enemy"))
+        if(collision.gameObject.CompareTag("enemy"))
         {
             _rb.velocity = Vector2.zero;
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;

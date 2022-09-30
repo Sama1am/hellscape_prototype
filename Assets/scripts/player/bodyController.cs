@@ -23,6 +23,10 @@ public class bodyController : MonoBehaviour
     public float dam;
     public bool isAttacking;
 
+    #region crit
+    public int critChance;
+    #endregion
+
     private GameObject _player;
     private Rigidbody2D _rb;
     private playerManager _PM;
@@ -175,15 +179,15 @@ public class bodyController : MonoBehaviour
     {
         float temp;
 
-        temp = Random.Range(0, 11);
+        temp = Random.Range(0, 100);
 
-        if(temp <= 3)
+        if(temp <= critChance)
+        {
+            dam = 1;
+        }
+        else if(temp > critChance && temp <= 100)
         {
             dam = 2;
-        }
-        else if(temp > 7 && temp <= 10)
-        {
-            dam = 3;
         }
         
     }
@@ -201,6 +205,12 @@ public class bodyController : MonoBehaviour
         }
         else if((!isAttacking) && (collision.gameObject.CompareTag("enemy")))
         {
+            _rb.velocity = Vector2.zero;
+        }
+
+        if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("Boss2")) || (collision.gameObject.CompareTag("FinalBoss")))
+        {
+            collision.gameObject.GetComponent<bossManager>().takeDamage(dam);
             _rb.velocity = Vector2.zero;
         }
     }
