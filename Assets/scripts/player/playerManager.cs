@@ -8,12 +8,13 @@ public class playerManager : MonoBehaviour
 
     [Header("set")]
     [SerializeField] public float health;
-
+    public float falseHeart;
+    public bool hasFalseHeart;
 
     [Header("do not set")]
     [SerializeField] public float damage;
     public float currentHealth;
-
+    [SerializeField] public float damageTakenOffset;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _sp;
@@ -35,6 +36,16 @@ public class playerManager : MonoBehaviour
 
     public void takeDamage(float dam)
     {
+        if(hasFalseHeart)
+        {
+            falseHeart -= dam;
+
+            if(falseHeart <= 0)
+            {
+                hasFalseHeart = false;
+                falseHeart = 0;
+            }
+        }
         currentHealth -= dam;
         StartCoroutine("changeColour");
         //Debug.Log("THE PLAYER TOOK " + dam + "DAMAGE!");

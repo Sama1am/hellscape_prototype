@@ -5,7 +5,8 @@ using UnityEngine;
 public class enemyManager : MonoBehaviour
 {
     public bool simpleEnemy;
-    public float health;
+    public float currentHealth;
+    public float maxHealth;
     public float damage;
     public float knockBackForce;
     Rigidbody2D rb;
@@ -22,6 +23,7 @@ public class enemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
         _DM = gameObject.GetComponent<dropManager>();
         _sp = GetComponentInChildren<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -38,23 +40,32 @@ public class enemyManager : MonoBehaviour
 
     public void takeDamage(float dam)
     {
-        health -= dam;
+        currentHealth -= dam;
         StartCoroutine("changeColour");
 
-        if(health <= 0)
+        if(currentHealth <= 0)
         {
-            Destroy(gameObject);
-            if(!simpleEnemy)
-            {
-                _DM.determineDrop();
-                Destroy(gameObject);
-                GetComponentInParent<enemy_spawner>().isdead = true;
-                GetComponentInParent<enemy_spawner>().spawnedNewEnemy = false;
-            }
+
+            die();
            
         }
     }
 
+    public void die()
+    {
+        if (!simpleEnemy)
+        {
+            //_DM.determineDrop();
+            Destroy(gameObject);
+            GetComponentInParent<enemy_spawner>().isdead = true;
+            GetComponentInParent<enemy_spawner>().spawnedNewEnemy = false;
+            Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void knockBack()
     {
@@ -79,7 +90,7 @@ public class enemyManager : MonoBehaviour
             }
             else if(collision.gameObject.GetComponent<bodyController>().isAttacking == true)
             {
-                collision.gameObject.GetComponent<playerManager>().takeDamage(damage / 6);
+                collision.gameObject.GetComponent<playerManager>().takeDamage(damage / collision.gameObject.GetComponent<playerManager>().damageTakenOffset);
                 rb.velocity = Vector2.zero;
                 StartCoroutine("velocityDelay");
             }
@@ -92,7 +103,6 @@ public class enemyManager : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
     }
-
 
     private IEnumerator velocityDelay()
     {
