@@ -29,6 +29,16 @@ public class sceneManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void startGame()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void rules()
+    {
+        SceneManager.LoadScene("main_Menu");
+    }
+
     public void exit()
     {
         Application.Quit();
