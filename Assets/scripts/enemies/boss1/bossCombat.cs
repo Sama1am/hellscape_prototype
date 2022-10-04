@@ -56,6 +56,8 @@ public class bossCombat : MonoBehaviour
     private Vector3 _ogPos;
     #endregion
 
+    public bool active;
+
     private Vector3 targetPos;
     public bool _canMove;
     public int num;
@@ -63,6 +65,7 @@ public class bossCombat : MonoBehaviour
     bossManager BM;
     void Start()
     {
+        active = false;
         BM = GetComponent<bossManager>();
         startPoint = gameObject.transform.position;
         _target = GameObject.FindGameObjectWithTag("Body");
@@ -74,86 +77,87 @@ public class bossCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        if(BM.stageOne)
+        if(active)
         {
-            try
+            if (BM.stageOne)
             {
-                if((canShoot) && (_canMove == false))
+                try
                 {
-                    if (Time.time > nextShot)
+                    if ((canShoot) && (_canMove == false))
                     {
-                        circularShot(numberOfProjectiles);
+                        if (Time.time > nextShot)
+                        {
+                            circularShot(numberOfProjectiles);
+                        }
+
+                    }
+
+                    if ((_canMove) && (canShoot == false))
+                    {
+
+                        rushTowardsPlayer();
+
+                        if ((gameObject.transform.position == targetPos) || (Vector2.Distance(transform.position, targetPos)) <= (closeEnough))
+                        {
+                            _canMove = false;
+                            canShoot = true;
+                        }
+
                     }
 
                 }
-
-                if((_canMove) && (canShoot == false))
+                catch
                 {
-                    
-                    rushTowardsPlayer();
-
-                    if((gameObject.transform.position == targetPos) || (Vector2.Distance(transform.position, targetPos)) <= (closeEnough))
-                    {
-                        _canMove = false;
-                        canShoot = true;
-                    }
-
+                    error = true;
                 }
-
             }
-            catch
+            else if (BM.stageTwo)
             {
-                error = true;
+                try
+                {
+
+                    if ((_canMove) && (canShoot == false))
+                    {
+
+                        rushTowardsPlayer();
+
+                        if ((gameObject.transform.position == targetPos))
+                        {
+                            _canMove = false;
+                            canShoot = false;
+                            secdonryCircleShot(numberOfProjectiles);
+
+
+
+                        }
+
+                    }
+
+                    if ((canShoot) && (_canMove == false))
+                    {
+                        rushToHome();
+                        if (transform.position == _ogPos)
+                        {
+                            Vector3 heading = target.position - transform.position;
+                            dirRight = checkLeftRight(transform.forward, heading, transform.up);
+                            dirUp = checkUpDown(transform.up, heading);
+
+                            determineAngle();
+
+                            if (Time.time > nextShotCluster)
+                                clusterShoot(numberOfProjectilesCluster);
+                        }
+
+                    }
+
+
+                }
+                catch
+                {
+                    error = true;
+                }
             }
         }
-        else if(BM.stageTwo)
-        {
-            try
-            {
-
-                if((_canMove) && (canShoot == false))
-                {
-
-                    rushTowardsPlayer();
-
-                    if((gameObject.transform.position == targetPos))
-                    {
-                        _canMove = false;
-                        canShoot = false;
-                        secdonryCircleShot(numberOfProjectiles);
-
-
-
-                    }
-
-                }
-
-                if((canShoot) && (_canMove == false))
-                {
-                    rushToHome();
-                    if(transform.position == _ogPos)
-                    {
-                        Vector3 heading = target.position - transform.position;
-                        dirRight = checkLeftRight(transform.forward, heading, transform.up);
-                        dirUp = checkUpDown(transform.up, heading);
-
-                        determineAngle();
-
-                        if (Time.time > nextShotCluster)
-                            clusterShoot(numberOfProjectilesCluster);
-                    }
-                   
-                }
-
-               
-            }
-            catch
-            {
-                error = true;
-            }
-        }
-
 
     }
 

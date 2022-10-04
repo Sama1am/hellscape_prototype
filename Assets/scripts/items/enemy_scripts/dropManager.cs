@@ -12,11 +12,13 @@ public class dropManager : MonoBehaviour
     private int _rare;
     private int _holyShit;
 
-    private bool _hasntDropped;
+    private bool _hasDropped;
     [SerializeField] private bool _isBoss;
+    [SerializeField] private bool drop;
     // Start is called before the first frame update
     void Start()
     {
+        _hasDropped = false;
         _EM = gameObject.GetComponent<enemyManager>();
         _itemManager = GameObject.FindGameObjectWithTag("itemManager").GetComponent<ItemManager>();
     }
@@ -24,49 +26,60 @@ public class dropManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void determineDrop()
     {
-        if(_hasntDropped)
+        if(!_hasDropped)
         {
+            Debug.Log("SHOULD DETERMINE DROP!");
 
             _itemChance = Random.Range(0, 101);
+            Debug.Log("ITEM DROP CHANCE IS " + _itemChance);
 
-            if(_itemChance <= 65)
+            if(_itemChance <= 75)
             {
-                return;
+               // return;
             }
             else if(_itemChance > 65)
             {
                 _chance = Random.Range(0, 101);
+                Debug.Log(_chance);
 
-                if (_chance <= 60)
+                if(_chance <= 60)
                 {
-                    _common = Random.Range(0, _itemManager._commonItems.Length + 1);
+                   
+                    _common = Random.Range(0, _itemManager._commonItems.Length);
+                    Debug.Log(_itemManager._commonItems.Length);
+                    //Debug.Log(_common);
                     Instantiate(_itemManager._commonItems[_common], transform.position, Quaternion.identity);
-                    _hasntDropped = false;
+                    _hasDropped = true;
+                    _common = 0;
                 }
                 else if (_chance > 60 && _chance < 80)
                 {
-                    _rare = Random.Range(0, _itemManager._rareItems.Length + 1);
+                    _rare = Random.Range(0, _itemManager._rareItems.Length);
+                    Debug.Log(_itemManager._rareItems.Length);
+                    //Debug.Log(_rare);
                     Instantiate(_itemManager._rareItems[_rare], transform.position, Quaternion.identity);
-                    _hasntDropped = false;
+                    _hasDropped = true;
                 }
-                else if (_chance > 80 && _chance <= 100)
+                else if (_chance > 80)
                 {
-                    _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length + 1);
+                    _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length);
+                    Debug.Log(_itemManager._holyshitRareItems.Length);
+                    //Debug.Log(_holyShit);
                     Instantiate(_itemManager._holyshitRareItems[_holyShit], transform.position, Quaternion.identity);
-                    _hasntDropped = false;
+                    _hasDropped = true;
                 }
             }
 
             if(_isBoss)
             {
-                _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length + 1);
+                _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length);
                 Instantiate(_itemManager._holyshitRareItems[_holyShit], transform.position, Quaternion.identity);
-                _hasntDropped = false;
+                _hasDropped = true;
             }
             
         }

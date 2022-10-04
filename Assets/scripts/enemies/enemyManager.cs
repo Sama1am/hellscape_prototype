@@ -23,6 +23,7 @@ public class enemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isdead = false;
         currentHealth = maxHealth;
         _DM = gameObject.GetComponent<dropManager>();
         _sp = GetComponentInChildren<SpriteRenderer>();
@@ -45,7 +46,8 @@ public class enemyManager : MonoBehaviour
 
         if(currentHealth <= 0)
         {
-
+            isdead = true;
+            GetComponent<dropManager>().determineDrop();
             die();
            
         }

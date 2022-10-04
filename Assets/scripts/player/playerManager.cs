@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class playerManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class playerManager : MonoBehaviour
     [SerializeField] public float damage;
     public float currentHealth;
     [SerializeField] public float damageTakenOffset;
+    [SerializeField] private Slider playerHealth;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _sp;
@@ -31,21 +33,21 @@ public class playerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        setUI();
     }
 
     public void takeDamage(float dam)
     {
-        if(hasFalseHeart)
-        {
-            falseHeart -= dam;
+        //if(hasFalseHeart)
+        //{
+        //    falseHeart -= dam;
 
-            if(falseHeart <= 0)
-            {
-                hasFalseHeart = false;
-                falseHeart = 0;
-            }
-        }
+        //    if(falseHeart <= 0)
+        //    {
+        //        hasFalseHeart = false;
+        //        falseHeart = 0;
+        //    }
+        //}
         currentHealth -= dam;
         StartCoroutine("changeColour");
         //Debug.Log("THE PLAYER TOOK " + dam + "DAMAGE!");
@@ -60,6 +62,7 @@ public class playerManager : MonoBehaviour
             SceneManager.LoadScene(2);
         }
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -79,6 +82,13 @@ public class playerManager : MonoBehaviour
 
         //_sp.color = Color.white;
         _sp.color = ogColor;
+    }
+
+
+    void setUI()
+    {
+        playerHealth.maxValue = health;
+        playerHealth.value = currentHealth;
     }
 
 }

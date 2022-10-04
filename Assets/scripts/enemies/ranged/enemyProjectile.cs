@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemyProjectile : MonoBehaviour
 {
-    private float damage;
+    [SerializeField] private float damage;
 
     [SerializeField]
     private float lifeTime;

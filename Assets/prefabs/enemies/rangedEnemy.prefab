@@ -100,7 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0055d9168ba4f0d4c84795fcd0ac0ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  simpleEnemy: 0
+  currentHealth: 0
+  maxHealth: 5
   damage: 1
   knockBackForce: 0
   force: 50
@@ -120,8 +122,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 6134175407906975407, guid: 21bc64d6fb660d548b5896d4c663a799, type: 3}
   nextShot: 1
-  timeBetweenShots: 3
-  speed: 10
+  timeBetweenShots: 2
+  speed: 12
   shootRange: 15
 --- !u!114 &7262279780499625219
 MonoBehaviour:
@@ -148,8 +150,8 @@ MonoBehaviour:
   moveWaitDone: 0
   damage: 1
   _activationDist: 45
-  _chaseDist: 25
-  _maxChaseDist: 35
+  _chaseDist: 10
+  _maxChaseDist: 15
   _dist: 0
   active: 0
   retreatRange: 5
@@ -187,6 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172ca3502d497a84593bbd011891bb67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isBoss: 0
+  drop: 0
 --- !u!1 &7262279780698227975
 GameObject:
   m_ObjectHideFlags: 0

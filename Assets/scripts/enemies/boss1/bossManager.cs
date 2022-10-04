@@ -10,7 +10,8 @@ public class bossManager : MonoBehaviour
     public float currentHeaalth;
     public bool stageOne, stageTwo;
 
-    [SerializeField ]private float _damage;
+    [SerializeField] private float _damage;
+    public bool isdead;
 
     Rigidbody2D rb;
     // Start is called before the first frame update
@@ -18,14 +19,14 @@ public class bossManager : MonoBehaviour
     {
         currentHeaalth = _maxHealth;
         rb = GetComponent<Rigidbody2D>();
-        _healthSlider.minValue = 0;
-        _healthSlider.maxValue = _maxHealth;
+        GetComponentInParent<bossSpawner>()._bossSlider.minValue = 0;
+        GetComponentInParent<bossSpawner>()._bossSlider.maxValue = _maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _healthSlider.value = currentHeaalth;
+        GetComponentInParent<bossSpawner>()._bossSlider.value = currentHeaalth;
         if (currentHeaalth > _maxHealth / 2)
         {
             stageOne = true;

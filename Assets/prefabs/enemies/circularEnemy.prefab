@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 8517085001121811881}
   - component: {fileID: 8517085001121811880}
   - component: {fileID: 8517085001121811895}
+  - component: {fileID: 200924420136446911}
   m_Layer: 10
   m_Name: circularEnemy
   m_TagString: enemy
@@ -197,11 +198,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0055d9168ba4f0d4c84795fcd0ac0ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simpleEnemy: 1
+  simpleEnemy: 0
   currentHealth: 0
-  maxHealth: 0
+  maxHealth: 6
   damage: 1
   knockBackForce: 0
   force: 0
   isdead: 0
   stunned: 0
+--- !u!114 &200924420136446911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517085001121811894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172ca3502d497a84593bbd011891bb67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBoss: 0
+  drop: 0
