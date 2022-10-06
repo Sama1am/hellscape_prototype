@@ -275,7 +275,7 @@ public class enemyMovement : MonoBehaviour
     {
         if(ES.returning)
         {
-            targetPos = GetComponentInParent<Transform>();
+            targetPos = ES.EStransform;
         }
         else if(ES.chasing)
         {

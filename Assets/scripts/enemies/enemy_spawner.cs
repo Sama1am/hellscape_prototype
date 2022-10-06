@@ -26,6 +26,7 @@ public class enemy_spawner : MonoBehaviour
 
     private GameObject _player;
     [SerializeField] private float _spawnEnemyDelay;
+    public Transform EStransform;
 
     public float currentTime;
     #region state
@@ -40,6 +41,7 @@ public class enemy_spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EStransform = gameObject.transform;
         _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
         isdead = false;
         _player = GameObject.FindGameObjectWithTag("Body");
@@ -132,12 +134,6 @@ public class enemy_spawner : MonoBehaviour
         }
 
     }
-
-    void spawnEnemy()
-    {
-
-    }
-    
 
     private void OnDrawGizmosSelected()
     {
