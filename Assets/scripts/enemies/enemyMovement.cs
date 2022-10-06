@@ -289,7 +289,6 @@ public class enemyMovement : MonoBehaviour
         }
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Body"))
@@ -314,7 +313,7 @@ public class enemyMovement : MonoBehaviour
     IEnumerator stunnedwait()
     {
         canMove = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         canMove = true;
         em.stunned = false;
             

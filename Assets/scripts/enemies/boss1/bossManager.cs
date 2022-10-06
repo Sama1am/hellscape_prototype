@@ -5,18 +5,22 @@ using UnityEngine.UI;
 
 public class bossManager : MonoBehaviour
 {
-    [SerializeField] private Slider _healthSlider;
+   // [SerializeField] private Slider _healthSlider;
     [SerializeField] private float _maxHealth;
     public float currentHeaalth;
     public bool stageOne, stageTwo;
 
+    private GameObject _player;
     [SerializeField] private float _damage;
     public bool isdead;
 
+    SpriteRenderer sr;
     Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
+        _player = GameObject.FindGameObjectWithTag("Body");
+        sr = GetComponent<SpriteRenderer>();
         currentHeaalth = _maxHealth;
         rb = GetComponent<Rigidbody2D>();
         GetComponentInParent<bossSpawner>()._bossSlider.minValue = 0;
@@ -34,8 +38,15 @@ public class bossManager : MonoBehaviour
         }
         if (currentHeaalth <= _maxHealth / 2)
         {
+            sr.color = Color.red;
             stageTwo = true;
             stageOne = false;
+        }
+
+        if(currentHeaalth <= 0)
+        {
+            Debug.Log("spawned key!");
+            Destroy(gameObject);
         }
     }
 
@@ -43,15 +54,16 @@ public class bossManager : MonoBehaviour
     public void takeDamage(float dam)
     {
         currentHeaalth -= dam;
-
-        if(currentHeaalth <= 0)
-        {
-            _healthSlider.value = 0;
-            Destroy(_healthSlider);
-            Destroy(gameObject);
-        }
     }
 
+    void knockBack()
+    {
+        Vector2 difference = transform.position - _player.transform.position;
+        Vector2 diff = difference * 1.5f;
+        transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y);
+        
+
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -61,6 +73,7 @@ public class bossManager : MonoBehaviour
             if ((collision.gameObject.GetComponent<bodyController>().isAttacking == false))
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage);
+                knockBack();
             }
             else if (collision.gameObject.GetComponent<bodyController>().isAttacking == true)
             {

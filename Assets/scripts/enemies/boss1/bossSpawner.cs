@@ -15,42 +15,64 @@ public class bossSpawner : MonoBehaviour
     [SerializeField] public Slider _bossSlider;
     [SerializeField] private float xValue;
     [SerializeField] private GameObject _bossDoor;
+    [SerializeField] private GameObject key;
 
     private GameObject actualBoss;
-    
+    private bool hasSpanwedBoss;
+
+    dropManager DM;
     // Start is called before the first frame update
     void Start()
     {
-        
         _target = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         door();
         checkDist();
 
         if (_distFromPlayer <= _instanDist)
         {
-            if(actualBoss == null)
+            if(actualBoss == null && hasSpanwedBoss == false)
             {
                 actualBoss = Instantiate(_Boss, transform.position, Quaternion.identity, transform);
+                DM = actualBoss.GetComponent<dropManager>();
+                hasSpanwedBoss = true;
                 _BossHealthSlider.SetActive(true);
             }
             
         }
 
-        if(_distFromPlayer <= _activationDist)
+        if(hasSpanwedBoss)
         {
-            GetComponentInChildren<bossCombat>().active = true;
+            if (actualBoss.GetComponent<bossManager>().currentHeaalth <= 0)
+            {
+                DM.determineDrop();
+                Instantiate(key, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
+                Destroy(gameObject);
+                _BossHealthSlider.SetActive(false);
+            }
         }
+        
 
-        if(actualBoss.GetComponent<bossManager>().currentHeaalth <= 0)
+        try
         {
-            Destroy(gameObject);
-            _BossHealthSlider.SetActive(false);
+            if (_distFromPlayer <= _activationDist)
+            {
+                GetComponentInChildren<bossCombat>().active = true;
+            }
         }
+        catch
+        {
+
+        }
+       
+
+        
     }
 
     void checkDist()
@@ -73,18 +95,24 @@ public class bossSpawner : MonoBehaviour
     {
         if(actualBoss != null)
         {
-            if (actualBoss.GetComponent<bossCombat>().active == true)
+            if(actualBoss.GetComponent<bossCombat>().active == true)
             {
-                _bossDoor.SetActive(true);
+                StartCoroutine("bossDelay");
             }
             else if (actualBoss.GetComponent<bossManager>().isdead)
             {
                 Destroy(_bossDoor);
 
-
             }
         }
        
+    }
+
+    private IEnumerator bossDelay()
+    {
+        _bossDoor.SetActive(false);
+        yield return new WaitForSeconds(3f);
+        _bossDoor.SetActive(true);
     }
 
 }

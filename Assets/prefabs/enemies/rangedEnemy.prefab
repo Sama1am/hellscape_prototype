@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleEnemy: 0
   currentHealth: 0
-  maxHealth: 5
+  maxHealth: 6
   damage: 1
   knockBackForce: 0
   force: 50
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 6134175407906975407, guid: 21bc64d6fb660d548b5896d4c663a799, type: 3}
   nextShot: 1
-  timeBetweenShots: 2
+  timeBetweenShots: 1
   speed: 12
   shootRange: 15
 --- !u!114 &7262279780499625219

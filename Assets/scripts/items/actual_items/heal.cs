@@ -21,8 +21,12 @@ public class heal : MonoBehaviour
     {
         if((collision.gameObject.CompareTag("Player")))
         {
-            collision.GetComponentInChildren<playerManager>().currentHealth += 1;
-            Destroy(gameObject);
+            if(collision.gameObject.GetComponentInChildren<playerManager>().currentHealth < collision.gameObject.GetComponentInChildren<playerManager>().health)
+            {
+                collision.GetComponentInChildren<playerManager>().currentHealth += 1;
+                Destroy(gameObject);
+            }
+           
         }
     }
 }

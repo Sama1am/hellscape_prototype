@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1121097026826002197}
   - component: {fileID: 1121097026826002192}
   - component: {fileID: 1121097026826002286}
-  - component: {fileID: 1121097026826002193}
   - component: {fileID: 8964253944712950557}
   - component: {fileID: 6263900852574772513}
   m_Layer: 10
@@ -107,7 +106,7 @@ MonoBehaviour:
   nextShot: 2
   timeBetweenShots: 1
   radius: 5
-  moveSpeed: 6
+  moveSpeed: 4
   canShoot: 0
   radiusCluster: 5
   nextShotCluster: 3
@@ -132,8 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95150bcd9e2f51448bba46df765a92d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthSlider: {fileID: 0}
-  _maxHealth: 35
+  _maxHealth: 15
+  key: {fileID: 5303447587310373228, guid: acb37396f93b0c049a16203d809af8ed, type: 3}
   currentHeaalth: 1
   stageOne: 0
   stageTwo: 0
@@ -160,32 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &1121097026826002193
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121097026826002196}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!58 &8964253944712950557
 CircleCollider2D:
   m_ObjectHideFlags: 0

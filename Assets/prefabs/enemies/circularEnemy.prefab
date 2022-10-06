@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 62618e960d8f4044ab41a3166bda5e39, type: 3}
+  m_Color: {r: 0.8773585, g: 0.29300457, b: 0.29300457, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,10 +94,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8517085001121811883}
   - component: {fileID: 8517085001121811882}
-  - component: {fileID: 8517085001121811881}
   - component: {fileID: 8517085001121811880}
   - component: {fileID: 8517085001121811895}
   - component: {fileID: 200924420136446911}
+  - component: {fileID: 1572617936325931302}
+  - component: {fileID: 4329985687372067569}
+  - component: {fileID: 5651992854652686725}
   m_Layer: 10
   m_Name: circularEnemy
   m_TagString: enemy
@@ -114,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 8517085001121811894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 17.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8517085000173895889}
@@ -139,32 +141,8 @@ MonoBehaviour:
   timeBetweenShots: 3
   radius: 5
   moveSpeed: 6
---- !u!61 &8517085001121811881
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8517085001121811894}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  canShoot: 0
+  _shootDist: 8.3
 --- !u!50 &8517085001121811880
 Rigidbody2D:
   serializedVersion: 4
@@ -220,3 +198,83 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBoss: 0
   drop: 0
+--- !u!58 &1572617936325931302
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517085001121811894}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.0024728775}
+  serializedVersion: 2
+  m_Radius: 0.3145399
+--- !u!114 &4329985687372067569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517085001121811894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbad25fb71f83d247af5fd7ca899f426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 0
+  speed: 2
+  nextWaypointDistance: 1
+  reachedEndOfPath: 0
+  targetPos: {fileID: 0}
+  player: {fileID: 0}
+  knockBackForce: 10
+  maxMoveSpeed: 5
+  velocityMove: 0
+  transformMove: 1
+  moveWaitDone: 0
+  damage: 1
+  _activationDist: 44.81
+  _chaseDist: 8.2
+  _maxChaseDist: 10.15
+  _dist: 0
+  active: 0
+  retreatRange: 5
+  stopRange: 10
+  ranged: 0
+  returning: 0
+  chasing: 0
+  retreating: 0
+  target: {fileID: 0}
+--- !u!114 &5651992854652686725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517085001121811894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1

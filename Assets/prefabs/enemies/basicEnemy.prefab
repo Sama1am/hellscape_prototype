@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  speed: 4
+  speed: 2.5
   nextWaypointDistance: 0.5
   reachedEndOfPath: 0
   targetPos: {fileID: 0}

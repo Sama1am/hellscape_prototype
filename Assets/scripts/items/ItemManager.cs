@@ -10,6 +10,7 @@ public class ItemManager : MonoBehaviour
 
     public GameObject[] _holyshitRareItems;
 
+    public GameObject heal;
 
     // Start is called before the first frame update
     void Start()

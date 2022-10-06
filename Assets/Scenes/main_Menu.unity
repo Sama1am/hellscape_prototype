@@ -703,8 +703,7 @@ MonoBehaviour:
     \n\nLet go of RIGHT MOUSE BUTTON to shoot the body out in the direction of the
     mouse. The longer you hold down the mouse the higher damage you do. \n\nFurther
     away the mouse is from the body the higher the velocity the body will move at.\n\nKill
-    the enemies using your body! \n\nEnemies will respawn after 30 seconds \n\n(This
-    prototype is to test the combat mechanic with enemies)"
+    the enemies by shooting your body at them! \n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1102,7 +1101,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Prototype
+  m_text: pre-alpha
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ad3952af48b94934aa036d29a3de2893, type: 2}
   m_sharedMaterial: {fileID: 5545140544537776946, guid: ad3952af48b94934aa036d29a3de2893, type: 2}

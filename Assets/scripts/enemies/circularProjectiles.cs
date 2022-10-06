@@ -21,31 +21,57 @@ public class circularProjectiles : MonoBehaviour
 	[SerializeField]
 	private float radius, moveSpeed;
 
-	private bool canShoot;
+	[SerializeField] private bool canShoot;
+	private float _distFromPlayer;
+	private GameObject _player;
+	private GameObject _body;
+	[SerializeField] private float _shootDist;
 
+	enemy_spawner EM;
 	// Use this for initialization
 	void Start()
 	{
+		_player = GameObject.FindGameObjectWithTag("Player");
+		_body = GameObject.FindGameObjectWithTag("Body");
 		startPoint = gameObject.transform.position;
-		StartCoroutine("startDelay");
+		//StartCoroutine("startDelay");
+		EM = GetComponentInParent<enemy_spawner>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		
 
-	}
+		checkDist();
 
-    private void FixedUpdate()
-    {
+		if((Vector2.Distance(transform.position, _player.GetComponent<Transform>().position)) <= (_shootDist) || (Vector2.Distance(transform.position, _body.GetComponent<Transform>().position)) <= (_shootDist))
+		{
+			canShoot = true;
+		}
+
 		if(canShoot)
-        {
+		{
 			if (Time.time > nextShot)
 			{
 				shoot(numberOfProjectiles);
 			}
 		}
+	}
+
+    private void FixedUpdate()
+    {
+		
+		//if(canShoot)
+  //      {
+		//	if(_distFromPlayer <= _shootDist)
+  //          {
+		//		if (Time.time > nextShot)
+		//		{
+		//			shoot(numberOfProjectiles);
+		//		}
+		//	}
+			
+		//}
 		
 	}
 
@@ -73,6 +99,18 @@ public class circularProjectiles : MonoBehaviour
 		}
 
 		nextShot = Time.time + timeBetweenShots;
+	}
+
+	void checkDist()
+	{
+		_distFromPlayer = Vector3.Distance(transform.position, _player.transform.position);
+	}
+
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, _shootDist);
 	}
 
 	IEnumerator startDelay()

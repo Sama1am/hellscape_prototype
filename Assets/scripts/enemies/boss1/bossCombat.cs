@@ -79,7 +79,8 @@ public class bossCombat : MonoBehaviour
     {
         if(active)
         {
-            if (BM.stageOne)
+
+            if(BM.stageOne)
             {
                 try
                 {
@@ -94,7 +95,7 @@ public class bossCombat : MonoBehaviour
 
                     if ((_canMove) && (canShoot == false))
                     {
-
+                        
                         rushTowardsPlayer();
 
                         if ((gameObject.transform.position == targetPos) || (Vector2.Distance(transform.position, targetPos)) <= (closeEnough))
@@ -118,7 +119,7 @@ public class bossCombat : MonoBehaviour
 
                     if ((_canMove) && (canShoot == false))
                     {
-
+                        
                         rushTowardsPlayer();
 
                         if ((gameObject.transform.position == targetPos))
@@ -188,7 +189,7 @@ public class bossCombat : MonoBehaviour
         nextShot = Time.time + timeBetweenShots;
         _numOfShots++;
 
-        if(_numOfShots >= 3)
+        if(_numOfShots >= 2)
         {
             _numOfShots = 0;
             StartCoroutine("moveBuildUp");
@@ -354,10 +355,15 @@ public class bossCombat : MonoBehaviour
     {
         canShoot = false;
         _canMove = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(4f);
         canShoot = true;
     }
 
+    IEnumerator moveWait()
+    {
+        yield return new WaitForSeconds(3f);
+        rushTowardsPlayer();
+    }
 
     private IEnumerator moveBuildUp()
     {

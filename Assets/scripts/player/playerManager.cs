@@ -53,6 +53,11 @@ public class playerManager : MonoBehaviour
         //Debug.Log("THE PLAYER TOOK " + dam + "DAMAGE!");
 
         checkHealth();
+
+        if(currentHealth > health)
+        {
+            currentHealth = health;
+        }
     }
 
     public void checkHealth()

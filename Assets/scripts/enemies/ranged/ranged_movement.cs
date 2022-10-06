@@ -274,7 +274,7 @@ public class ranged_movement : MonoBehaviour
 
     void updatePath()
     {
-        if (seeker.IsDone())
+        if(seeker.IsDone())
         {
             seeker.StartPath(transform.position, targetPos.position, OnPathComplete);
         }
@@ -333,5 +333,6 @@ public class ranged_movement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _chaseDist);
+        Gizmos.DrawWireSphere(transform.position, _maxChaseDist);
     }
 }

@@ -72,10 +72,18 @@ public class enemyManager : MonoBehaviour
     void knockBack()
     {
         Vector2 difference = transform.position - _player.transform.position;
-        Vector2 diff = difference * 1.5f;
+        Vector2 diff = difference * 1.2f;
         transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y);
+       // rb.AddForce(difference.x, difference.y, 0);
+
         stunned = true;
 
+    }
+
+    public void knockBackPlayer()
+    {
+        Vector2 difference = transform.position - _player.transform.position;
+        rb.AddForce(-difference * knockBackForce, ForceMode2D.Impulse);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -86,7 +94,8 @@ public class enemyManager : MonoBehaviour
             if((collision.gameObject.GetComponent<bodyController>().isAttacking == false) && (stunned == false))
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
-                knockBack();
+                //nockBack();
+                knockBackPlayer();
 
 
             }
