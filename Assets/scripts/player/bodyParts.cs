@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class bodyParts : MonoBehaviour
 {
+    private float _dam;
 
     Rigidbody2D rb;
+    bodyController BC;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        BC = gameObject.GetComponentInParent<bodyController>();
     }
 
     // Update is called once per frame
