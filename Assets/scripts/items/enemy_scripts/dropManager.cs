@@ -49,10 +49,10 @@ public class dropManager : MonoBehaviour
         }
         else if (!_hasDropped)
         {
-            Debug.Log("SHOULD DETERMINE DROP!");
+            //Debug.Log("SHOULD DETERMINE DROP!");
 
             _itemChance = Random.Range(0, 101);
-            Debug.Log("ITEM DROP CHANCE IS " + _itemChance);
+            //Debug.Log("ITEM DROP CHANCE IS " + _itemChance);
 
             if (_itemChance <= 75)
             {
@@ -61,13 +61,13 @@ public class dropManager : MonoBehaviour
             else if (_itemChance > 65)
             {
                 _chance = Random.Range(0, 101);
-                Debug.Log(_chance);
+                //Debug.Log(_chance);
 
                 if (_chance <= 60)
                 {
 
                     _common = Random.Range(0, _itemManager._commonItems.Length);
-                    Debug.Log(_itemManager._commonItems.Length);
+                    //Debug.Log(_itemManager._commonItems.Length);
                     //Debug.Log(_common);
                     Instantiate(_itemManager._commonItems[_common], transform.position, Quaternion.identity);
                     _hasDropped = true;
@@ -76,7 +76,7 @@ public class dropManager : MonoBehaviour
                 else if (_chance > 60 && _chance < 80)
                 {
                     _rare = Random.Range(0, _itemManager._rareItems.Length);
-                    Debug.Log(_itemManager._rareItems.Length);
+                    //Debug.Log(_itemManager._rareItems.Length);
                     //Debug.Log(_rare);
                     Instantiate(_itemManager._rareItems[_rare], transform.position, Quaternion.identity);
                     _hasDropped = true;
@@ -84,7 +84,7 @@ public class dropManager : MonoBehaviour
                 else if (_chance > 80)
                 {
                     _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length);
-                    Debug.Log(_itemManager._holyshitRareItems.Length);
+                    //Debug.Log(_itemManager._holyshitRareItems.Length);
                     //Debug.Log(_holyShit);
                     Instantiate(_itemManager._holyshitRareItems[_holyShit], transform.position, Quaternion.identity);
                     _hasDropped = true;

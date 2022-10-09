@@ -314,7 +314,7 @@ public class ranged_movement : MonoBehaviour
         if (ES.returning || retreating)
         {
            // targetPos = GetComponentInParent<Transform>();
-            targetPos = ES.EStransform;
+            targetPos = ES._EStransform;
         }
         else if (ES.chasing)
         {

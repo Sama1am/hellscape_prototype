@@ -70,12 +70,12 @@ public class bossManager : MonoBehaviour
         if(collision.gameObject.CompareTag("Body"))
         {
             rb.velocity = Vector2.zero;
-            if ((collision.gameObject.GetComponent<bodyController>().isAttacking == false))
+            if ((collision.gameObject.GetComponent<bodyController>().attacking == false))
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage);
                 knockBack();
             }
-            else if (collision.gameObject.GetComponent<bodyController>().isAttacking == true)
+            else if (collision.gameObject.GetComponent<bodyController>().attacking == true)
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage / 6);
                 rb.velocity = Vector2.zero;

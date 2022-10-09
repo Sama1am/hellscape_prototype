@@ -5,26 +5,25 @@ using UnityEngine;
 public class enemyManager : MonoBehaviour
 {
     public bool simpleEnemy;
-    public float currentHealth;
-    public float maxHealth;
-    public float damage;
+    [SerializeField] private float _currentHealth;
+    [SerializeField] private float _maxHealth;
+    private float _damage;
     public float knockBackForce;
-    Rigidbody2D rb;
     public float force;
     public bool isdead;
 
     private GameObject _player;
     private SpriteRenderer _sp;
     private Color ogColor;
-    public bool stunned;
+    private bool _stunned;
 
-
+    Rigidbody2D rb;
     dropManager _DM;
     // Start is called before the first frame update
     void Start()
     {
         isdead = false;
-        currentHealth = maxHealth;
+        _currentHealth = _maxHealth;
         _DM = gameObject.GetComponent<dropManager>();
         _sp = GetComponentInChildren<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -41,16 +40,27 @@ public class enemyManager : MonoBehaviour
 
     public void takeDamage(float dam)
     {
-        currentHealth -= dam;
+        _currentHealth -= dam;
         StartCoroutine("changeColour");
 
-        if(currentHealth <= 0)
+        if(_currentHealth <= 0)
         {
             isdead = true;
+            GetComponentInParent<enemy_spawner>().setDeadStatus(true);
             GetComponent<dropManager>().determineDrop();
             die();
            
         }
+    }
+
+    public bool checkDead()
+    {
+        return isdead;
+    }
+
+    public void setDeadStatus(bool status)
+    {
+        isdead = status;
     }
 
     public void die()
@@ -76,7 +86,7 @@ public class enemyManager : MonoBehaviour
         transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y);
        // rb.AddForce(difference.x, difference.y, 0);
 
-        stunned = true;
+        _stunned = true;
 
     }
 
@@ -86,22 +96,32 @@ public class enemyManager : MonoBehaviour
         rb.AddForce(-difference * knockBackForce, ForceMode2D.Impulse);
     }
 
+    public void setStunStatus(bool status)
+    {
+        _stunned = status;
+    }
+
+    public bool checkStunStatus()
+    {
+        return _stunned;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Body"))
         {
             rb.velocity = Vector2.zero;
-            if((collision.gameObject.GetComponent<bodyController>().isAttacking == false) && (stunned == false))
+            if((collision.gameObject.GetComponent<bodyController>().isAttacking() == false) && (_stunned == false))
             {
-                collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
+                collision.gameObject.GetComponent<playerManager>().takeDamage(_damage);
                 //nockBack();
                 knockBackPlayer();
 
 
             }
-            else if(collision.gameObject.GetComponent<bodyController>().isAttacking == true)
+            else if(collision.gameObject.GetComponent<bodyController>().attacking == true)
             {
-                collision.gameObject.GetComponent<playerManager>().takeDamage(damage / collision.gameObject.GetComponent<playerManager>().damageTakenOffset);
+                collision.gameObject.GetComponent<playerManager>().takeDamage(_damage / collision.gameObject.GetComponent<playerManager>().damageTakenOffset);
                 rb.velocity = Vector2.zero;
                 StartCoroutine("velocityDelay");
             }

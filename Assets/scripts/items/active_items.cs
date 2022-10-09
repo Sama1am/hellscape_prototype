@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class active_items : MonoBehaviour
 {
-    public bool active;
-
+    
     public Sprite UISprite;
 
     //public item itemScript;
-    public BoxCollider2D itemCollider;
+    public CircleCollider2D itemCollider;
     public SpriteRenderer SR;
-    // dropManager dm;
+    //[SerializeField] private GameObject _item;
+    //dropManager dm;
 
     // Start is called before the first frame update
     void Start()

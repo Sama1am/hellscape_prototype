@@ -20,8 +20,9 @@ public class bodyController : MonoBehaviour
     [SerializeField] private float _speed;
     #endregion
 
-    public float dam;
-    public bool isAttacking;
+    private float _dam;
+    public bool attacking;
+    private bool _bodyhit;
 
     #region crit
     public int critChance;
@@ -30,9 +31,11 @@ public class bodyController : MonoBehaviour
     private GameObject _player;
     private Rigidbody2D _rb;
     private playerManager _PM;
+    private playerItemManager _PIM;
     // Start is called before the first frame update
     void Start()
     {
+        _PIM = GameObject.FindGameObjectWithTag("Player").GetComponent<playerItemManager>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _PM = gameObject.GetComponent<playerManager>();
         //dam = _PM.damage;
@@ -49,13 +52,12 @@ public class bodyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        drag();
+        //drag();
 
     }
 
     private void drag()
     {
-
         if ((_horizontal == 0) || (_changeDir) || (_vertical == 0))
         {
             _rb.drag = _dragForce;
@@ -143,6 +145,15 @@ public class bodyController : MonoBehaviour
         
     }
 
+    public bool isAttacking()
+    {
+        return attacking;
+    }
+
+    public void setAttackingStatus(bool status)
+    {
+        attacking = status;
+    }
 
     void determineVelocity(float time)
     {
@@ -156,26 +167,26 @@ public class bodyController : MonoBehaviour
         {
             _speed = 100f;
             // _PM.damage = 1;
-            dam = 1;
+            _dam = 1;
         }
         else if(time <= 0.3f)
         {
             _speed = 75f;
             // _PM.damage = 0.5f;
-            dam = 0.5f;
+            _dam = 0.5f;
         }
 
     }
 
     private IEnumerator attackDelay()
     {
-        isAttacking = true;
+        attacking = true;
         yield return new WaitForSeconds(0.3f);
-        isAttacking = false;
+        attacking = false;
     }
 
 
-    private void crit()
+    public void crit()
     {
         float temp;
 
@@ -183,11 +194,12 @@ public class bodyController : MonoBehaviour
 
         if(temp <= critChance)
         {
-            dam = 1;
+            _dam = 1;
         }
         else if(temp > critChance && temp <= 100)
         {
-            dam = 2;
+            _dam = 2;
+            Debug.Log("PLAYER CRITTED!");
         }
         
     }
@@ -195,22 +207,24 @@ public class bodyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if((isAttacking) && (collision.gameObject.CompareTag("enemy")))
+        if((attacking) && (collision.gameObject.CompareTag("enemy")) && (!_bodyhit))
         {
+            _bodyhit = true;
             _rb.velocity = Vector2.zero;
-            collision.gameObject.GetComponent<enemyManager>().takeDamage(dam);
-            collision.gameObject.GetComponent<enemyManager>().stunned = true;
-            Debug.Log("stunned = " + collision.gameObject.GetComponent<enemyManager>().stunned);
-            Debug.Log("ENEMY SHOULD TAKE DAMAGE");
+            crit();
+            collision.gameObject.GetComponent<enemyManager>().takeDamage(_dam);
+            _PIM.setItemCharge();
+            collision.gameObject.GetComponent<enemyManager>().setStunStatus(true);
+            _bodyhit = false;
         }
-        else if((!isAttacking) && (collision.gameObject.CompareTag("enemy")))
+        else if((!attacking) && (collision.gameObject.CompareTag("enemy")))
         {
             _rb.velocity = Vector2.zero;
         }
 
         if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("Boss2")) || (collision.gameObject.CompareTag("FinalBoss")))
         {
-            collision.gameObject.GetComponent<bossManager>().takeDamage(dam);
+            collision.gameObject.GetComponent<bossManager>().takeDamage(_dam);
             _rb.velocity = Vector2.zero;
         }
     }

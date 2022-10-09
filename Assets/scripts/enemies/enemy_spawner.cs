@@ -26,9 +26,9 @@ public class enemy_spawner : MonoBehaviour
 
     private GameObject _player;
     [SerializeField] private float _spawnEnemyDelay;
-    public Transform EStransform;
+    public Transform _EStransform;
+    private float _currentTime;
 
-    public float currentTime;
     #region state
     [Header("State stuff (Do not set)")]
     public bool active;
@@ -38,46 +38,50 @@ public class enemy_spawner : MonoBehaviour
     public bool isdead;
     public bool spawnedNewEnemy;
     #endregion
+
     // Start is called before the first frame update
     void Start()
     {
-        EStransform = gameObject.transform;
+        _EStransform = gameObject.transform;
         _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
         isdead = false;
         _player = GameObject.FindGameObjectWithTag("Body");
-        currentTime = _spawnEnemyDelay;
+        _currentTime = _spawnEnemyDelay;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if(!isdead)
+        if(_enemy != null)
         {
-            checkDist();
-
-            activate();
-
-            goBack();
-
-
-            if (_enemy.transform.position != transform.position)
+            if ((isdead == false))
             {
-                home = false;
+                checkDist();
+
+                activate();
+
+                goBack();
+
+
+                if (_enemy.transform.position != transform.position)
+                {
+                    home = false;
+                }
             }
         }
         
-        if((isdead) && (_enemy == null) && (!spawnedNewEnemy))
+        
+        if((isdead == true) && (_enemy == null) && (!spawnedNewEnemy))
         {
-            currentTime -= Time.deltaTime;
+            _currentTime -= Time.deltaTime;
         }
        
-        if((currentTime <= 0) && (_enemy == null) && (!spawnedNewEnemy))
+        if((_currentTime <= 0) && (_enemy == null) && (!spawnedNewEnemy))
         {
             _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
             spawnedNewEnemy = true;
-            isdead = false;
-            currentTime = _spawnEnemyDelay;
+            _enemy.GetComponent<enemyManager>().setDeadStatus(false);
+            _currentTime = _spawnEnemyDelay;
         }
        
     }
@@ -121,6 +125,10 @@ public class enemy_spawner : MonoBehaviour
         }
     }
 
+    public void setDeadStatus(bool status)
+    {
+        isdead = status;
+    }
 
     IEnumerator spawnDelay()
     {
@@ -129,6 +137,7 @@ public class enemy_spawner : MonoBehaviour
         {
             _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
             spawnedNewEnemy = true;
+            _enemy.GetComponent<enemyManager>().setDeadStatus(false);
             isdead = false;
 
         }
