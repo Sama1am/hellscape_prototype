@@ -132,11 +132,11 @@ public class meleeMovement : MonoBehaviour
             }
         }
 
-        if ((ES.returning) || (ES.chasing) && (em.stunned != true))
+        if ((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
         {
             canMove = true;
         }
-        else if (em.stunned)
+        else if (em.checkStunStatus())
         {
             canMove = false;
             StartCoroutine("stunnedwait");
@@ -330,7 +330,7 @@ public class meleeMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Body"))
         {
-            if (collision.gameObject.GetComponent<bodyController>().isAttacking == false)
+            if (collision.gameObject.GetComponent<bodyController>().attacking == false)
             {
                 //knockBackPlayer();
                 //retreating = true;
@@ -358,7 +358,7 @@ public class meleeMovement : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(1.5f);
         canMove = true;
-        em.stunned = false;
+        em.setStunStatus(false);
 
     }
 }

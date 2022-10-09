@@ -99,11 +99,11 @@ public class enemyMovement : MonoBehaviour
             targetPos = player;
         }
 
-        if((ES.returning) || (ES.chasing) && (em.stunned != true))
+        if((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
         {
             canMove = true;
         }
-        else if(em.stunned)
+        else if(em.checkStunStatus())
         {
             canMove = false;
             StartCoroutine("stunnedwait");
@@ -275,7 +275,7 @@ public class enemyMovement : MonoBehaviour
     {
         if(ES.returning)
         {
-            targetPos = ES.EStransform;
+            targetPos = ES._EStransform;
         }
         else if(ES.chasing)
         {
@@ -293,7 +293,7 @@ public class enemyMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Body"))
         {
-            if (collision.gameObject.GetComponent<bodyController>().isAttacking == false)
+            if (collision.gameObject.GetComponent<bodyController>().attacking == false)
             {
                 knockBackPlayer();
             }
@@ -315,7 +315,7 @@ public class enemyMovement : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(1.5f);
         canMove = true;
-        em.stunned = false;
+        em.setStunStatus(false);
             
     }
 }

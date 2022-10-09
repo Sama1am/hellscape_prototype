@@ -108,11 +108,11 @@ public class bombEnemy : MonoBehaviour
             canMove = false;
         }
 
-        if((ES.returning) || (ES.chasing) && (em.stunned != true))
+        if((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
         {
             canMove = true;
         }
-        else if (em.stunned)
+        else if (em.checkStunStatus())
         {
             canMove = false;
             StartCoroutine("stunnedwait");
@@ -345,7 +345,7 @@ public class bombEnemy : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(2f);
         canMove = true;
-        em.stunned = false;
+        em.setStunStatus(false);
 
     }
 

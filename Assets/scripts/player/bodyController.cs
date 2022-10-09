@@ -21,8 +21,8 @@ public class bodyController : MonoBehaviour
     #endregion
 
     private float _dam;
-    public bool isAttacking;
-    public bool bodyhit;
+    public bool attacking;
+    private bool _bodyhit;
 
     #region crit
     public int critChance;
@@ -143,13 +143,9 @@ public class bodyController : MonoBehaviour
         
     }
 
-
-    void spin()
+    public bool isAttacking()
     {
-        if(Input.GetMouseButton(0))
-        {
-
-        }
+        return attacking;
     }
 
     void determineVelocity(float time)
@@ -177,9 +173,9 @@ public class bodyController : MonoBehaviour
 
     private IEnumerator attackDelay()
     {
-        isAttacking = true;
+        attacking = true;
         yield return new WaitForSeconds(0.3f);
-        isAttacking = false;
+        attacking = false;
     }
 
 
@@ -204,19 +200,16 @@ public class bodyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if((isAttacking) && (collision.gameObject.CompareTag("enemy")) && (!bodyhit))
+        if((attacking) && (collision.gameObject.CompareTag("enemy")) && (!_bodyhit))
         {
-            bodyhit = true;
+            _bodyhit = true;
             _rb.velocity = Vector2.zero;
             crit();
             collision.gameObject.GetComponent<enemyManager>().takeDamage(_dam);
-            collision.gameObject.GetComponent<enemyManager>().stunned = true;
-            Debug.Log("BODY DID DAMAGE!");
-            //Debug.Log("stunned = " + collision.gameObject.GetComponent<enemyManager>().stunned);
-            //Debug.Log("ENEMY SHOULD TAKE DAMAGE");
-            bodyhit = false;
+            collision.gameObject.GetComponent<enemyManager>().setStunStatus(true);
+            _bodyhit = false;
         }
-        else if((!isAttacking) && (collision.gameObject.CompareTag("enemy")))
+        else if((!attacking) && (collision.gameObject.CompareTag("enemy")))
         {
             _rb.velocity = Vector2.zero;
         }

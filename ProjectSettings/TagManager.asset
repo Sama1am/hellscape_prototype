@@ -17,6 +17,7 @@ TagManager:
   - FinalBoss
   - key
   - keyManager
+  - bomb
   layers:
   - Default
   - TransparentFX
