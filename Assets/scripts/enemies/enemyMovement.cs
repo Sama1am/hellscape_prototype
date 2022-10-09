@@ -293,7 +293,7 @@ public class enemyMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Body"))
         {
-            if (collision.gameObject.GetComponent<bodyController>().attacking == false)
+            if(collision.gameObject.GetComponent<bodyController>().attacking == false)
             {
                 knockBackPlayer();
             }

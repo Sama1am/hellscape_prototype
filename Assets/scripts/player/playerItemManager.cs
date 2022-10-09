@@ -11,6 +11,9 @@ public class playerItemManager : MonoBehaviour
 
     [SerializeField] private Image _UISprite;
 
+    private bool _canUseItem;
+    [SerializeField] private float _itemCharge;
+    [SerializeField] private float _maxItemCharge;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +23,34 @@ public class playerItemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(_itemCharge >= _maxItemCharge)
+        {
+            _canUseItem = true;
+        }
+        else if(_itemCharge < _maxItemCharge)
+        {
+            _canUseItem = false;
+        }
     }
 
+    public bool getItemStatus()
+    {
+        return _canUseItem;
+    }
+
+    public void setItemCharge()
+    {
+        _itemCharge++;
+        if(_itemCharge > _maxItemCharge)
+        {
+            _itemCharge = _maxItemCharge;
+        }
+    }
+
+    public void useItemCharge()
+    {
+        _itemCharge -= _maxItemCharge;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -31,9 +31,11 @@ public class bodyController : MonoBehaviour
     private GameObject _player;
     private Rigidbody2D _rb;
     private playerManager _PM;
+    private playerItemManager _PIM;
     // Start is called before the first frame update
     void Start()
     {
+        _PIM = GameObject.FindGameObjectWithTag("Player").GetComponent<playerItemManager>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _PM = gameObject.GetComponent<playerManager>();
         //dam = _PM.damage;
@@ -148,6 +150,11 @@ public class bodyController : MonoBehaviour
         return attacking;
     }
 
+    public void setAttackingStatus(bool status)
+    {
+        attacking = status;
+    }
+
     void determineVelocity(float time)
     {
         if(time >= 0.6f)
@@ -206,6 +213,7 @@ public class bodyController : MonoBehaviour
             _rb.velocity = Vector2.zero;
             crit();
             collision.gameObject.GetComponent<enemyManager>().takeDamage(_dam);
+            _PIM.setItemCharge();
             collision.gameObject.GetComponent<enemyManager>().setStunStatus(true);
             _bodyhit = false;
         }

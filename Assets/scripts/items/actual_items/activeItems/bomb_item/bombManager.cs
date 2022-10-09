@@ -12,9 +12,13 @@ public class bombManager : MonoBehaviour
     private Vector3 worldPosition;
 
     [SerializeField] private float _spawnRadisu;
+
+    private playerItemManager _PIM;
     // Start is called before the first frame update
     void Start()
     {
+        _PIM = GameObject.FindGameObjectWithTag("Player").GetComponent<playerItemManager>();
+
         _parent = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -25,9 +29,14 @@ public class bombManager : MonoBehaviour
 
         dir = (worldPosition - gameObject.transform.position);
 
-        if (Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0))
         {
-            spawnInRadius();
+            if (_PIM.getItemStatus() == true)
+            {
+                spawnInRadius();
+                _PIM.useItemCharge();
+            }
+                
         }
     }
 
