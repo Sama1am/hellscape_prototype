@@ -6,14 +6,10 @@ public class active_items : MonoBehaviour
 {
     
     public Sprite UISprite;
-
-    //public item itemScript;
     public CircleCollider2D itemCollider;
     public SpriteRenderer SR;
-    //[SerializeField] private GameObject _item;
-    //dropManager dm;
-
-    // Start is called before the first frame update
+    [SerializeField] private bool _onBody;
+   
     void Start()
     {
 
@@ -25,7 +21,10 @@ public class active_items : MonoBehaviour
 
     }
 
-
+    public bool getBodyStatus()
+    {
+        return _onBody;
+    }
 
     public void pickedUpItem()
     {

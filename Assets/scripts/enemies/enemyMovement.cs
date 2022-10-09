@@ -103,7 +103,7 @@ public class enemyMovement : MonoBehaviour
         {
             canMove = true;
         }
-        else if(em.checkStunStatus())
+        else if(em.checkStunStatus() == true)
         {
             canMove = false;
             StartCoroutine("stunnedwait");

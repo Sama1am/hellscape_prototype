@@ -14,10 +14,12 @@ public class playerItemManager : MonoBehaviour
     private bool _canUseItem;
     [SerializeField] private float _itemCharge;
     [SerializeField] private float _maxItemCharge;
+    [SerializeField] private bool _goesOnBody;
+    [SerializeField] private GameObject _body;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _body = GameObject.FindGameObjectWithTag("Body");
     }
 
     // Update is called once per frame
@@ -58,22 +60,48 @@ public class playerItemManager : MonoBehaviour
         {
             if(hasItem)
             {
-                GameObject temp = Instantiate(currentItem, transform.position + new Vector3(-2,0, 0), Quaternion.identity);
-                temp.GetComponent<active_items>().dropItem();
-                Destroy(currentItem);
-                collision.gameObject.transform.SetParent(this.gameObject.transform);
-                currentItem = collision.gameObject;
-                currentItem.GetComponent<active_items>().pickedUpItem();
-                _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
+                if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == true)
+                {
+                    GameObject temp = Instantiate(currentItem, transform.position + new Vector3(-2, 0, 0), Quaternion.identity);
+                    temp.GetComponent<active_items>().dropItem();
+                    Destroy(currentItem);
+                    collision.gameObject.transform.SetParent(_body.transform);
+                    currentItem = collision.gameObject;
+                    currentItem.GetComponent<active_items>().pickedUpItem();
+                    _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
+                }
+                else if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == false)
+                {
+                    GameObject temp = Instantiate(currentItem, transform.position + new Vector3(-2, 0, 0), Quaternion.identity);
+                    temp.GetComponent<active_items>().dropItem();
+                    Destroy(currentItem);
+                    collision.gameObject.transform.SetParent(this.gameObject.transform);
+                    currentItem = collision.gameObject;
+                    currentItem.GetComponent<active_items>().pickedUpItem();
+                    _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
+                }
+                
                 
             }
             if(!hasItem)
             {
-                collision.gameObject.transform.SetParent(this.gameObject.transform);
-                currentItem = collision.gameObject;
-                currentItem.GetComponent<active_items>().pickedUpItem();
-                _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
-                hasItem = true;
+                if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == true)
+                {
+                    collision.gameObject.transform.SetParent(_body.transform);
+                    currentItem = collision.gameObject;
+                    currentItem.GetComponent<active_items>().pickedUpItem();
+                    _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
+                    hasItem = true;
+                }
+                else if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == false)
+                {
+                    collision.gameObject.transform.SetParent(this.gameObject.transform);
+                    currentItem = collision.gameObject;
+                    currentItem.GetComponent<active_items>().pickedUpItem();
+                    _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
+                    hasItem = true;
+                }
+               
             }
         }
     }

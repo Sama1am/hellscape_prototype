@@ -648,7 +648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114303563808503993, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
@@ -1436,8 +1436,10 @@ MonoBehaviour:
   currentItem: {fileID: 0}
   hasItem: 0
   _UISprite: {fileID: 506641761}
-  _itemCharge: 0
+  _itemCharge: 10
   _maxItemCharge: 10
+  _goesOnBody: 0
+  _body: {fileID: 0}
 --- !u!114 &435353456
 MonoBehaviour:
   m_ObjectHideFlags: 0
