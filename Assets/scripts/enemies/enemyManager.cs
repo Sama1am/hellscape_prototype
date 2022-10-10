@@ -37,7 +37,6 @@ public class enemyManager : MonoBehaviour
         
     }
 
-
     public void takeDamage(float dam)
     {
         _currentHealth -= dam;
@@ -138,7 +137,7 @@ public class enemyManager : MonoBehaviour
     private IEnumerator velocityDelay()
     {
         rb.velocity = Vector2.zero;
-        Debug.Log("VELOCITY DELAY!");
+        //Debug.Log("VELOCITY DELAY!");
         rb.mass = 2;
         rb.drag = 2f;
         yield return new WaitForSeconds(2);

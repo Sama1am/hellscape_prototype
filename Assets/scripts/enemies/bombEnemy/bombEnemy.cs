@@ -59,8 +59,9 @@ public class bombEnemy : MonoBehaviour
     public bool stunned;
     #endregion
 
-
-    [SerializeField] private GameObject _bombEffect;
+    [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
+    //[SerializeField] private GameObject _bombEffect;
+    [SerializeField] private CircleCollider2D _explodeRadius;
     public GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
@@ -69,6 +70,7 @@ public class bombEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _explodeRadius.radius = _explodeDist;
         em = GetComponent<enemyManager>();
         player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         active = false;
@@ -106,6 +108,7 @@ public class bombEnemy : MonoBehaviour
         if(_dist <= _explodeDist)
         {
             canMove = false;
+            explode();
         }
 
         if((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
@@ -230,26 +233,6 @@ public class bombEnemy : MonoBehaviour
 
 
         }
-        else if (velocityMove)
-        {
-            Vector3 posA = target.transform.position;
-            Vector3 posB = rb.position;
-            Vector3 direction = (posA - posB).normalized;
-
-
-            Vector2 force = direction * speed * Time.deltaTime;
-            rb.velocity = rb.velocity + force;
-
-            if (Mathf.Abs(rb.velocity.x) >= maxMoveSpeed)
-            {
-                Debug.Log("AT MAX MOVE SPEED");
-                rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxMoveSpeed, maxMoveSpeed), rb.velocity.y);
-                Debug.Log("VELOCITY IS " + rb.velocity.x);
-            }
-
-
-
-        }
 
     }
 
@@ -298,26 +281,45 @@ public class bombEnemy : MonoBehaviour
         }
     }
 
+    void explode()
+    {
+        for (int i = 0; i < _enemies.Count; i++)
+        {
+            //_bombEffect.SetActive(true);
+            _enemies[i].GetComponentInChildren<playerManager>().takeDamage(damage);
+            knockBack();
+            em.die();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Body"))
+        {
+            _enemies.Add(collision.gameObject);
+
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Body"))
         {
-            _bombEffect.SetActive(true);
-            collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
-            Debug.Log("PLAYER TAKES " + damage + " DAMAGE");
-            em.die();
-            knockBack();
+            _enemies.Remove(collision.gameObject);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Body"))
+        if(collision.gameObject.CompareTag("Body"))
         {
-            _bombEffect.SetActive(true);
-            collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
-            em.die();
-            knockBack();
+            //_bombEffect.SetActive(true);
+            //collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
+            //em.die();
+            //knockBack();
+
+            explode();
         }
     }
 
