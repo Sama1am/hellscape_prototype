@@ -111,10 +111,14 @@ MonoBehaviour:
   transformMove: 1
   moveWaitDone: 0
   damage: 1
-  _chaseDist: 10.93
+  _chaseDist: 11
   _dist: 0
+  _attackDist: 4.5
   active: 0
   stunned: 0
+  _rushSpeed: 5
+  _rush: 0
+  _targetVect: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
 --- !u!114 &6494923697806264580
 MonoBehaviour:

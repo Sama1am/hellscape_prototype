@@ -53,10 +53,14 @@ public class enemyMovement : MonoBehaviour
     [SerializeField] private float _chaseDist;
     //[SerializeField] private float _maxChaseDist;
     [SerializeField] private float _dist;
+    [SerializeField] private float _attackDist;
     public bool active;
     public bool stunned;
     #endregion
 
+    [SerializeField] private float _rushSpeed;
+    [SerializeField] private bool _rush;
+    [SerializeField] private Vector3 _targetVect;
     public GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
@@ -89,38 +93,20 @@ public class enemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkDist();
-        changeTarget();
-
-        if (_dist <= _chaseDist)
+        checkDist(); // checks dist from player
+        changeTarget(); // chases the target depedning on the states 
+        checkstates(); // chnages the states if the enemy depeneding on distances and certain criteria 
+        
+        if(_rush)
         {
-            //chasing = true;
-            ES.chasing = true;
-            targetPos = player;
+            getTargetForRush();
+            rushToPlayer();
         }
 
-        if((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
-        {
-            canMove = true;
-        }
-        else if(em.checkStunStatus() == true)
-        {
-            canMove = false;
-            StartCoroutine("stunnedwait");
-        }
-        else
-        {
-            canMove = false;
-        }
-
-
-        if (ES.active)
+        if(ES.active)
         {
             pathFinding();
         }
-
-        
-       
 
     }
 
@@ -131,6 +117,55 @@ public class enemyMovement : MonoBehaviour
             updatePath();
         }
         
+    }
+
+    void checkstates()
+    {
+
+        //if the player is in ranged of chase dist the enemy will chase them 
+        if (_dist <= _chaseDist)
+        {
+            //chasing = true;
+            ES.chasing = true;
+            ES.returning = false;
+            targetPos = player;
+        }
+
+        //enemy will still chase player if they are out of max dist if the player is in chase range 
+        if ((Vector2.Distance(transform.position, ES.transform.position) > ES._maxDistFromSpawner) && (_dist <= _chaseDist))
+        {
+            ES.chasing = true;
+            ES.returning = false;
+            targetPos = player;
+        }
+        else if((Vector2.Distance(transform.position, ES.transform.position) > ES._maxDistFromSpawner) && (_dist > _chaseDist))
+        {
+            ES.goBack();
+        }
+
+        if (_dist <= _attackDist)
+        {
+            if (!_rush)
+            {
+                _rush = true;
+            }
+
+        }
+
+
+        if ((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
+        {
+            canMove = true;
+        }
+        else if (em.checkStunStatus() == true)
+        {
+            canMove = false;
+            StartCoroutine("stunnedwait");
+        }
+        else
+        {
+            canMove = false;
+        }
     }
 
     void pathFinding()
@@ -264,11 +299,20 @@ public class enemyMovement : MonoBehaviour
         
     }
 
+    void getTargetForRush()
+    {
+        _targetVect = targetPos.position;
+    }
+
+    void rushToPlayer()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, _targetVect, _rushSpeed * Time.deltaTime);
+    }
+
     public void checkDist()
     {
         _dist = Vector3.Distance(gameObject.transform.position, target.transform.position);
 
-      
     }
 
     void changeTarget()
@@ -286,6 +330,7 @@ public class enemyMovement : MonoBehaviour
         {
             ES.home = true;
             targetPos = player;
+            ES.returning = false;
         }
     }
 
@@ -293,22 +338,22 @@ public class enemyMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Body"))
         {
-            if(collision.gameObject.GetComponent<bodyController>().attacking == false)
+            if(collision.gameObject.GetComponent<bodyController>().attacking == false && _rush)
             {
                 knockBackPlayer();
+                _rush = false;
             }
         }
 
     }
 
-
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, _chaseDist);
-        //Gizmos.DrawWireSphere(transform.position, _maxChaseDist);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _attackDist);
     }
-
 
     IEnumerator stunnedwait()
     {

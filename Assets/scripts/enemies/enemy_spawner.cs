@@ -20,8 +20,8 @@ public class enemy_spawner : MonoBehaviour
     #region distance Varibles
     [Header("Distacne Variables")]
     [SerializeField] private float _activationDist;
-    [SerializeField] private float _maxDist;
-    [SerializeField] private float _maxChaseDist;
+    [SerializeField] public float _maxDistFromSpawner;
+    //[SerializeField] private float _maxChaseDist;
     #endregion
 
     private GameObject _player;
@@ -60,10 +60,10 @@ public class enemy_spawner : MonoBehaviour
 
                 activate();
 
-                goBack();
+                //goBack();
 
 
-                if (_enemy.transform.position != transform.position)
+                if(_enemy.transform.position != transform.position)
                 {
                     home = false;
                 }
@@ -115,14 +115,17 @@ public class enemy_spawner : MonoBehaviour
     }
 
 
-    void goBack()
+    public void goBack()
     {
-        if ((_distFromSpawner >= _maxDist) && (_enemyDist >= _maxChaseDist))
-        {
-            returning = true;
-            chasing = false;
+        //if((_distFromSpawner >= _maxDistFromSpawner)) 
+        //{
+        //    returning = true;
+        //    chasing = false;
            
-        }
+        //}
+
+        returning = true;
+        chasing = false;
     }
 
     public void setDeadStatus(bool status)
@@ -149,8 +152,8 @@ public class enemy_spawner : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, _activationDist);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _maxDist);
+        Gizmos.DrawWireSphere(transform.position, _maxDistFromSpawner);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, _maxChaseDist);
+        //Gizmos.DrawWireSphere(transform.position, _maxChaseDist);
     }
 }
