@@ -161,22 +161,20 @@ MonoBehaviour:
   speed: 2.5
   nextWaypointDistance: 0.5
   reachedEndOfPath: 0
-  targetPos: {fileID: 0}
-  player: {fileID: 0}
   knockBackForce: 10
   maxMoveSpeed: 2.5
   rushMoveSpeed: 6
   velocityMove: 0
   transformMove: 1
   moveWaitDone: 0
+  _rushSpeed: 10
   damage: 0
-  _attackDist: 6.24
+  _attackDist: 5.91
   _chaseDist: 10.97
-  _retreatDist: 8.46
+  _closeEnough: 3
   _dist: 0
   active: 0
   stunned: 0
-  target: {fileID: 0}
 --- !u!1 &6501055671720212309
 GameObject:
   m_ObjectHideFlags: 0

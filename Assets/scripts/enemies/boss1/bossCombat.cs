@@ -122,7 +122,7 @@ public class bossCombat : MonoBehaviour
                         
                         rushTowardsPlayer();
 
-                        if ((gameObject.transform.position == targetPos))
+                        if((gameObject.transform.position == targetPos))
                         {
                             _canMove = false;
                             canShoot = false;
@@ -331,7 +331,7 @@ public class bossCombat : MonoBehaviour
             }
         }
 
-        //checks if the player is above the boss 
+    //checks if the player is above the boss 
     float checkUpDown(Vector3 up, Vector3 targetDir)
         {
 

@@ -27,22 +27,14 @@ public class meleeMovement : MonoBehaviour
     #region movementStuff
     [Header("movementStuff")]
 
-    public Transform targetPos;
-
-    public Transform player;
-
-    [SerializeField]
-    private float knockBackForce;
-
-    [SerializeField]
-    private float maxMoveSpeed;
+    private Transform _targetPos;
+    private Transform _player;
+    [SerializeField] private float knockBackForce;
+    [SerializeField] private float maxMoveSpeed;
     [SerializeField] private float rushMoveSpeed;
-
-    [SerializeField]
-    private bool velocityMove;
-
-    [SerializeField]
-    private bool transformMove, moveWaitDone;
+    [SerializeField] private bool velocityMove;
+    [SerializeField] private bool transformMove, moveWaitDone;
+    [SerializeField] private float _rushSpeed;
     #endregion
 
     #region privateVar
@@ -53,14 +45,17 @@ public class meleeMovement : MonoBehaviour
     [Header("distacne shit")]
     [SerializeField] private float _attackDist;
     [SerializeField] private float _chaseDist;
-    [SerializeField] private float _retreatDist;
+    [SerializeField] private float _closeEnough;
+    //[SerializeField] private float _retreatDist;
     [SerializeField] private float _dist;
     public bool active;
     public bool stunned;
     #endregion
 
-    private bool rush;
-    public GameObject target;
+    private Vector3 _rushTarget;
+    [SerializeField] private bool rush;
+    [SerializeField]  private bool _rushing;
+    private GameObject _target;
     Rigidbody2D rb;
     Seeker seeker;
     enemy_spawner ES;
@@ -69,7 +64,7 @@ public class meleeMovement : MonoBehaviour
     void Start()
     {
         em = GetComponent<enemyManager>();
-        player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
+        _player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         active = false;
         rb = gameObject.GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
@@ -77,19 +72,18 @@ public class meleeMovement : MonoBehaviour
 
         try
         {
-            targetPos = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
+            _targetPos = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         }
         catch
         {
 
         }
 
-        target = GameObject.FindGameObjectWithTag("Body");
+        _target = GameObject.FindGameObjectWithTag("Body");
         //InvokeRepeating("updatePath", 0f, .5f);
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         checkDist();
@@ -99,44 +93,44 @@ public class meleeMovement : MonoBehaviour
         {
             //chasing = true;
             ES.chasing = true;
-            rush = true;
             //targetPos = player;
         }
 
         if(ES.chasing)
         {
-            if((Vector2.Distance(transform.position, player.GetComponent<Transform>().position)) < (_attackDist))
+            if((Vector2.Distance(transform.position, _player.GetComponent<Transform>().position)) <= (_attackDist) && (!rush))
             {
-                if(rush)
-                {
-                    //stop 
-                    canMove = true;
-                    targetPos = player;
-                    speed = rushMoveSpeed;
-                }
+                rush = true; 
                 
             }
-
-            if((!rush) && (Vector2.Distance(transform.position, player.GetComponent<Transform>().position)) < (_retreatDist))
+            else if((Vector2.Distance(transform.position, _player.GetComponent<Transform>().position)) > (_attackDist))
             {
-                targetPos = ES.GetComponent<Transform>();
+                rush = false;
             }
 
-            if((target == ES.GetComponent<Transform>()) && (Vector2.Distance(transform.position, player.GetComponent<Transform>().position)) >= (_retreatDist))
+            if(rush)
             {
-                canMove = true;
-                targetPos = player;
-                speed = maxMoveSpeed;
-                rush = true;
+                //stop 
+                canMove = false;
+                rushToPlayer();
+            }
 
+            if(_rushing)
+            {
+                rush = false;
+                if ((gameObject.transform.position == _rushTarget) || (Vector2.Distance(transform.position, _rushTarget)) <= (_closeEnough))
+                {
+                    rush = false;
+                    StartCoroutine("rushWait");
+                }
             }
         }
 
-        if ((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
+        if ((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true) && (!rush))
         {
             canMove = true;
         }
-        else if (em.checkStunStatus())
+        else if (em.checkStunStatus() == true)
         {
             canMove = false;
             StartCoroutine("stunnedwait");
@@ -260,7 +254,7 @@ public class meleeMovement : MonoBehaviour
     {
         if (seeker.IsDone())
         {
-            seeker.StartPath(transform.position, targetPos.position, OnPathComplete);
+            seeker.StartPath(transform.position, _targetPos.position, OnPathComplete);
         }
 
     }
@@ -269,7 +263,7 @@ public class meleeMovement : MonoBehaviour
     {
         //rb.AddForce(-targetPos.position * knockBackForce, ForceMode2D.Impulse);
 
-        Vector2 direction = player.transform.position - transform.position;
+        Vector2 direction = _player.transform.position - transform.position;
         Vector2 dir = (-direction).normalized;
         //Debug.Log(dir);
         rb.AddForce(dir * knockBackForce, ForceMode2D.Impulse);
@@ -278,30 +272,38 @@ public class meleeMovement : MonoBehaviour
 
     public void checkDist()
     {
-        _dist = Vector3.Distance(gameObject.transform.position, target.transform.position);
+        _dist = Vector3.Distance(gameObject.transform.position, _target.transform.position);
 
 
+    }
+
+    private void rushToPlayer()
+    {
+        rush = false;
+        _rushing = true;
+        _rushTarget = _target.transform.position;
+        transform.position = Vector3.MoveTowards(transform.position, _rushTarget, _rushSpeed * Time.deltaTime);
     }
 
     void changeTarget()
     {
         if(ES.returning)
         {
-            targetPos = GetComponentInParent<Transform>();
+            _targetPos = GetComponentInParent<Transform>();
         }
         else if (ES.chasing)
         {
-            targetPos = player;
+            _targetPos = _player;
         }
         else if(!rush)
         {
-            targetPos = GetComponentInParent<Transform>();
+            _targetPos = GetComponentInParent<Transform>();
         }
 
         if (transform.position == ES.GetComponent<Transform>().position && !ES.home)
         {
             ES.home = true;
-            targetPos = player;
+            _targetPos = _player;
         }
     }
 
@@ -315,22 +317,20 @@ public class meleeMovement : MonoBehaviour
                 //retreating = true;
                 Debug.Log("SHOULD RETREAT!");
                 rush = false;
-                targetPos = ES.GetComponent<Transform>();
+                _targetPos = ES.GetComponent<Transform>();
                 speed = maxMoveSpeed;
             }
         }
 
     }
 
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _chaseDist);
         Gizmos.DrawWireSphere(transform.position, _attackDist);
-        Gizmos.DrawWireSphere(transform.position, _retreatDist);
+        
     }
-
 
     IEnumerator stunnedwait()
     {
@@ -339,5 +339,14 @@ public class meleeMovement : MonoBehaviour
         canMove = true;
         em.setStunStatus(false);
 
+    }
+
+    IEnumerator rushWait()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(1f);
+        rush = false;
+        _rushing = false;
+        canMove = true;
     }
 }

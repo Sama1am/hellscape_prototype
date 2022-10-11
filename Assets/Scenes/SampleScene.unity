@@ -601,7 +601,7 @@ PrefabInstance:
     - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
       propertyPath: _enemyPrefab
       value: 
-      objectReference: {fileID: 6494923697806264581, guid: 4472929a44ba2c94a99b415ced5d4254, type: 3}
+      objectReference: {fileID: 6501055671056156658, guid: 27b0f085c4a6a9b42895f55682c95680, type: 3}
     - target: {fileID: 9114303563808503879, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
       propertyPath: m_RootOrder
       value: 7
