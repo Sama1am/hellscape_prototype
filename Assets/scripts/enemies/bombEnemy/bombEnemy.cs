@@ -59,6 +59,7 @@ public class bombEnemy : MonoBehaviour
     public bool stunned;
     #endregion
 
+    [SerializeField] private GameObject _bombEffect;
     [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
     //[SerializeField] private GameObject _bombEffect;
     [SerializeField] private CircleCollider2D _explodeRadius;
@@ -102,6 +103,7 @@ public class bombEnemy : MonoBehaviour
         {
             //chasing = true;
             ES.chasing = true;
+            canMove = true; 
             targetPos = player;
         }
 
@@ -283,13 +285,16 @@ public class bombEnemy : MonoBehaviour
 
     void explode()
     {
+        StartCoroutine("bombEffect");
+
         for (int i = 0; i < _enemies.Count; i++)
         {
             //_bombEffect.SetActive(true);
             _enemies[i].GetComponentInChildren<playerManager>().takeDamage(damage);
             knockBack();
-            em.die();
         }
+
+        em.die();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -331,7 +336,6 @@ public class bombEnemy : MonoBehaviour
 
     }
 
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -340,7 +344,6 @@ public class bombEnemy : MonoBehaviour
 
         //Gizmos.DrawWireSphere(transform.position, _maxChaseDist);
     }
-
 
     IEnumerator stunnedwait()
     {
@@ -351,4 +354,10 @@ public class bombEnemy : MonoBehaviour
 
     }
 
+    IEnumerator bombEffect()
+    {
+        _bombEffect.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        _bombEffect.SetActive(false);
+    }
 }

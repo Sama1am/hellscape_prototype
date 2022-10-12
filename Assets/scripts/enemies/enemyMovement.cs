@@ -58,8 +58,10 @@ public class enemyMovement : MonoBehaviour
     public bool stunned;
     #endregion
 
+    [SerializeField] private float _closeEnough;
     [SerializeField] private float _rushSpeed;
     [SerializeField] private bool _rush;
+    [SerializeField] private bool _isRushing;
     [SerializeField] private Vector3 _targetVect;
     public GameObject target;
     Rigidbody2D rb;
@@ -75,7 +77,7 @@ public class enemyMovement : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
         ES = GetComponentInParent<enemy_spawner>();
-
+        _isRushing = false;
         try
         {
             targetPos = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
@@ -97,10 +99,13 @@ public class enemyMovement : MonoBehaviour
         changeTarget(); // chases the target depedning on the states 
         checkstates(); // chnages the states if the enemy depeneding on distances and certain criteria 
         
-        if(_rush)
+        if(_dist < _attackDist)
         {
-            getTargetForRush();
-            rushToPlayer();
+            speed = _rushSpeed;
+        }
+        else if(_dist > _attackDist)
+        {
+            speed = maxMoveSpeed;
         }
 
         if(ES.active)
@@ -123,7 +128,7 @@ public class enemyMovement : MonoBehaviour
     {
 
         //if the player is in ranged of chase dist the enemy will chase them 
-        if (_dist <= _chaseDist)
+        if(_dist <= _chaseDist)
         {
             //chasing = true;
             ES.chasing = true;
@@ -142,16 +147,6 @@ public class enemyMovement : MonoBehaviour
         {
             ES.goBack();
         }
-
-        if (_dist <= _attackDist)
-        {
-            if (!_rush)
-            {
-                _rush = true;
-            }
-
-        }
-
 
         if ((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
         {
@@ -299,16 +294,6 @@ public class enemyMovement : MonoBehaviour
         
     }
 
-    void getTargetForRush()
-    {
-        _targetVect = targetPos.position;
-    }
-
-    void rushToPlayer()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, _targetVect, _rushSpeed * Time.deltaTime);
-    }
-
     public void checkDist()
     {
         _dist = Vector3.Distance(gameObject.transform.position, target.transform.position);
@@ -334,19 +319,6 @@ public class enemyMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Body"))
-        {
-            if(collision.gameObject.GetComponent<bodyController>().attacking == false && _rush)
-            {
-                knockBackPlayer();
-                _rush = false;
-            }
-        }
-
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -362,5 +334,17 @@ public class enemyMovement : MonoBehaviour
         canMove = true;
         em.setStunStatus(false);
             
+    }
+
+    IEnumerator rushWait()
+    {
+        Debug.Log("CORUTINE STARTED!");
+        _isRushing = true;
+        yield return new WaitForSeconds(2f);
+        Debug.Log("CORUTINE DONE!");
+        canMove = false;
+        _isRushing = false;
+        _rush = false;
+
     }
 }

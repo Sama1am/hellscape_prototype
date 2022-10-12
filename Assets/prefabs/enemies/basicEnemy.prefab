@@ -74,7 +74,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.16754414}
+  m_Offset: {x: 0, y: -0.0021666735}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -85,7 +85,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.6123488}
+  m_Size: {x: 1, y: 0.9431037}
   m_EdgeRadius: 0
 --- !u!114 &6494923697806264583
 MonoBehaviour:
@@ -100,24 +100,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  speed: 2.5
+  speed: 3
   nextWaypointDistance: 0.5
   reachedEndOfPath: 0
   targetPos: {fileID: 0}
   player: {fileID: 0}
-  knockBackForce: 10
-  maxMoveSpeed: 5
+  knockBackForce: 15
+  maxMoveSpeed: 3
   velocityMove: 0
   transformMove: 1
   moveWaitDone: 0
   damage: 1
   _chaseDist: 11
   _dist: 0
-  _attackDist: 4.5
+  _attackDist: 2.5
   active: 0
   stunned: 0
-  _rushSpeed: 5
+  _closeEnough: 1
+  _rushSpeed: 6
   _rush: 0
+  _isRushing: 0
   _targetVect: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
 --- !u!114 &6494923697806264580
@@ -163,6 +165,7 @@ MonoBehaviour:
   simpleEnemy: 0
   _currentHealth: 0
   _maxHealth: 5
+  _damage: 1
   knockBackForce: 16
   force: 100
   isdead: 0
@@ -212,7 +215,7 @@ MonoBehaviour:
   subdivisions: 2
   iterations: 2
   strength: 0.5
-  uniformLength: 1
+  uniformLength: 0
   maxSegmentLength: 2
   bezierTangentLength: 0.4
   offset: 0.2
@@ -290,7 +293,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d8e0d51ef9825864fa6e04e7ae03682c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 762151f5f516a9e4ca9a1de7c41d6334, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

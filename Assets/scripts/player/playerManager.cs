@@ -34,6 +34,11 @@ public class playerManager : MonoBehaviour
     void Update()
     {
         setUI();
+
+        if (currentHealth > health)
+        {
+            currentHealth = health;
+        }
     }
 
     public void takeDamage(float dam)
@@ -54,10 +59,6 @@ public class playerManager : MonoBehaviour
 
         checkHealth();
 
-        if(currentHealth > health)
-        {
-            currentHealth = health;
-        }
     }
 
     public void checkHealth()

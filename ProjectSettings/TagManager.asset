@@ -18,6 +18,7 @@ TagManager:
   - key
   - keyManager
   - bomb
+  - bodyPart
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - enemyProjectile
   - enemy
   - pointer
-  - 
+  - bodyParts
   - 
   - 
   - 

@@ -45,8 +45,17 @@ public class enemyProjectile : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Body"))
         {
-            collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
-            Destroy(gameObject);
+            if ((collision.gameObject.GetComponent<bodyController>().isAttacking() == false))
+            {
+                collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
+                Destroy(gameObject);
+            }
+            else if((collision.gameObject.GetComponent<bodyController>().isAttacking() == true))
+            {
+                collision.gameObject.GetComponent<playerManager>().takeDamage(damage / collision.gameObject.GetComponent<playerManager>().damageTakenOffset);
+                Destroy(gameObject);
+            }
+
         }
         else if(collision.gameObject.CompareTag("obstacle"))
         {

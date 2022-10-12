@@ -27,5 +27,10 @@ public class bodyParts : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
+
+        if(collision.gameObject.CompareTag("enemy"))
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 }

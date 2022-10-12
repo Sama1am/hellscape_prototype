@@ -7,7 +7,7 @@ public class enemyManager : MonoBehaviour
     public bool simpleEnemy;
     [SerializeField] private float _currentHealth;
     [SerializeField] private float _maxHealth;
-    private float _damage;
+    [SerializeField] private float _damage;
     public float knockBackForce;
     public float force;
     public bool isdead;
@@ -113,8 +113,9 @@ public class enemyManager : MonoBehaviour
             if((collision.gameObject.GetComponent<bodyController>().isAttacking() == false) && (_stunned == false))
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage);
-                //nockBack();
-                knockBackPlayer();
+                //knockBackPlayer();
+                knockBack();
+                StartCoroutine("velocityDelay");
 
 
             }
@@ -123,9 +124,10 @@ public class enemyManager : MonoBehaviour
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage / collision.gameObject.GetComponent<playerManager>().damageTakenOffset);
                 rb.velocity = Vector2.zero;
                 StartCoroutine("velocityDelay");
+                //knockBack();
+                //StartCoroutine("velocityDelay");
             }
             
-
         }
 
         if(collision.gameObject.CompareTag("Player"))
