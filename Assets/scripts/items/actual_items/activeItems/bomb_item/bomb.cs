@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class bomb : MonoBehaviour
 {
+    [SerializeField] private float _bombTime;
     [SerializeField] private float _explodeDist;
     [SerializeField] private float _damage;
     [SerializeField] private float _explodeTime;
@@ -24,7 +25,7 @@ public class bomb : MonoBehaviour
     {
         _explodeTime -= Time.deltaTime;
 
-        if(_explodeTime <= 3 && _explodeTime > 0)
+        if(_explodeTime <= _bombTime && _explodeTime > 0)
         {
             _explode = true;
             
@@ -73,21 +74,6 @@ public class bomb : MonoBehaviour
         }
         
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    _explode = true;
-    //    if(collision.gameObject.CompareTag("enemy"))
-    //    {
-    //        collision.gameObject.GetComponent<enemyManager>().takeDamage(_damage);
-    //        Vector2 difference = transform.position - collision.transform.position;
-    //        Vector2 diff = difference * 1.5f;
-    //        collision.transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y);
-    //        collision.gameObject.GetComponent<enemyManager>().setStunStatus(true);
-    //        Destroy(gameObject);
-    //    }
-    //}
-
 
     private void OnDrawGizmosSelected()
     {

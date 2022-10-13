@@ -42,11 +42,15 @@ public class playerItemManager : MonoBehaviour
 
     public void setItemCharge()
     {
-        _itemCharge++;
-        if(_itemCharge > _maxItemCharge)
+        if(hasItem)
         {
-            _itemCharge = _maxItemCharge;
+            _itemCharge++;
+            if (_itemCharge > _maxItemCharge)
+            {
+                _itemCharge = _maxItemCharge;
+            }
         }
+        
     }
 
     public void useItemCharge()
@@ -69,6 +73,7 @@ public class playerItemManager : MonoBehaviour
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();
                     _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
+                    _UISprite.color = new Color(_UISprite.color.r, _UISprite.color.g, _UISprite.color.b, 255f);
                 }
                 else if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == false)
                 {
@@ -79,6 +84,7 @@ public class playerItemManager : MonoBehaviour
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();
                     _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
+                   _UISprite.color = new Color(_UISprite.color.r, _UISprite.color.g, _UISprite.color.b, 255f);
                 }
                 
                 
@@ -91,6 +97,7 @@ public class playerItemManager : MonoBehaviour
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();
                     _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
+                    _UISprite.color = new Color(_UISprite.color.r, _UISprite.color.g, _UISprite.color.b, 255f);
                     hasItem = true;
                 }
                 else if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == false)
@@ -99,6 +106,7 @@ public class playerItemManager : MonoBehaviour
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();
                     _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
+                    _UISprite.color = new Color(_UISprite.color.r, _UISprite.color.g, _UISprite.color.b, 255f);
                     hasItem = true;
                 }
                

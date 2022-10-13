@@ -110,7 +110,9 @@ public class bombEnemy : MonoBehaviour
         if(_dist <= _explodeDist)
         {
             canMove = false;
-            explode();
+            StartCoroutine("bombEffect");
+            StartCoroutine("explodeWait");
+            
         }
 
         if((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
@@ -285,7 +287,7 @@ public class bombEnemy : MonoBehaviour
 
     void explode()
     {
-        StartCoroutine("bombEffect");
+        //StartCoroutine("bombEffect");
 
         for (int i = 0; i < _enemies.Count; i++)
         {
@@ -354,10 +356,17 @@ public class bombEnemy : MonoBehaviour
 
     }
 
+    IEnumerator explodeWait()
+    {
+        yield return new WaitForSeconds(1f);
+        explode();
+    }
     IEnumerator bombEffect()
     {
         _bombEffect.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         _bombEffect.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        _bombEffect.SetActive(true);
     }
 }
