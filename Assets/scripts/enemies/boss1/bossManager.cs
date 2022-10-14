@@ -23,14 +23,14 @@ public class bossManager : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         currentHeaalth = _maxHealth;
         rb = GetComponent<Rigidbody2D>();
-        GetComponentInParent<bossSpawner>()._bossSlider.minValue = 0;
-        GetComponentInParent<bossSpawner>()._bossSlider.maxValue = _maxHealth;
+       // GetComponentInParent<bossSpawner>()._bossSlider.minValue = 0;
+       // GetComponentInParent<bossSpawner>()._bossSlider.maxValue = _maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponentInParent<bossSpawner>()._bossSlider.value = currentHeaalth;
+       // GetComponentInParent<bossSpawner>()._bossSlider.value = currentHeaalth;
         if (currentHeaalth > _maxHealth / 2)
         {
             stageOne = true;
@@ -73,7 +73,9 @@ public class bossManager : MonoBehaviour
             if ((collision.gameObject.GetComponent<bodyController>().attacking == false))
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage);
-                knockBack();
+                rb.velocity = Vector2.zero;
+                StartCoroutine("velocityDelay");
+                //knockBack();
             }
             else if (collision.gameObject.GetComponent<bodyController>().attacking == true)
             {

@@ -104,7 +104,7 @@ MonoBehaviour:
   numberOfProjectiles: 12
   projectile: {fileID: 6134175407906975407, guid: 21bc64d6fb660d548b5896d4c663a799, type: 3}
   nextShot: 2
-  timeBetweenShots: 1
+  timeBetweenShots: 2
   radius: 5
   moveSpeed: 4
   canShoot: 0
@@ -132,7 +132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 15
-  key: {fileID: 5303447587310373228, guid: acb37396f93b0c049a16203d809af8ed, type: 3}
   currentHeaalth: 1
   stageOne: 0
   stageTwo: 0

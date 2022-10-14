@@ -57,12 +57,12 @@ public class bossCombat : MonoBehaviour
     #endregion
 
     public bool active;
-
     private Vector3 targetPos;
     public bool _canMove;
     public int num;
     [SerializeField] private int _numOfShots;
     bossManager BM;
+
     void Start()
     {
         active = false;
@@ -79,26 +79,25 @@ public class bossCombat : MonoBehaviour
     {
         if(active)
         {
-
             if(BM.stageOne)
             {
                 try
                 {
-                    if ((canShoot) && (_canMove == false))
+                    if((canShoot) && (_canMove == false))
                     {
-                        if (Time.time > nextShot)
+                        if(Time.time > nextShot)
                         {
                             circularShot(numberOfProjectiles);
                         }
 
                     }
 
-                    if ((_canMove) && (canShoot == false))
+                    if((_canMove) && (canShoot == false))
                     {
                         
                         rushTowardsPlayer();
 
-                        if ((gameObject.transform.position == targetPos) || (Vector2.Distance(transform.position, targetPos)) <= (closeEnough))
+                        if((gameObject.transform.position == targetPos) || (Vector2.Distance(transform.position, targetPos)) <= (closeEnough))
                         {
                             _canMove = false;
                             canShoot = true;
@@ -111,13 +110,14 @@ public class bossCombat : MonoBehaviour
                 {
                     error = true;
                 }
+
             }
             else if (BM.stageTwo)
             {
                 try
                 {
 
-                    if ((_canMove) && (canShoot == false))
+                    if((_canMove) && (canShoot == false))
                     {
                         
                         rushTowardsPlayer();
@@ -134,10 +134,10 @@ public class bossCombat : MonoBehaviour
 
                     }
 
-                    if ((canShoot) && (_canMove == false))
+                    if((canShoot) && (_canMove == false))
                     {
                         rushToHome();
-                        if (transform.position == _ogPos)
+                        if(transform.position == _ogPos)
                         {
                             Vector3 heading = target.position - transform.position;
                             dirRight = checkLeftRight(transform.forward, heading, transform.up);
@@ -145,18 +145,19 @@ public class bossCombat : MonoBehaviour
 
                             determineAngle();
 
-                            if (Time.time > nextShotCluster)
+                            if(Time.time > nextShotCluster)
                                 clusterShoot(numberOfProjectilesCluster);
                         }
 
                     }
 
-
+                    
                 }
                 catch
                 {
                     error = true;
                 }
+
             }
         }
 
@@ -331,7 +332,6 @@ public class bossCombat : MonoBehaviour
             }
         }
 
-    //checks if the player is above the boss 
     float checkUpDown(Vector3 up, Vector3 targetDir)
         {
 
@@ -369,11 +369,20 @@ public class bossCombat : MonoBehaviour
     {
         _canMove = false;
         canShoot = false;
-
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
 
         selectTarget();
         _canMove = true;
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Body"))
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            _canMove = false;
+            canShoot = true;
+        }
     }
 }

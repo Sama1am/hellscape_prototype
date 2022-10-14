@@ -12,9 +12,9 @@ public class bossSpawner : MonoBehaviour
     [SerializeField] private float _instanDist;
     [SerializeField] private GameObject _Boss;
     [SerializeField] public GameObject _BossHealthSlider;
-    [SerializeField] public Slider _bossSlider;
+    //[SerializeField] public Slider _bossSlider;
     [SerializeField] private float xValue;
-    [SerializeField] private GameObject _bossDoor;
+    //[SerializeField] private GameObject _bossDoor;
     [SerializeField] private GameObject key;
 
     private GameObject actualBoss;
@@ -42,7 +42,7 @@ public class bossSpawner : MonoBehaviour
                 actualBoss = Instantiate(_Boss, transform.position, Quaternion.identity, transform);
                 DM = actualBoss.GetComponent<dropManager>();
                 hasSpanwedBoss = true;
-                _BossHealthSlider.SetActive(true);
+               // _BossHealthSlider.SetActive(true);
             }
             
         }
@@ -54,7 +54,7 @@ public class bossSpawner : MonoBehaviour
                 DM.determineDrop();
                 Instantiate(key, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
                 Destroy(gameObject);
-                _BossHealthSlider.SetActive(false);
+                //_BossHealthSlider.SetActive(false);
             }
         }
         
@@ -97,11 +97,11 @@ public class bossSpawner : MonoBehaviour
         {
             if(actualBoss.GetComponent<bossCombat>().active == true)
             {
-                StartCoroutine("bossDelay");
+                //StartCoroutine("bossDelay");
             }
             else if (actualBoss.GetComponent<bossManager>().isdead)
             {
-                Destroy(_bossDoor);
+                //Destroy(_bossDoor);
 
             }
         }
@@ -110,9 +110,9 @@ public class bossSpawner : MonoBehaviour
 
     private IEnumerator bossDelay()
     {
-        _bossDoor.SetActive(false);
+        //_bossDoor.SetActive(false);
         yield return new WaitForSeconds(3f);
-        _bossDoor.SetActive(true);
+        //_bossDoor.SetActive(true);
     }
 
 }
