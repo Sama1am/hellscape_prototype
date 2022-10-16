@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170768597649697691}
   m_LocalRotation: {x: -0, y: -0, z: 0.0032288067, w: 0.9999948}
-  m_LocalPosition: {x: 2.18028, y: -0.0060000005, z: 0}
-  m_LocalScale: {x: 3.45407, y: 0.20000002, z: 1}
+  m_LocalPosition: {x: 2.1247, y: -0.0064, z: 0}
+  m_LocalScale: {x: 3.342849, y: 0.20000002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 170768597920260292}
@@ -99,7 +99,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.000055372715, y: 0.0049609393}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.99989974, y: 0.9923793}
   m_EdgeRadius: 0
 --- !u!114 &2575261349163871908
 MonoBehaviour:
@@ -268,17 +268,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _OrbitSpeed: 0
   _lasers: []
-  _shoot: 0
-  _rotate: 0
   _simpleEnemies: {fileID: 0}
-  _rotateTime: 0
   _attackDist: 0
   _enemies: []
   _minX: 0
   _maxX: 0
   _miny: 0
   _maxy: 0
-  _spawnedEnemies: 0
+  _speed: 0
+  _damage: 0
 --- !u!114 &782918043844617460
 MonoBehaviour:
   m_ObjectHideFlags: 0

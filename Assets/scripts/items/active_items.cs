@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class active_items : MonoBehaviour
 {
-    [SerializeField] private GameObject _itemUI;
     public Sprite UISprite;
     public CircleCollider2D itemCollider;
     public SpriteRenderer SR;

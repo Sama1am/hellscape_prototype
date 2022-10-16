@@ -16,10 +16,14 @@ public class playerItemManager : MonoBehaviour
     [SerializeField] private float _maxItemCharge;
     [SerializeField] private bool _goesOnBody;
     [SerializeField] private GameObject _body;
+    [SerializeField] private Slider _itemChargeSlider;
+    [SerializeField] private GameObject _itemChargeUI;
     // Start is called before the first frame update
     void Start()
     {
         _body = GameObject.FindGameObjectWithTag("Body");
+
+        _itemChargeSlider.maxValue = _maxItemCharge;
     }
 
     // Update is called once per frame
@@ -33,6 +37,13 @@ public class playerItemManager : MonoBehaviour
         {
             _canUseItem = false;
         }
+
+        if(hasItem)
+        {
+            _itemChargeUI.SetActive(true);
+        }
+
+        _itemChargeSlider.value = _itemCharge;
     }
 
     public bool getItemStatus()
