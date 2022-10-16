@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class bossManager : MonoBehaviour
 {
-   // [SerializeField] private Slider _healthSlider;
+   //[SerializeField] private Slider _healthSlider;
     [SerializeField] private float _maxHealth;
     public float currentHeaalth;
     public bool stageOne, stageTwo;
@@ -31,7 +31,7 @@ public class bossManager : MonoBehaviour
     void Update()
     {
        // GetComponentInParent<bossSpawner>()._bossSlider.value = currentHeaalth;
-        if (currentHeaalth > _maxHealth / 2)
+        if(currentHeaalth > _maxHealth / 2)
         {
             stageOne = true;
             stageTwo = false;

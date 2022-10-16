@@ -59,6 +59,7 @@ public class bombEnemy : MonoBehaviour
     public bool stunned;
     #endregion
 
+    [SerializeField] private GameObject explosionEffect;
     [SerializeField] private GameObject _bombEffect;
     [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
     //[SerializeField] private GameObject _bombEffect;
@@ -89,7 +90,6 @@ public class bombEnemy : MonoBehaviour
         }
 
         target = GameObject.FindGameObjectWithTag("Body");
-        //InvokeRepeating("updatePath", 0f, .5f);
 
     }
 
@@ -98,24 +98,29 @@ public class bombEnemy : MonoBehaviour
     {
         checkDist();
         changeTarget();
+        stateChecks();
+    }
 
-        if(_dist <= _chaseDist)
+    void stateChecks()
+    {
+        if (_dist <= _chaseDist)
         {
             //chasing = true;
             ES.chasing = true;
-            canMove = true; 
+            canMove = true;
             targetPos = player;
         }
 
-        if(_dist <= _explodeDist)
+        if (_dist <= _explodeDist)
         {
             canMove = false;
+            _bombEffect.SetActive(true);
             StartCoroutine("bombEffect");
             StartCoroutine("explodeWait");
-            
+
         }
 
-        if((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
+        if ((ES.returning) || (ES.chasing) && (em.checkStunStatus() != true))
         {
             canMove = true;
         }
@@ -134,10 +139,6 @@ public class bombEnemy : MonoBehaviour
         {
             pathFinding();
         }
-
-
-
-
     }
 
     private void FixedUpdate()
@@ -288,7 +289,8 @@ public class bombEnemy : MonoBehaviour
     void explode()
     {
         //StartCoroutine("bombEffect");
-
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        _bombEffect.SetActive(true);
         for (int i = 0; i < _enemies.Count; i++)
         {
             //_bombEffect.SetActive(true);

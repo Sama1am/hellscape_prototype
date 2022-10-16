@@ -6,16 +6,8 @@ using Pathfinding;
 public class clusterEnemy : MonoBehaviour
 {
     
-
-    public Transform targetPos;
-
-    public Transform player;
-
- 
-
-    
     [SerializeField] private float damage;
-    [SerializeField] private float _dist;
+    private float _dist;
     [SerializeField] private float _attackDist;
     public bool active;
     public bool stunned;
@@ -23,50 +15,45 @@ public class clusterEnemy : MonoBehaviour
     private float moveSpeedCluster;
     [SerializeField] private float nextShotCluster;
     [SerializeField] private float timeBetweenShotsCluster;
-    [SerializeField] private int numberOfProjectilesCluster;
     [SerializeField] int numberOfProjectiles;
-
-    private bool spawnEnemies, error;
-
-    //public Transform target;
-
-    private float angle, rawAngle, dirRight, dirUp;
-
     [SerializeField] private int randomAngleRangeMin, randomAngleRangeMax;
-    private int randomAngle;
-    Vector2 startPoint;
     [SerializeField] private GameObject _projectile;
     [SerializeField] private bool _center;
 
-    public GameObject target;
-    Rigidbody2D rb;
-    enemy_spawner ES;
-    enemyManager em;
-    // Start is called before the first frame update
+    private float angle, rawAngle, dirRight, dirUp;
+    private bool spawnEnemies, error;
+    private int randomAngle;
+    private Vector2 startPoint;
+    private Transform _targetPos;
+    private Transform _player;
+    private GameObject _target;
+    private Rigidbody2D _rb;
+    private enemy_spawner _ES;
+    private enemyManager _em;
+
     void Start()
     {
-        em = GetComponent<enemyManager>();
-        player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
+        _em = GetComponent<enemyManager>();
+        _player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         active = false;
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        _rb = gameObject.GetComponent<Rigidbody2D>();
         
-        ES = GetComponentInParent<enemy_spawner>();
+        _ES = GetComponentInParent<enemy_spawner>();
        
         try
         {
-            targetPos = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
+            _targetPos = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         }
         catch
         {
 
         }
 
-        target = GameObject.FindGameObjectWithTag("Body");
+        _target = GameObject.FindGameObjectWithTag("Body");
         //InvokeRepeating("updatePath", 0f, .5f);
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         checkDist(); // checks dist from player
@@ -77,13 +64,18 @@ public class clusterEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_dist < _attackDist)
+        shoot();
+    }
+
+    private void shoot()
+    {
+        if (_dist < _attackDist)
         {
-            if(Time.time > nextShotCluster)
+            if (Time.time > nextShotCluster)
             {
-                if(_center)
+                if (_center)
                 {
-                    Vector3 heading = target.transform.position - transform.position;
+                    Vector3 heading = _target.transform.position - transform.position;
                     dirRight = checkLeftRight(transform.forward, heading, transform.up);
                     dirUp = checkUpDown(transform.up, heading);
 
@@ -94,16 +86,15 @@ public class clusterEnemy : MonoBehaviour
                 {
                     clusterShoot(numberOfProjectiles);
                 }
-                
-            }
-            
-        }
 
+            }
+
+        }
     }
 
     public void checkDist()
     {
-        _dist = Vector3.Distance(gameObject.transform.position, target.transform.position);
+        _dist = Vector3.Distance(gameObject.transform.position, _target.transform.position);
 
     }
 

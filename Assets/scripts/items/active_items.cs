@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class active_items : MonoBehaviour
 {
-    
+    [SerializeField] private GameObject _itemUI;
     public Sprite UISprite;
     public CircleCollider2D itemCollider;
     public SpriteRenderer SR;
@@ -30,6 +31,7 @@ public class active_items : MonoBehaviour
     {
         itemCollider.enabled = false;
         SR.enabled = false;
+        
     }
 
     public void dropItem()

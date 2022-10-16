@@ -7,18 +7,11 @@ public class bossCombat : MonoBehaviour
     #region circular shot
     [Header("Circular shot")]
     [SerializeField] int numberOfProjectiles;
-
     [SerializeField] GameObject projectile;
-
     [SerializeField] private float nextShot;
-
     [SerializeField] private float timeBetweenShots;
-
     Vector2 startPoint;
-
     [SerializeField] private float radius, moveSpeed;
-
-    [SerializeField] private bool canShoot;
     #endregion
 
     #region ClusterShit
@@ -27,7 +20,7 @@ public class bossCombat : MonoBehaviour
     [SerializeField]
     private float radiusCluster;
 
-    private float moveSpeedCluster;
+    [SerializeField] private float moveSpeedCluster;
 
     [SerializeField]
     private float nextShotCluster;
@@ -38,7 +31,7 @@ public class bossCombat : MonoBehaviour
     [SerializeField]
     private int numberOfProjectilesCluster;
 
-    private bool spawnEnemies, error;
+    [SerializeField] private bool spawnEnemies, error;
 
     public Transform target;
 
@@ -56,12 +49,24 @@ public class bossCombat : MonoBehaviour
     private Vector3 _ogPos;
     #endregion
 
+    [SerializeField] private GameObject simpleEnemy;
+    [SerializeField] private float numOFEnemies;
     public bool active;
     private Vector3 targetPos;
     public bool _canMove;
     public int num;
     [SerializeField] private int _numOfShots;
     bossManager BM;
+
+    [SerializeField] private float _minX, _maxX, _minY, _maxY;
+    [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
+    [SerializeField] private GameObject _posionAOEObject;
+    private int state = 0;
+    private float bossTimer = 0f;
+
+    private bool _circleShoot;
+    private bool _clusterShoot;
+    private bool _circleClusterShoot;
 
     void Start()
     {
@@ -70,219 +75,275 @@ public class bossCombat : MonoBehaviour
         startPoint = gameObject.transform.position;
         _target = GameObject.FindGameObjectWithTag("Body");
         _ogPos = transform.position;
-        StartCoroutine("startDelay");
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        //target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(active)
+        //attacks
+        clusterShoot(numberOfProjectilesCluster);
+        secdonryCircleShot(numberOfProjectiles);
+        circularShot(numberOfProjectiles);
+        removeEnemies();
+        //AI
+        bossAI();
+    }
+
+    void bossAI()
+    {
+        bossTimer += Time.deltaTime;
+        if(BM.stageOne)
         {
-            if(BM.stageOne)
+            if(bossTimer > 3)
             {
-                try
+
+                Debug.Log("State Change! " + state);
+
+                switch (state)
                 {
-                    if((canShoot) && (_canMove == false))
-                    {
-                        if(Time.time > nextShot)
-                        {
-                            circularShot(numberOfProjectiles);
-                        }
 
-                    }
-
-                    if((_canMove) && (canShoot == false))
-                    {
+                    case 1:
+                        //Debug.Log("State 1");
+                        _circleShoot = true;
                         
-                        rushTowardsPlayer();
-
-                        if((gameObject.transform.position == targetPos) || (Vector2.Distance(transform.position, targetPos)) <= (closeEnough))
-                        {
-                            _canMove = false;
-                            canShoot = true;
-                        }
-
-                    }
-
+                        break;
+                    case 2:
+                        //Debug.Log("Laser state");
+                        _circleShoot = false;
+                        spawnPosion();
+                        break;
+                    case 0:
+                        //Debug.Log("Enemy State");
+                        spawnEnemy();
+                        break;
                 }
-                catch
+                state++;
+                if (state > 2)
                 {
-                    error = true;
+                    state = -1;
                 }
-
+                bossTimer = 0;
             }
-            else if (BM.stageTwo)
+        }
+        else if(BM.stageTwo)
+        {
+            if (bossTimer > 3)
             {
-                try
+
+                Debug.Log("State Change! " + state);
+
+                switch (state)
                 {
 
-                    if((_canMove) && (canShoot == false))
-                    {
+                    case 1:
+                        //Debug.Log("State 1");
+                        _circleClusterShoot = true;
                         
-                        rushTowardsPlayer();
-
-                        if((gameObject.transform.position == targetPos))
-                        {
-                            _canMove = false;
-                            canShoot = false;
-                            secdonryCircleShot(numberOfProjectiles);
-
-
-
-                        }
-
-                    }
-
-                    if((canShoot) && (_canMove == false))
-                    {
-                        rushToHome();
-                        if(transform.position == _ogPos)
-                        {
-                            Vector3 heading = target.position - transform.position;
-                            dirRight = checkLeftRight(transform.forward, heading, transform.up);
-                            dirUp = checkUpDown(transform.up, heading);
-
-                            determineAngle();
-
-                            if(Time.time > nextShotCluster)
-                                clusterShoot(numberOfProjectilesCluster);
-                        }
-
-                    }
-
+                        break;
+                    case 2:
+                        //Debug.Log("Laser state");
+                        _circleClusterShoot = false;
+                        _clusterShoot = true;
+                        
+                        break;
+                    case 0:
+                        //Debug.Log("Enemy State");
+                        _clusterShoot = false;
+                        spawnPosion();
+                        break;
                     
                 }
-                catch
+                state++;
+                if (state > 2)
                 {
-                    error = true;
+                    state = -1;
                 }
-
+                bossTimer = 0;
             }
+        }
+       
+
+    }
+
+    private void removeEnemies()
+    {
+        for (int i = 0; i < _enemies.Count; i++)
+        {
+            if (_enemies[i] == null)
+            {
+                _enemies.Remove(_enemies[i]);
+            }
+        }
+    }
+
+    void spawnEnemy()
+    {
+        if (_enemies.Count > 4)
+        {
+            
+        }
+        else if(_enemies.Count <= 3)
+        {
+            float a = Random.Range(1, 5);
+            spawnSimpleEnemies(a);
         }
 
     }
 
+    void spawnSimpleEnemies(float numOFEnemies)
+    {
+        for (int i = 0; i <= numOFEnemies - 1; i++)
+        {
+            float randX = Random.Range(_minX, _maxX);
+            float randY = Random.Range(_minY, _maxY);
+
+            Vector2 spawnPoint = new Vector2(randX, randY);
+
+            if (spawnPoint == new Vector2(gameObject.transform.position.x, gameObject.transform.position.y))
+            {
+                return;
+            }
+
+           _enemies.Add(Instantiate(simpleEnemy, spawnPoint, Quaternion.identity));
+        }
+
+        
+    }
 
     void circularShot(int numberOfProjectiles)
     {
-        float angleStep = 360f / numberOfProjectiles;
-        float angle = 0f;
-
-        for (int i = 0; i <= numberOfProjectiles - 1; i++)
+        if(_circleShoot)
         {
-            startPoint = gameObject.transform.position;
-            float projectileDirXposition = startPoint.x + Mathf.Sin((angle * Mathf.PI) / 180) * radius;
-            float projectileDirYposition = startPoint.y + Mathf.Cos((angle * Mathf.PI) / 180) * radius;
+            if (Time.time > nextShot)
+            {
+                Vector3 heading = _target.transform.position - transform.position;
+                dirRight = checkLeftRight(transform.forward, heading, transform.up);
+                dirUp = checkUpDown(transform.up, heading);
 
-            Vector2 projectileVector = new Vector2(projectileDirXposition, projectileDirYposition);
-            Vector2 projectileMoveDirection = (projectileVector - startPoint).normalized * moveSpeed;
+                determineAngle();
 
-            var proj = Instantiate(projectile, startPoint, Quaternion.identity);
-            proj.GetComponent<Rigidbody2D>().velocity =
-                new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
 
-            proj.transform.SetParent(gameObject.transform);
+                float angleStep = 360f / numberOfProjectiles;
+                float angle = 0f;
 
-            angle += angleStep;
+                for (int i = 0; i <= numberOfProjectiles - 1; i++)
+                {
+                    startPoint = gameObject.transform.position;
+                    float projectileDirXposition = startPoint.x + Mathf.Sin((angle * Mathf.PI) / 180) * radius;
+                    float projectileDirYposition = startPoint.y + Mathf.Cos((angle * Mathf.PI) / 180) * radius;
+
+                    Vector2 projectileVector = new Vector2(projectileDirXposition, projectileDirYposition);
+                    Vector2 projectileMoveDirection = (projectileVector - startPoint).normalized * moveSpeed;
+
+                    var proj = Instantiate(projectile, startPoint, Quaternion.identity);
+                    proj.GetComponent<Rigidbody2D>().velocity =
+                        new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
+
+                    proj.transform.SetParent(gameObject.transform);
+
+                    angle += angleStep;
+                }
+
+                nextShot = Time.time + timeBetweenShots;
+               
+            }
         }
+        
+    }
 
-        nextShot = Time.time + timeBetweenShots;
-        _numOfShots++;
-
-        if(_numOfShots >= 2)
+    void secdonryCircleShot(int numOfProjectiles)
+    {
+        if(_circleClusterShoot)
         {
-            _numOfShots = 0;
-            StartCoroutine("moveBuildUp");
+            if (Time.time > nextShot)
+            {
+                startPoint = gameObject.transform.position;
+
+                numOfProjectiles = Random.Range(8, 15);
+                //determineAngle();
+
+                for (int i = 0; i <= numOfProjectiles - 1; i++)
+                {
+                    moveSpeedCluster = Random.Range(8, 12);
+                    randomAngle = Random.Range(0, 360);
+                    float projectileDirXposition = startPoint.x + Mathf.Sin((randomAngle * Mathf.PI) / 180) * radiusCluster;
+                    float projectileDirYposition = startPoint.y + Mathf.Cos((randomAngle * Mathf.PI) / 180) * radiusCluster;
+
+                    Vector2 projectileVector = new Vector2(projectileDirXposition, projectileDirYposition);
+                    Vector2 projectileMoveDirection = (projectileVector - startPoint).normalized * moveSpeedCluster;
+
+                    var proj = Instantiate(projectile, startPoint, Quaternion.identity);
+                    proj.GetComponent<Rigidbody2D>().velocity = new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
+
+                    proj.transform.SetParent(gameObject.transform);
+                }
+
+                nextShot = Time.time + timeBetweenShotsCluster;
+               
+            }
         }
        
     }
 
-    void secdonryCircleShot(int numberOfProjectiles)
-    {
-        float angleStep = 360f / numberOfProjectiles;
-        float angle = 0f;
-
-        for (int i = 0; i <= numberOfProjectiles - 1; i++)
-        {
-            startPoint = gameObject.transform.position;
-            float projectileDirXposition = startPoint.x + Mathf.Sin((angle * Mathf.PI) / 180) * radius;
-            float projectileDirYposition = startPoint.y + Mathf.Cos((angle * Mathf.PI) / 180) * radius;
-
-            Vector2 projectileVector = new Vector2(projectileDirXposition, projectileDirYposition);
-            Vector2 projectileMoveDirection = (projectileVector - startPoint).normalized * moveSpeed;
-
-            var proj = Instantiate(projectile, startPoint, Quaternion.identity);
-            proj.GetComponent<Rigidbody2D>().velocity =
-                new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
-
-            proj.transform.SetParent(gameObject.transform);
-
-            angle += angleStep;
-        }
-
-        nextShot = Time.time + timeBetweenShots;
-        _numOfShots++;
-
-        if (_numOfShots >= 1)
-        {
-            _numOfShots = 0;
-            _canMove = false;
-            canShoot = true;
-            
-        }
-    }
-
-    public void selectTarget()
-    {
-        targetPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position;
-        canShoot = false;
-
-    }
-
-    void rushTowardsPlayer()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, _speed * Time.deltaTime);
-    }
-
-    void rushToHome()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, _ogPos, _speed * Time.deltaTime);
-    }
-
     void clusterShoot(int numOfProjectiles)
     {
-
-        startPoint = gameObject.transform.position;
-
-        numOfProjectiles = Random.Range(5, 8);
-        determineAngle();
-
-        for (int i = 0; i <= numOfProjectiles - 1; i++)
+        if(_clusterShoot)
         {
-            moveSpeedCluster = Random.Range(8, 12);
-            randomAngle = Random.Range(randomAngleRangeMin, randomAngleRangeMax);
-            float projectileDirXposition = startPoint.x + Mathf.Sin((randomAngle * Mathf.PI) / 180) * radiusCluster;
-            float projectileDirYposition = startPoint.y + Mathf.Cos((randomAngle * Mathf.PI) / 180) * radiusCluster;
+            if(Time.time > nextShot)
+            {
+                startPoint = gameObject.transform.position;
+                Vector3 heading = _target.transform.position - transform.position;
+                dirRight = checkLeftRight(transform.forward, heading, transform.up);
+                dirUp = checkUpDown(transform.up, heading);
+                numOfProjectiles = Random.Range(8, 15);
+                determineAngle();
 
-            Vector2 projectileVector = new Vector2(projectileDirXposition, projectileDirYposition);
-            Vector2 projectileMoveDirection = (projectileVector - startPoint).normalized * moveSpeedCluster;
+                for (int i = 0; i <= numOfProjectiles - 1; i++)
+                {
+                    moveSpeedCluster = Random.Range(8, 12);
+                    randomAngle = Random.Range(randomAngleRangeMin, randomAngleRangeMax);
+                    float projectileDirXposition = startPoint.x + Mathf.Sin((randomAngle * Mathf.PI) / 180) * radiusCluster;
+                    float projectileDirYposition = startPoint.y + Mathf.Cos((randomAngle * Mathf.PI) / 180) * radiusCluster;
 
-            var proj = Instantiate(projectile, startPoint, Quaternion.identity);
-            proj.GetComponent<Rigidbody2D>().velocity = new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
+                    Vector2 projectileVector = new Vector2(projectileDirXposition, projectileDirYposition);
+                    Vector2 projectileMoveDirection = (projectileVector - startPoint).normalized * moveSpeedCluster;
 
-            proj.transform.SetParent(gameObject.transform);
+                    var proj = Instantiate(projectile, startPoint, Quaternion.identity);
+                    proj.GetComponent<Rigidbody2D>().velocity = new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
+
+                    proj.transform.SetParent(gameObject.transform);
+                }
+
+                nextShot = Time.time + timeBetweenShotsCluster;
+               
+            }
         }
+    }
 
-        nextShotCluster = Time.time + timeBetweenShotsCluster;
-        _numOfShots++;
+    void spawnPosion()
+    {
+        float a = Random.Range(4, 12);
+        posionAOE(a);
+    }
 
-        if (_numOfShots >= 2)
+    void posionAOE(float numOFEnemies)
+    {
+        for (int i = 0; i <= numOFEnemies - 1; i++)
         {
-            _numOfShots = 0;
-            StartCoroutine("moveBuildUp");
-        }
+            float randX = Random.Range(_minX, _maxX);
+            float randY = Random.Range(_minY, _maxY);
 
+            Vector2 spawnPoint = new Vector2(randX, randY);
+
+            if (spawnPoint == new Vector2(gameObject.transform.position.x, gameObject.transform.position.y))
+            {
+                return;
+            }
+
+            _enemies.Add(Instantiate(_posionAOEObject, spawnPoint, Quaternion.identity));
+        }
     }
 
     void determineAngle()
@@ -351,38 +412,11 @@ public class bossCombat : MonoBehaviour
             }
         }
 
-    IEnumerator startDelay()
-    {
-        canShoot = false;
-        _canMove = false;
-        yield return new WaitForSeconds(4f);
-        canShoot = true;
-    }
-
-    IEnumerator moveWait()
-    {
-        yield return new WaitForSeconds(3f);
-        rushTowardsPlayer();
-    }
-
-    private IEnumerator moveBuildUp()
-    {
-        _canMove = false;
-        canShoot = false;
-        yield return new WaitForSeconds(3f);
-
-        selectTarget();
-        _canMove = true;
-
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Body"))
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            _canMove = false;
-            canShoot = true;
         }
     }
 }

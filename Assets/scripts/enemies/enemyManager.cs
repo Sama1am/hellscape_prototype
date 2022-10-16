@@ -1,24 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class enemyManager : MonoBehaviour
 {
-    public bool simpleEnemy;
+    [SerializeField] private bool simpleEnemy;
     [SerializeField] private float _currentHealth;
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _damage;
-    public float knockBackForce;
-    public float force;
-    public bool isdead;
+    [SerializeField] private float knockBackForce;
+    [SerializeField] private bool isdead;
+    [SerializeField] private Slider _enemyHealthBar;
+    [SerializeField] private GameObject _enemyUI;
+    private bool _UIActive;
 
     private GameObject _player;
     private SpriteRenderer _sp;
     private Color ogColor;
     private bool _stunned;
 
-    Rigidbody2D rb;
-    dropManager _DM;
+    private Rigidbody2D _rb;
+    private dropManager _DM;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,26 +28,46 @@ public class enemyManager : MonoBehaviour
         _currentHealth = _maxHealth;
         _DM = gameObject.GetComponent<dropManager>();
         _sp = GetComponentInChildren<SpriteRenderer>();
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        _rb = gameObject.GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Body");
         ogColor = _sp.color;
+        _enemyHealthBar.maxValue = _maxHealth;
+        _enemyUI.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        setUI();
+
+        if(_UIActive)
+        {
+            _enemyUI.SetActive(true);
+        }
+    }
+
+
+    private void setUI()
+    {
+        _enemyHealthBar.value = _currentHealth;
     }
 
     public void takeDamage(float dam)
     {
+       
         _currentHealth -= dam;
         StartCoroutine("changeColour");
 
-        if(_currentHealth <= 0)
+        if (!_UIActive)
+        {
+            _UIActive = true;
+        }
+
+        if (_currentHealth <= 0)
         {
             isdead = true;
-            GetComponentInParent<enemy_spawner>().setDeadStatus(true);
+            
             GetComponent<dropManager>().determineDrop();
             die();
            
@@ -68,6 +90,7 @@ public class enemyManager : MonoBehaviour
         {
             //_DM.determineDrop();
             Destroy(gameObject);
+            GetComponentInParent<enemy_spawner>().setDeadStatus(true);
             GetComponentInParent<enemy_spawner>().isdead = true;
             GetComponentInParent<enemy_spawner>().spawnedNewEnemy = false;
             Destroy(gameObject);
@@ -92,7 +115,7 @@ public class enemyManager : MonoBehaviour
     public void knockBackPlayer()
     {
         Vector2 difference = transform.position - _player.transform.position;
-        rb.AddForce(-difference * knockBackForce, ForceMode2D.Impulse);
+        _rb.AddForce(-difference * knockBackForce, ForceMode2D.Impulse);
     }
 
     public void setStunStatus(bool status)
@@ -109,7 +132,7 @@ public class enemyManager : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Body"))
         {
-            rb.velocity = Vector2.zero;
+            _rb.velocity = Vector2.zero;
             if((collision.gameObject.GetComponent<bodyController>().isAttacking() == false) && (_stunned == false))
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage);
@@ -122,7 +145,7 @@ public class enemyManager : MonoBehaviour
             else if(collision.gameObject.GetComponent<bodyController>().attacking == true)
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage / collision.gameObject.GetComponent<playerManager>().damageTakenOffset);
-                rb.velocity = Vector2.zero;
+                _rb.velocity = Vector2.zero;
                 StartCoroutine("velocityDelay");
                 //knockBack();
                 //StartCoroutine("velocityDelay");
@@ -132,20 +155,20 @@ public class enemyManager : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Player"))
         {
-            rb.velocity = Vector2.zero;
+            _rb.velocity = Vector2.zero;
         }
     }
 
     private IEnumerator velocityDelay()
     {
-        rb.velocity = Vector2.zero;
+        _rb.velocity = Vector2.zero;
         //Debug.Log("VELOCITY DELAY!");
-        rb.mass = 2;
-        rb.drag = 2f;
+        _rb.mass = 2;
+        _rb.drag = 2f;
         yield return new WaitForSeconds(2);
-        rb.drag = 0;
-        rb.mass = 1;
-        rb.velocity = Vector2.zero;
+        _rb.drag = 0;
+        _rb.mass = 1;
+        _rb.velocity = Vector2.zero;
 
     }
 

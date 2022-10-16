@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: spawner
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -50,11 +50,9 @@ MonoBehaviour:
   _distFromSpawner: 0
   _enemyDist: 0
   _activationDist: 25
-  _maxDist: 20.03
-  _maxChaseDist: 19.9
+  _maxDistFromSpawner: 0
   _spawnEnemyDelay: 60
-  EStransform: {fileID: 0}
-  currentTime: 0
+  _EStransform: {fileID: 0}
   active: 0
   returning: 0
   chasing: 0

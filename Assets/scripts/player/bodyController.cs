@@ -28,6 +28,8 @@ public class bodyController : MonoBehaviour
     public int critChance;
     #endregion
 
+    [SerializeField] private SpriteRenderer _pointerSprite;
+
     private GameObject _player;
     private Rigidbody2D _rb;
     private playerManager _PM;
@@ -48,6 +50,8 @@ public class bodyController : MonoBehaviour
         changeDirection();
         reelIn();
         shootOut();
+        setPointerSprite(_timeEleapsed);
+
     }
 
     private void FixedUpdate()
@@ -176,6 +180,35 @@ public class bodyController : MonoBehaviour
             _dam = 0.5f;
         }
 
+    }
+
+    private void setPointerSprite(float time)
+    {
+        if(Input.GetMouseButton(1))
+        {
+            if (time >= 0.6f)
+            {
+
+                _pointerSprite.color = Color.green;
+
+            }
+            else if ((time < 06f) && (time >= 0.4f))
+            {
+
+                _pointerSprite.color = Color.yellow;
+
+            }
+            else if (time <= 0.3f)
+            {
+                
+                _pointerSprite.color = Color.red;
+
+            }
+            else if(!Input.GetMouseButton(1))
+            {
+                _pointerSprite.color = Color.gray;
+            }
+        }
     }
 
     private IEnumerator attackDelay()

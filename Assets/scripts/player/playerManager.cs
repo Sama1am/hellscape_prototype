@@ -61,6 +61,16 @@ public class playerManager : MonoBehaviour
 
     }
 
+    public float getHealth()
+    {
+        return currentHealth;
+    }
+
+    public float getMaxHealth()
+    {
+        return health;
+    }
+
     public void checkHealth()
     {
         if(currentHealth <= 0)
@@ -76,17 +86,13 @@ public class playerManager : MonoBehaviour
         {
             _rb.velocity = Vector2.zero;
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            //collision.gameObject.GetComponent<enemyManager>().takeDamage(damage);
         }
     }
 
     private IEnumerator changeColour()
     {
         _sp.color = Color.red;
-
         yield return new WaitForSeconds(0.2f);
-
-        //_sp.color = Color.white;
         _sp.color = ogColor;
     }
 

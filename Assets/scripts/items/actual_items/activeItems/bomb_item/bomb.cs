@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class bomb : MonoBehaviour
 {
+    [SerializeField] private GameObject _explosionEffect;
     [SerializeField] private float _bombTime;
     [SerializeField] private float _explodeDist;
     [SerializeField] private float _damage;
@@ -44,6 +45,7 @@ public class bomb : MonoBehaviour
 
     void explode()
     {
+        Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         for(int i = 0; i < _enemies.Count; i++)
         {
             _enemies[i].GetComponent<enemyManager>().takeDamage(_damage);
