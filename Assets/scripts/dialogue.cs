@@ -13,6 +13,7 @@ public class dialogue : MonoBehaviour
     public Vector2 target;
     public GameObject tourGuide;
     int tourGuideSpeed = 2;
+    public TextMeshProUGUI missionNudges;
     //private bool startTour;
 
     // Start is called before the first frame update
@@ -45,7 +46,12 @@ public class dialogue : MonoBehaviour
 
         if (temp == 11)
         {
-            startTour();
+            endTour();
+        }
+
+        if (temp == 14)
+        {
+            missionNudges.text = "Mission: Escape Hell";
         }
 
     }
