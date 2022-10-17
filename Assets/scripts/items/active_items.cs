@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class active_items : MonoBehaviour
 {
+    private bool _currentActiveItem;
     public Sprite UISprite;
     public CircleCollider2D itemCollider;
     public SpriteRenderer SR;
@@ -26,16 +27,24 @@ public class active_items : MonoBehaviour
         return _onBody;
     }
 
+    public bool getCurrentStatus()
+    {
+        return _currentActiveItem;
+    }
+
     public void pickedUpItem()
     {
         itemCollider.enabled = false;
         SR.enabled = false;
-        
+        _currentActiveItem = true;
+
+
     }
 
     public void dropItem()
     {
         itemCollider.enabled = true;
         SR.enabled = true;
+        _currentActiveItem = false;
     }
 }

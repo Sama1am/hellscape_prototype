@@ -9,9 +9,11 @@ public class poisonManager : MonoBehaviour
     private GameObject _body;
     private bool hasSpawned;
     private playerItemManager _PIM;
+    private active_items _AI;
     // Start is called before the first frame update
     void Start()
     {
+        _AI = GetComponent<active_items>();
         _PIM = GameObject.FindGameObjectWithTag("Player").GetComponent<playerItemManager>();
         _body = GameObject.FindGameObjectWithTag("Body");
     }
@@ -19,22 +21,26 @@ public class poisonManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0))
+        if(_AI.getCurrentStatus() == true)
         {
-            if (_PIM.getItemStatus() == true)
+            if (Input.GetMouseButton(0))
             {
-
-                if (!hasSpawned)
+                if (_PIM.getItemStatus() == true)
                 {
-                    Instantiate(_poisonObject, _body.transform.position, Quaternion.identity);
-                    hasSpawned = true;
-                    StartCoroutine("spawnWait");
-                    _PIM.useItemCharge();
 
+                    if (!hasSpawned)
+                    {
+                        Instantiate(_poisonObject, _body.transform.position, Quaternion.identity);
+                        hasSpawned = true;
+                        StartCoroutine("spawnWait");
+                        _PIM.useItemCharge();
+
+                    }
                 }
-            }
 
+            }
         }
+        
     }
 
 

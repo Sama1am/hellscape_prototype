@@ -5,6 +5,7 @@ using UnityEngine;
 public class breakableObjects : MonoBehaviour
 {
     [SerializeField] private float _health;
+    [SerializeField] private GameObject _HealthItem;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class breakableObjects : MonoBehaviour
     {
         if(_health <= 0)
         {
+            determineDrop();
             Destroy(gameObject);
         }
     }
@@ -26,6 +28,22 @@ public class breakableObjects : MonoBehaviour
         if(collision.gameObject.CompareTag("Body"))
         {
             _health -= 1;
+        }
+    }
+
+
+
+    private void determineDrop()
+    {
+        float num = Random.Range(0, 101);
+
+        if(num <= 75)
+        {
+
+        }
+        else if(num < 75)
+        {
+            Instantiate(_HealthItem, transform.position, Quaternion.identity);
         }
     }
 }

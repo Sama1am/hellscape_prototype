@@ -133,6 +133,11 @@ public class enemy_spawner : MonoBehaviour
         isdead = status;
     }
 
+    public bool checkDeadStatus()
+    {
+        return isdead;
+    }
+
     IEnumerator spawnDelay()
     {
         yield return new WaitForSeconds(_spawnEnemyDelay);
