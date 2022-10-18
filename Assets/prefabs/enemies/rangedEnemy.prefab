@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 7262279780499625243}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.59, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7262279780698227972}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleEnemy: 0
   _currentHealth: 0
-  _maxHealth: 0
+  _maxHealth: 6
   _damage: 0
   knockBackForce: 0
   isdead: 0
@@ -151,8 +151,8 @@ MonoBehaviour:
   moveWaitDone: 0
   damage: 1
   _activationDist: 45
-  _chaseDist: 10
-  _maxChaseDist: 15
+  _chaseDist: 31.2
+  _maxChaseDist: 44.57
   _dist: 0
   active: 0
   retreatRange: 5

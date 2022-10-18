@@ -77,7 +77,7 @@ MonoBehaviour:
   randomAngleRangeMin: 0
   randomAngleRangeMax: 180
   _projectile: {fileID: 6134175407906975407, guid: 21bc64d6fb660d548b5896d4c663a799, type: 3}
-  _center: 1
+  _center: 0
 --- !u!114 &6635919111664660338
 MonoBehaviour:
   m_ObjectHideFlags: 0

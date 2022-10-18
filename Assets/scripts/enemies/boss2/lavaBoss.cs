@@ -37,12 +37,14 @@ public class lavaBoss : MonoBehaviour
 
     [SerializeField] private float _damage;
     private float _dist;
-    private bool _attack;
     private GameObject target;
+
+    private bossManager BM;
     
     // Start is called before the first frame update
     void Start()
     {
+        BM = GetComponent<bossManager>();
         ogPos = this.transform.position;
         target = GameObject.FindGameObjectWithTag("Body");
         getOgPos();
@@ -65,7 +67,7 @@ public class lavaBoss : MonoBehaviour
 
     void BossAI()
     {
-        if(_dist <= _attackDist)
+        if(BM.attackStatus() == true)
         {
             bossTimer += Time.deltaTime;
             if (bossTimer > 3)
@@ -104,6 +106,8 @@ public class lavaBoss : MonoBehaviour
         }
        
     }
+
+    
 
     void spawnEnemy()
     {

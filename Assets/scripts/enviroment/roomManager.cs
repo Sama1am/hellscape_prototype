@@ -6,13 +6,8 @@ public class roomManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] _enemySpawners;
     [SerializeField] private GameObject[] _doors;
-    [SerializeField] private bool _allEnemiesDead;
-
-    [SerializeField] private float _numOfEnemies;
-
-    [SerializeField] private float _X;
-    [SerializeField] private float _Y;
     [SerializeField] public List<GameObject> _enemiesInRoom = new List<GameObject>();
+    private bool _enteredRoom;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +23,7 @@ public class roomManager : MonoBehaviour
     {
         
         checkenemies();
+        
     }
 
     void checkenemies()
@@ -48,5 +44,17 @@ public class roomManager : MonoBehaviour
         }
     }
 
-   
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            for (int i = 0; i < _enemySpawners.Length; i++)
+            {
+                _enemySpawners[i].GetComponent<enemy_spawner>().setActive();
+            }
+        }
+    }
+
+
 }

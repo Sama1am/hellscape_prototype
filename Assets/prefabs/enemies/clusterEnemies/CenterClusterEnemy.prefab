@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3165589085529196217}
   - component: {fileID: 3165589085529196218}
   - component: {fileID: -9124344704562360869}
+  - component: {fileID: 6082458736082526859}
   m_Layer: 10
   m_Name: CenterClusterEnemy
   m_TagString: enemy
@@ -111,6 +112,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBoss: 0
   drop: 0
+--- !u!50 &6082458736082526859
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165589085529196198}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &3165589086026130987
 GameObject:
   m_ObjectHideFlags: 0

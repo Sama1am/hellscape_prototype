@@ -67,7 +67,7 @@ public class bossCombat : MonoBehaviour
     private bool _circleShoot;
     private bool _clusterShoot;
     private bool _circleClusterShoot;
-
+    
     void Start()
     {
         active = false;
@@ -93,78 +93,80 @@ public class bossCombat : MonoBehaviour
 
     void bossAI()
     {
-        bossTimer += Time.deltaTime;
-        if(BM.stageOne)
+        if(BM.attackStatus() == true)
         {
-            if(bossTimer > 3)
+            bossTimer += Time.deltaTime;
+            if (BM.stageOne)
             {
-
-                Debug.Log("State Change! " + state);
-
-                switch (state)
+                if (bossTimer > 3)
                 {
 
-                    case 1:
-                        //Debug.Log("State 1");
-                        _circleShoot = true;
-                        
-                        break;
-                    case 2:
-                        //Debug.Log("Laser state");
-                        _circleShoot = false;
-                        spawnPosion();
-                        break;
-                    case 0:
-                        //Debug.Log("Enemy State");
-                        spawnEnemy();
-                        break;
+                    Debug.Log("State Change! " + state);
+
+                    switch (state)
+                    {
+
+                        case 1:
+                            //Debug.Log("State 1");
+                            _circleShoot = true;
+
+                            break;
+                        case 2:
+                            //Debug.Log("Laser state");
+                            _circleShoot = false;
+                            spawnPosion();
+                            break;
+                        case 0:
+                            //Debug.Log("Enemy State");
+                            spawnEnemy();
+                            break;
+                    }
+                    state++;
+                    if (state > 2)
+                    {
+                        state = -1;
+                    }
+                    bossTimer = 0;
                 }
-                state++;
-                if (state > 2)
-                {
-                    state = -1;
-                }
-                bossTimer = 0;
             }
-        }
-        else if(BM.stageTwo)
-        {
-            if (bossTimer > 3)
+            else if (BM.stageTwo)
             {
-
-                Debug.Log("State Change! " + state);
-
-                switch (state)
+                if (bossTimer > 3)
                 {
 
-                    case 1:
-                        //Debug.Log("State 1");
-                        _circleClusterShoot = true;
-                        
-                        break;
-                    case 2:
-                        //Debug.Log("Laser state");
-                        _circleClusterShoot = false;
-                        _clusterShoot = true;
-                        
-                        break;
-                    case 0:
-                        //Debug.Log("Enemy State");
-                        _clusterShoot = false;
-                        spawnPosion();
-                        break;
-                    
+                    Debug.Log("State Change! " + state);
+
+                    switch (state)
+                    {
+
+                        case 1:
+                            //Debug.Log("State 1");
+                            _circleClusterShoot = true;
+
+                            break;
+                        case 2:
+                            //Debug.Log("Laser state");
+                            _circleClusterShoot = false;
+                            _clusterShoot = true;
+
+                            break;
+                        case 0:
+                            //Debug.Log("Enemy State");
+                            _clusterShoot = false;
+                            spawnPosion();
+                            break;
+
+                    }
+                    state++;
+                    if (state > 2)
+                    {
+                        state = -1;
+                    }
+                    bossTimer = 0;
                 }
-                state++;
-                if (state > 2)
-                {
-                    state = -1;
-                }
-                bossTimer = 0;
             }
         }
        
-
     }
 
     private void removeEnemies()

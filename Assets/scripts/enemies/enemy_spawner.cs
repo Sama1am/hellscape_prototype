@@ -59,26 +59,32 @@ public class enemy_spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_enemy != null)
+
+        changeStatus();
+    }
+
+    private void changeStatus()
+    {
+        if (_enemy != null)
         {
             if ((isdead == false))
             {
                 checkDist();
 
-                activate();
+                //activate();
 
                 //goBack();
 
 
-                if(_enemy.transform.position != transform.position)
+                if (_enemy.transform.position != transform.position)
                 {
                     home = false;
                 }
             }
         }
-        
-        
-        if((isdead == true) && (_enemy == null) && (!spawnedNewEnemy))
+
+
+        if ((isdead == true) && (_enemy == null) && (!spawnedNewEnemy))
         {
             _currentTime -= Time.deltaTime;
             if (_roomManage)
@@ -87,22 +93,20 @@ public class enemy_spawner : MonoBehaviour
             }
 
         }
-       
-        if((_currentTime <= 0) && (_enemy == null) && (!spawnedNewEnemy))
+
+        if ((_currentTime <= 0) && (_enemy == null) && (!spawnedNewEnemy))
         {
 
-            
+
             _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
             spawnedNewEnemy = true;
             _enemy.GetComponent<enemyManager>().setDeadStatus(false);
             _currentTime = _spawnEnemyDelay;
 
-            
-            
-        }
-       
-    }
 
+
+        }
+    }
 
     void checkDist()
     {
@@ -113,14 +117,32 @@ public class enemy_spawner : MonoBehaviour
     }
 
 
-    void activate()
+    public void setActive()
     {
-        if(_distFromPlayer <= _activationDist)
+        if(!isdead)
         {
             _enemy.SetActive(true);
             active = true;
         }
-        else if(_distFromPlayer > _activationDist)
+        
+    }
+
+    public void setDeactive()
+    {
+        active = false;
+        _enemy.SetActive(false);
+    }
+
+    void activate()
+    {
+        //if(_distFromPlayer <= _activationDist)
+        //{
+        //    _enemy.SetActive(true);
+        //    active = true;
+        //}
+        
+        
+        if(_distFromPlayer > _activationDist)
         {
             if((!chasing) && (home == true))
             {

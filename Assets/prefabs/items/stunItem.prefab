@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stun_UI
       objectReference: {fileID: 0}
+    - target: {fileID: 4453618734826312017, guid: b8c1eb9715489364d836f2a9573e71e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4453618734826312019, guid: b8c1eb9715489364d836f2a9573e71e3, type: 3}
       propertyPath: m_Pivot.x
       value: 0

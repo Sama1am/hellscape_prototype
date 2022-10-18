@@ -266,17 +266,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a50a23dadc82a2419076de5be5bcaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _OrbitSpeed: 0
-  _lasers: []
-  _simpleEnemies: {fileID: 0}
-  _attackDist: 0
+  _OrbitSpeed: 20
+  _lasers:
+  - {fileID: 170768597649697691}
+  - {fileID: 170768599210985782}
+  - {fileID: 170768597930195325}
+  - {fileID: 170768599264198533}
+  _simpleEnemies: {fileID: 306965073659788262, guid: 0fdca04cea3184947aa64238ddb667fa, type: 3}
+  _attackDist: 24.67
   _enemies: []
   _minX: 0
   _maxX: 0
   _miny: 0
   _maxy: 0
   _speed: 0
-  _damage: 0
+  _damage: 1
 --- !u!114 &782918043844617460
 MonoBehaviour:
   m_ObjectHideFlags: 0

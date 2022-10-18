@@ -14,11 +14,16 @@ public class bossManager : MonoBehaviour
     [SerializeField] private float _damage;
     public bool isdead;
 
+    private bool _attack;
     SpriteRenderer sr;
     Rigidbody2D rb;
+
+    [SerializeField] private GameObject _healthBar;
+    [SerializeField] private Slider _bossHealthSlider;
     // Start is called before the first frame update
     void Start()
     {
+        _bossHealthSlider.maxValue = _maxHealth;
         _player = GameObject.FindGameObjectWithTag("Body");
         sr = GetComponent<SpriteRenderer>();
         currentHeaalth = _maxHealth;
@@ -30,8 +35,10 @@ public class bossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        setUI();
+
        // GetComponentInParent<bossSpawner>()._bossSlider.value = currentHeaalth;
-        if(currentHeaalth > _maxHealth / 2)
+        if (currentHeaalth > _maxHealth / 2)
         {
             stageOne = true;
             stageTwo = false;
@@ -45,11 +52,27 @@ public class bossManager : MonoBehaviour
 
         if(currentHeaalth <= 0)
         {
+            _healthBar.SetActive(false);
             Debug.Log("spawned key!");
             Destroy(gameObject);
+            
         }
     }
 
+    private void setUI()
+    {
+        _bossHealthSlider.value = currentHeaalth;
+    }
+
+    public bool attackStatus()
+    {
+        return _attack;
+    }
+
+    public void setAttackStatus(bool attack)
+    {
+        _attack = attack;
+    }
 
     public void takeDamage(float dam)
     {
@@ -92,7 +115,6 @@ public class bossManager : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
     }
-
 
     private IEnumerator velocityDelay()
     {
