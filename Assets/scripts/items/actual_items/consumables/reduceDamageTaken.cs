@@ -20,7 +20,7 @@ public class reduceDamageTaken : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponentInChildren<playerManager>().damageTakenOffset++;
+            collision.gameObject.GetComponentInChildren<playerManager>().damageTakenOffset += 0.5f;
             Destroy(gameObject);
         }
     }

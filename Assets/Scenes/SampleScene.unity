@@ -590,9 +590,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _roomManage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
       propertyPath: _enemyPrefab
       value: 
       objectReference: {fileID: 6494923697806264581, guid: 4472929a44ba2c94a99b415ced5d4254, type: 3}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _roomManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _roomSpawner
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _currentRoomManager
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
       propertyPath: _maxDistFromSpawner
       value: 22
@@ -647,7 +663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114303563808503993, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
@@ -1337,9 +1353,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _roomManage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
       propertyPath: _enemyPrefab
       value: 
-      objectReference: {fileID: 6635919111664660334, guid: 24290c0be4870554abe8ac2a32b9664e, type: 3}
+      objectReference: {fileID: 6494923697806264581, guid: 4472929a44ba2c94a99b415ced5d4254, type: 3}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _roomManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _roomSpawner
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _currentRoomManager
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
       propertyPath: _maxDistFromSpawner
       value: 22
@@ -1572,6 +1604,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _roomManage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _roomManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _roomSpawner
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
+      propertyPath: _currentRoomManager
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9114303563808503878, guid: f4e5b4ebdf1c7b14ebd1f7f820fe3bed, type: 3}
       propertyPath: _maxDistFromSpawner
       value: 22
@@ -12764,6 +12812,8 @@ MonoBehaviour:
   currentHealth: 0
   damageTakenOffset: 6
   playerHealth: {fileID: 697161892}
+  hasfalseheart: 0
+  falseHeartHealth: 0
 --- !u!114 &1850394267
 MonoBehaviour:
   m_ObjectHideFlags: 0

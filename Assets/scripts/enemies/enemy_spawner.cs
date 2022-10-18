@@ -29,6 +29,9 @@ public class enemy_spawner : MonoBehaviour
     public Transform _EStransform;
     private float _currentTime;
 
+    public GameObject _currentRoomManager;
+    [SerializeField] private bool _roomManage;
+
     #region state
     [Header("State stuff (Do not set)")]
     public bool active;
@@ -44,6 +47,10 @@ public class enemy_spawner : MonoBehaviour
     {
         _EStransform = gameObject.transform;
         _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
+        if (_roomManage)
+        {
+            _currentRoomManager.GetComponent<roomManager>()._enemiesInRoom.Add(_enemy);
+        }
         isdead = false;
         _player = GameObject.FindGameObjectWithTag("Body");
         _currentTime = _spawnEnemyDelay;
@@ -74,14 +81,24 @@ public class enemy_spawner : MonoBehaviour
         if((isdead == true) && (_enemy == null) && (!spawnedNewEnemy))
         {
             _currentTime -= Time.deltaTime;
+            if (_roomManage)
+            {
+                _currentRoomManager.GetComponent<roomManager>()._enemiesInRoom.Remove(_enemy);
+            }
+
         }
        
         if((_currentTime <= 0) && (_enemy == null) && (!spawnedNewEnemy))
         {
+
+            
             _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
             spawnedNewEnemy = true;
             _enemy.GetComponent<enemyManager>().setDeadStatus(false);
             _currentTime = _spawnEnemyDelay;
+
+            
+            
         }
        
     }

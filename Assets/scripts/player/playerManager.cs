@@ -21,6 +21,10 @@ public class playerManager : MonoBehaviour
     private Rigidbody2D _rb;
     private SpriteRenderer _sp;
     private Color ogColor;
+
+    [SerializeField] private bool hasfalseheart;
+    [SerializeField] private float falseHeartHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,21 +47,27 @@ public class playerManager : MonoBehaviour
 
     public void takeDamage(float dam)
     {
-        //if(hasFalseHeart)
-        //{
-        //    falseHeart -= dam;
+        if(hasfalseheart)
+        {
+            falseHeartHealth -= dam;
 
-        //    if(falseHeart <= 0)
-        //    {
-        //        hasFalseHeart = false;
-        //        falseHeart = 0;
-        //    }
-        //}
-        currentHealth -= dam;
-        StartCoroutine("changeColour");
-        //Debug.Log("THE PLAYER TOOK " + dam + "DAMAGE!");
+            if (falseHeartHealth <= 0)
+            {
+                hasfalseheart = false;
+                falseHeartHealth = 0;
+                checkHealth();
+            }
+        }
+        else
+        {
+            currentHealth -= dam;
+            StartCoroutine("changeColour");
+            //Debug.Log("THE PLAYER TOOK " + dam + "DAMAGE!");
 
-        checkHealth();
+            checkHealth();
+        }
+
+        
 
     }
 
@@ -79,6 +89,11 @@ public class playerManager : MonoBehaviour
         }
     }
 
+    public void setFalseHeart()
+    {
+        hasfalseheart = true;
+        falseHeartHealth++;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

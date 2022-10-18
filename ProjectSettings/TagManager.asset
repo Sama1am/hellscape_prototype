@@ -19,6 +19,7 @@ TagManager:
   - keyManager
   - bomb
   - bodyPart
+  - door
   layers:
   - Default
   - TransparentFX

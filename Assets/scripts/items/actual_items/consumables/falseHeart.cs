@@ -20,8 +20,9 @@ public class falseHeart : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponentInChildren<playerManager>().hasFalseHeart = true;
-            collision.gameObject.GetComponentInChildren<playerManager>().falseHeart++;
+            collision.gameObject.GetComponentInChildren<playerManager>().setFalseHeart();
+            Destroy(gameObject);
+            
         }
     }
 }

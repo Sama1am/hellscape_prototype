@@ -21,7 +21,7 @@ public class increaseCritChance : MonoBehaviour
     {
         if ((collision.gameObject.CompareTag("Player")))
         {
-            collision.GetComponentInChildren<bodyController>().critChance += 10;
+            collision.GetComponentInChildren<bodyController>().critChance -= 5;
             Destroy(gameObject);
         }
     }

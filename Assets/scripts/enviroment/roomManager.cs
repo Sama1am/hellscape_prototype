@@ -6,41 +6,40 @@ public class roomManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] _enemySpawners;
     [SerializeField] private GameObject[] _doors;
+    [SerializeField] private bool _allEnemiesDead;
 
-    private bool _allEnemiesDead;
+    [SerializeField] private float _numOfEnemies;
+
+    [SerializeField] private float _X;
+    [SerializeField] private float _Y;
+    [SerializeField] public List<GameObject> _enemiesInRoom = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < _enemySpawners.Length; i++)
+        {
+            _enemySpawners[i].GetComponent<enemy_spawner>()._currentRoomManager = this.gameObject;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        checkRoomStatus();
+        
+        checkenemies();
     }
 
-
-    void checkRoomStatus()
+    void checkenemies()
     {
-        for (int i = 0; i < _enemySpawners.Length; i++)
-        {
-            if(_enemySpawners[i].GetComponent<enemy_spawner>().checkDeadStatus() == true)
-            {
-                _allEnemiesDead = true;
-            }
-        }
-
-
-        if (_allEnemiesDead)
+        if(_enemiesInRoom.Count <= 0)
         {
             for (int i = 0; i < _doors.Length; i++)
             {
-                _doors[i].SetActive(false);
+                _doors[i].SetActive(false); ;
             }
         }
-        else if (!_allEnemiesDead)
+        else if(_enemiesInRoom.Count >= 1)
         {
             for (int i = 0; i < _doors.Length; i++)
             {
@@ -48,4 +47,6 @@ public class roomManager : MonoBehaviour
             }
         }
     }
+
+   
 }

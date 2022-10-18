@@ -237,6 +237,12 @@ public class bodyController : MonoBehaviour
         
     }
 
+    public void increaseSpeed(float speed)
+    {
+        _speed += speed;
+    }
+
+    
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
