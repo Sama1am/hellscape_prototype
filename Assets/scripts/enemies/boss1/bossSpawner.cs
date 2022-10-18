@@ -21,11 +21,13 @@ public class bossSpawner : MonoBehaviour
 
     [SerializeField] private GameObject actualBoss;
     private bool hasSpanwedBoss;
-
-    dropManager DM;
+    private bool _spawnedKey;
+    public bool isdead;
+    [SerializeField] private dropManager DM;
     // Start is called before the first frame update
     void Start()
     {
+        DM = gameObject.GetComponent<dropManager>();
         _target = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -34,7 +36,7 @@ public class bossSpawner : MonoBehaviour
     {
         
 
-        door();
+        //door();
         checkDist();
 
         if (_distFromPlayer <= _instanDist)
@@ -43,19 +45,23 @@ public class bossSpawner : MonoBehaviour
             {
                 //actualBoss = Instantiate(_Boss, transform.position, Quaternion.identity, transform);
                 actualBoss.SetActive(true);
-                DM = actualBoss.GetComponent<dropManager>();
+                //DM = actualBoss.GetComponent<dropManager>();
                 hasSpanwedBoss = true;
                // _BossHealthSlider.SetActive(true);
             }
             
         }
 
-        if(actualBoss.GetComponent<bossManager>().currentHeaalth <= 0)
+
+        if(isdead)
         {
+            Destroy(_bossDoor);
             DM.determineDrop();
-            Instantiate(key, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
-            Destroy(gameObject);
-            //_BossHealthSlider.SetActive(false);
+            if(!_spawnedKey)
+            {
+                Instantiate(key, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
+                _spawnedKey = true;
+            }
         }
 
 
@@ -84,9 +90,6 @@ public class bossSpawner : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position, new Vector3(xValue, _activationDist, 0));
-        //Gizmos.DrawWireCube(transform.position, new Vector3(xValue, _instanDist, 0));
-
-        //Gizmos.DrawWireSphere(transform.position, _activationDist);
         Gizmos.DrawWireSphere(transform.position, _instanDist);
 
 
@@ -122,10 +125,16 @@ public class bossSpawner : MonoBehaviour
     {
         if ((collision.gameObject.CompareTag("Player")))
         {
-            _bossDoor.SetActive(true);
-            _BossHealthSlider.SetActive(true);
-            actualBoss.SetActive(true);
-            actualBoss.GetComponent<bossManager>().setAttackStatus(true);
+            if(!isdead)
+            {
+                _bossDoor.SetActive(true);
+                _BossHealthSlider.SetActive(true);
+                actualBoss.SetActive(true);
+                actualBoss.GetComponent<bossManager>().currentHeaalth = actualBoss.GetComponent<bossManager>()._maxHealth;
+                actualBoss.GetComponent<bossManager>().setAttackStatus(true);
+                hasSpanwedBoss = true;
+            }
+           
         }
     }
 

@@ -35,10 +35,10 @@ public class dropManager : MonoBehaviour
     public void determineDrop()
     {
 
-        if (_isBoss)
+        if((_isBoss) && (!_hasDropped))
         {
-            _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length + 1);
-            Instantiate(_itemManager._holyshitRareItems[_holyShit], transform.position, Quaternion.identity);
+            _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length);
+            Instantiate(_itemManager._holyshitRareItems[_holyShit], gameObject.GetComponentInParent<Transform>().position, Quaternion.identity);
             if(!spanwedHeal)
             {
                 Instantiate(_itemManager.heal, transform.position, Quaternion.identity);
