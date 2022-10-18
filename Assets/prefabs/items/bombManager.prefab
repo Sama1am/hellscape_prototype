@@ -303,6 +303,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bombItemUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2881267312508304322, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2881267312508304323, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_Camera
       value: 
