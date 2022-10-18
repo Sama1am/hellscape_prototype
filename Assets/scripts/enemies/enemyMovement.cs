@@ -60,7 +60,7 @@ public class enemyMovement : MonoBehaviour
 
     [SerializeField] private float _closeEnough;
     [SerializeField] private float _rushSpeed;
-    [SerializeField] private bool _rush;
+    //[SerializeField] private bool _rush;
     [SerializeField] private bool _isRushing;
     [SerializeField] private Vector3 _targetVect;
     public GameObject target;
@@ -336,15 +336,15 @@ public class enemyMovement : MonoBehaviour
             
     }
 
-    IEnumerator rushWait()
-    {
-        Debug.Log("CORUTINE STARTED!");
-        _isRushing = true;
-        yield return new WaitForSeconds(2f);
-        Debug.Log("CORUTINE DONE!");
-        canMove = false;
-        _isRushing = false;
-        _rush = false;
+    //IEnumerator rushWait()
+    //{
+    //    Debug.Log("CORUTINE STARTED!");
+    //    _isRushing = true;
+    //    yield return new WaitForSeconds(2f);
+    //    Debug.Log("CORUTINE DONE!");
+    //    canMove = false;
+    //    _isRushing = false;
+    //    _rush = false;
 
-    }
+    //}
 }

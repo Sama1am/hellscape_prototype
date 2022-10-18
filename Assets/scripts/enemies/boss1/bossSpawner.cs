@@ -50,17 +50,14 @@ public class bossSpawner : MonoBehaviour
             
         }
 
-        if(hasSpanwedBoss)
+        if(actualBoss.GetComponent<bossManager>().currentHeaalth <= 0)
         {
-            if (actualBoss.GetComponent<bossManager>().currentHeaalth <= 0)
-            {
-                DM.determineDrop();
-                Instantiate(key, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
-                Destroy(gameObject);
-                //_BossHealthSlider.SetActive(false);
-            }
+            DM.determineDrop();
+            Instantiate(key, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
+            Destroy(gameObject);
+            //_BossHealthSlider.SetActive(false);
         }
-        
+
 
         try
         {

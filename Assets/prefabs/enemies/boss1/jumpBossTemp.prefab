@@ -293,12 +293,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95150bcd9e2f51448bba46df765a92d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 5
+  _maxHealth: 15
   currentHeaalth: 0
   stageOne: 0
   stageTwo: 0
   _damage: 1
   isdead: 0
+  _healthBar: {fileID: 0}
+  _bossHealthSlider: {fileID: 0}
 --- !u!1 &170768597930195325
 GameObject:
   m_ObjectHideFlags: 0

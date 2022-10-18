@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class itemUIManager1 : MonoBehaviour
 {
-
     [SerializeField] private GameObject _itemUI;
     [SerializeField] private float _popUpTime;
 

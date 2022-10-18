@@ -143,7 +143,7 @@ MonoBehaviour:
   radius: 5
   moveSpeed: 6
   canShoot: 0
-  _shootDist: 8.3
+  _shootDist: 16.48
 --- !u!50 &8517085001121811880
 Rigidbody2D:
   serializedVersion: 4
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleEnemy: 0
   _currentHealth: 0
-  _maxHealth: 6
+  _maxHealth: 5
   _damage: 0
   knockBackForce: 0
   isdead: 0
@@ -239,9 +239,9 @@ MonoBehaviour:
   transformMove: 1
   moveWaitDone: 0
   damage: 1
-  _activationDist: 44.81
-  _chaseDist: 11
-  _maxChaseDist: 10.15
+  _activationDist: 46.8
+  _chaseDist: 16.5
+  _maxChaseDist: 20.55
   _dist: 0
   active: 0
   retreatRange: 5

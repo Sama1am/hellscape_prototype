@@ -5,7 +5,7 @@ using UnityEngine;
 public class dropManager : MonoBehaviour
 {
     enemyManager _EM;
-    ItemManager _itemManager;
+    public ItemManager _itemManager;
     private int _chance;
     private int _itemChance;
     private int _common;
@@ -37,11 +37,14 @@ public class dropManager : MonoBehaviour
 
         if (_isBoss)
         {
-            _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length);
+            _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length + 1);
             Instantiate(_itemManager._holyshitRareItems[_holyShit], transform.position, Quaternion.identity);
             if(!spanwedHeal)
             {
                 Instantiate(_itemManager.heal, transform.position, Quaternion.identity);
+                Instantiate(_itemManager.heal, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
+                Instantiate(_itemManager.heal, transform.position + new Vector3(3, 2, 0), Quaternion.identity);
+                Instantiate(_itemManager.heal, transform.position + new Vector3(-1, -2, 0), Quaternion.identity);
                 spanwedHeal = true;
             }
 
@@ -54,7 +57,7 @@ public class dropManager : MonoBehaviour
             _itemChance = Random.Range(0, 101);
             //Debug.Log("ITEM DROP CHANCE IS " + _itemChance);
 
-            if (_itemChance <= 75)
+            if (_itemChance <= 65)
             {
                 // return;
             }
@@ -63,7 +66,7 @@ public class dropManager : MonoBehaviour
                 _chance = Random.Range(0, 101);
                 //Debug.Log(_chance);
 
-                if (_chance <= 60)
+                if(_chance <= 60)
                 {
 
                     _common = Random.Range(0, _itemManager._commonItems.Length);
@@ -73,7 +76,7 @@ public class dropManager : MonoBehaviour
                     _hasDropped = true;
                     _common = 0;
                 }
-                else if (_chance > 60 && _chance < 80)
+                else if(_chance > 60 && _chance < 80)
                 {
                     _rare = Random.Range(0, _itemManager._rareItems.Length);
                     //Debug.Log(_itemManager._rareItems.Length);

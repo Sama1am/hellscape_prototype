@@ -146,9 +146,9 @@ public class enemyManager : MonoBehaviour
             {
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage / collision.gameObject.GetComponent<playerManager>().damageTakenOffset);
                 _rb.velocity = Vector2.zero;
-                StartCoroutine("velocityDelay");
-                //knockBack();
                 //StartCoroutine("velocityDelay");
+                //knockBack();
+                StartCoroutine("velocityDelay");
             }
             
         }

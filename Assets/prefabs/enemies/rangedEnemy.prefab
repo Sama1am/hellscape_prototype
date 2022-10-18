@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleEnemy: 0
   _currentHealth: 0
-  _maxHealth: 6
+  _maxHealth: 4
   _damage: 0
   knockBackForce: 0
   isdead: 0

@@ -156,3 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbef634362786d1469257d3f12494b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemCollider: {fileID: 395478342827193845}
+  _itemUI: {fileID: 0}
+  _popUpTime: 2

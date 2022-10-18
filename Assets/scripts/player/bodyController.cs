@@ -243,7 +243,6 @@ public class bodyController : MonoBehaviour
     }
 
     
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if((attacking) && (collision.gameObject.CompareTag("enemy")) && (!_bodyhit))
@@ -264,8 +263,21 @@ public class bodyController : MonoBehaviour
         if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("Boss2")) || (collision.gameObject.CompareTag("FinalBoss")))
         {
             collision.gameObject.GetComponent<bossManager>().takeDamage(_dam);
+            Debug.Log("BOSS TOOK DAMAGE " + _dam);
             _rb.velocity = Vector2.zero;
         }
+    }
+
+    public IEnumerator velocityDelay()
+    {
+        _rb.velocity = Vector2.zero;
+        //Debug.Log("VELOCITY DELAY!");
+        _rb.mass = 2;
+        _rb.drag = 2f;
+        yield return new WaitForSeconds(2);
+        _rb.drag = 0;
+        _rb.mass = 1;
+        _rb.velocity = Vector2.zero;
     }
 
 }

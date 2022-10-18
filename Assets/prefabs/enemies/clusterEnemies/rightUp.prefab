@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  _attackDist: 14.5
+  _attackDist: 22
   active: 0
   stunned: 0
   radiusCluster: 5
@@ -76,7 +76,7 @@ MonoBehaviour:
   numberOfProjectiles: 12
   randomAngleRangeMin: 0
   randomAngleRangeMax: 90
-  _projectile: {fileID: 6134175407906975407, guid: 21bc64d6fb660d548b5896d4c663a799, type: 3}
+  _projectile: {fileID: 8021674084686046381, guid: 935622e20c17c9840852bf1e78c81aca, type: 3}
   _center: 0
 --- !u!114 &4246587169874587421
 MonoBehaviour:
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleEnemy: 0
   _currentHealth: 0
-  _maxHealth: 5
+  _maxHealth: 3
   _damage: 1
   knockBackForce: 0
   isdead: 0

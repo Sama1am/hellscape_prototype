@@ -119,7 +119,6 @@ MonoBehaviour:
   stunned: 0
   _closeEnough: 1
   _rushSpeed: 6
-  _rush: 0
   _isRushing: 0
   _targetVect: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
@@ -165,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleEnemy: 0
   _currentHealth: 0
-  _maxHealth: 5
+  _maxHealth: 3
   _damage: 1
   knockBackForce: 16
   isdead: 0

@@ -10,13 +10,13 @@ public class stun_logic : MonoBehaviour
     private bool _stunning;
     [SerializeField] private CircleCollider2D _collider;
     private playerItemManager _PIM;
-    private active_items _AI;
+    [SerializeField] private active_items _AI;
     // Start is called before the first frame update
     void Start()
     {
         _PIM = GameObject.FindGameObjectWithTag("Player").GetComponent<playerItemManager>();
         _collider.radius = _stunRadius;
-        _AI = GetComponent<active_items>();
+        _AI = gameObject.GetComponent<active_items>();
     }
 
     // Update is called once per frame

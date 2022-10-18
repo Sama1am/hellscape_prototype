@@ -5,9 +5,12 @@ using UnityEngine;
 public class enemyProjectile : MonoBehaviour
 {
     [SerializeField] private float damage;
+    [SerializeField] private float lowerDam;
 
     [SerializeField]
     private float lifeTime;
+
+    [SerializeField] private bool _lowerDamage;
 
     Rigidbody2D rb;
 
@@ -16,6 +19,10 @@ public class enemyProjectile : MonoBehaviour
     {
         //damage = gameObject.GetComponentInParent<EnemyManager>().damage;
         rb = GetComponent<Rigidbody2D>();
+        if(_lowerDamage)
+        {
+            damage = lowerDam;
+        }
     }
 
     // Update is called once per frame
@@ -47,6 +54,7 @@ public class enemyProjectile : MonoBehaviour
         {
             if ((collision.gameObject.GetComponent<bodyController>().isAttacking() == false))
             {
+                Debug.Log("PLAYER TOOK DAMAGE" + damage);
                 collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
                 Destroy(gameObject);
             }

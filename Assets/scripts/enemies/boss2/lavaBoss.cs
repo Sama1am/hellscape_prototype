@@ -39,8 +39,9 @@ public class lavaBoss : MonoBehaviour
     private float _dist;
     private GameObject target;
 
-    private bossManager BM;
-    
+    public bossManager BM;
+
+    [SerializeField] private GameObject _telaportObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +63,11 @@ public class lavaBoss : MonoBehaviour
         //Engine things
         removeEnemies();
         checkDist();
+
+        //if(BM.currentHeaalth <= 0)
+        //{
+        //    _telaportObject.SetActive(true);
+        //}
 
     }
 
