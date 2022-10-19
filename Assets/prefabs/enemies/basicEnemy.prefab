@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172ca3502d497a84593bbd011891bb67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemManager: {fileID: 0}
   _isBoss: 0
   drop: 0
 --- !u!114 &166984017536397490

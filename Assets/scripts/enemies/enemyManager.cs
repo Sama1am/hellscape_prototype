@@ -21,9 +21,11 @@ public class enemyManager : MonoBehaviour
 
     private Rigidbody2D _rb;
     private dropManager _DM;
+    private SpriteRenderer _SR;
     // Start is called before the first frame update
     void Start()
     {
+        _SR = GetComponentInChildren<SpriteRenderer>();
         isdead = false;
         _currentHealth = _maxHealth;
         _DM = gameObject.GetComponent<dropManager>();
@@ -38,7 +40,7 @@ public class enemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        flipSprite();
         setUI();
 
         if(_UIActive)
@@ -126,6 +128,20 @@ public class enemyManager : MonoBehaviour
     public bool checkStunStatus()
     {
         return _stunned;
+    }
+
+    private void flipSprite()
+    {
+        if(_rb.velocity.x > 0)
+        {
+            
+            _SR.flipX = false;
+        }
+        else if (_rb.velocity.x < 0)
+        {
+            
+            _SR.flipX = true;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
