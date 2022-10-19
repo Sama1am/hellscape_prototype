@@ -57,11 +57,11 @@ public class dropManager : MonoBehaviour
             _itemChance = Random.Range(0, 101);
             //Debug.Log("ITEM DROP CHANCE IS " + _itemChance);
 
-            if (_itemChance <= 60)
+            if (_itemChance <= 50)
             {
                 // return;
             }
-            else if (_itemChance > 60)
+            else if (_itemChance > 50)
             {
                 _chance = Random.Range(0, 101);
                 //Debug.Log(_chance);

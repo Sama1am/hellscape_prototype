@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemUI: {fileID: 9150556781305102366}
-  _popUpTime: 2
+  _popUpTime: 1
   _itemCanvas: {fileID: 9150556781305102367}
 --- !u!1001 &4842249542405673295
 PrefabInstance:

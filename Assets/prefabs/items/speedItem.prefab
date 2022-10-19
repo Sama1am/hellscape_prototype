@@ -158,4 +158,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemCollider: {fileID: 395478342827193845}
   _itemUI: {fileID: 0}
-  _popUpTime: 2
+  _popUpTime: 1

@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemCollider: {fileID: 8799332756417598888}
   _itemUI: {fileID: 4867349703777175629}
-  _popUpTime: 2
+  _popUpTime: 1
 --- !u!1 &8799332756793754727
 GameObject:
   m_ObjectHideFlags: 0

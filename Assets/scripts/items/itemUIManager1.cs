@@ -9,17 +9,22 @@ public class itemUIManager1 : MonoBehaviour
 
     [SerializeField] private Canvas _itemCanvas;
     private Camera _mainCam;
+    private active_items _AT;
     // Start is called before the first frame update
     void Start()
     {
         _mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         _itemCanvas.worldCamera = _mainCam;
+        _AT = gameObject.GetComponent<active_items>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(_AT.getBodyStatus() == false)
+        {
+            _itemUI.SetActive(false);
+        }
     }
 
     IEnumerator UIPopUp()
