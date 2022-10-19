@@ -73,7 +73,7 @@ public class cameraController : MonoBehaviour
         Vector3 dir = (worldPosition - gameObject.transform.position).normalized;
 
         transform.position += dir * (_panSpeed * Time.deltaTime);
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, _Player.transform.position.x - 5, _Player.transform.position.x + 5), Mathf.Clamp(transform.position.y, _Player.transform.position.y - 5, _Player.transform.position.y + 5), -10);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, _Player.transform.position.x - 6, _Player.transform.position.x + 6), Mathf.Clamp(transform.position.y, _Player.transform.position.y - 6, _Player.transform.position.y + 6), -10);
 
 
     }

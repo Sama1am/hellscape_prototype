@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class bodyController : MonoBehaviour
 {
@@ -26,6 +28,8 @@ public class bodyController : MonoBehaviour
 
     #region crit
     public int critChance;
+    [SerializeField] private TextMeshProUGUI _critText;
+    [SerializeField] private GameObject _textObject;
     #endregion
 
     [SerializeField] private SpriteRenderer _pointerSprite;
@@ -228,10 +232,12 @@ public class bodyController : MonoBehaviour
         if(temp <= critChance)
         {
             _dam = 1;
+            _critText.text = _dam.ToString();
         }
         else if(temp > critChance && temp <= 100)
         {
             _dam = 2;
+            _critText.text = _dam.ToString();
             Debug.Log("PLAYER CRITTED!");
         }
         
@@ -251,6 +257,7 @@ public class bodyController : MonoBehaviour
             _rb.velocity = Vector2.zero;
             crit();
             collision.gameObject.GetComponent<enemyManager>().takeDamage(_dam);
+            StartCoroutine("critPopUp");
             _PIM.setItemCharge();
             collision.gameObject.GetComponent<enemyManager>().setStunStatus(true);
             _bodyhit = false;
@@ -262,7 +269,9 @@ public class bodyController : MonoBehaviour
 
         if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("Boss2")) || (collision.gameObject.CompareTag("FinalBoss")))
         {
+            crit();
             collision.gameObject.GetComponent<bossManager>().takeDamage(_dam);
+            StartCoroutine("critPopUp");
             Debug.Log("BOSS TOOK DAMAGE " + _dam);
             _rb.velocity = Vector2.zero;
         }
@@ -278,6 +287,13 @@ public class bodyController : MonoBehaviour
         _rb.drag = 0;
         _rb.mass = 1;
         _rb.velocity = Vector2.zero;
+    }
+
+    public IEnumerator critPopUp()
+    {
+        _textObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        _textObject.SetActive(false);
     }
 
 }

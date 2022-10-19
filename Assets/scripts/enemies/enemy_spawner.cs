@@ -31,7 +31,7 @@ public class enemy_spawner : MonoBehaviour
 
     public GameObject _currentRoomManager;
     [SerializeField] private bool _roomManage;
-
+    [SerializeField] private bool _respawn;
     #region state
     [Header("State stuff (Do not set)")]
     public bool active;
@@ -97,13 +97,13 @@ public class enemy_spawner : MonoBehaviour
         if ((_currentTime <= 0) && (_enemy == null) && (!spawnedNewEnemy))
         {
 
-
-            _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
-            spawnedNewEnemy = true;
-            _enemy.GetComponent<enemyManager>().setDeadStatus(false);
-            _currentTime = _spawnEnemyDelay;
-
-
+            if(_respawn)
+            {
+                _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
+                spawnedNewEnemy = true;
+                _enemy.GetComponent<enemyManager>().setDeadStatus(false);
+                _currentTime = _spawnEnemyDelay;
+            }
 
         }
     }

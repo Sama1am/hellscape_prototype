@@ -75,7 +75,7 @@ MonoBehaviour:
   timeBetweenShotsCluster: 2
   numberOfProjectiles: 12
   randomAngleRangeMin: 0
-  randomAngleRangeMax: 90
+  randomAngleRangeMax: 100
   _projectile: {fileID: 8021674084686046381, guid: 935622e20c17c9840852bf1e78c81aca, type: 3}
   _center: 0
 --- !u!114 &4246587169874587421
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172ca3502d497a84593bbd011891bb67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemManager: {fileID: 0}
   _isBoss: 0
   drop: 0
 --- !u!50 &-7063406966991809152

@@ -63,7 +63,13 @@ public class lavaBoss : MonoBehaviour
         removeEnemies();
         checkDist();
 
-        
+        if(BM.isdead)
+        {
+            for(int i = 0; i < _enemies.Count; i++)
+            {
+                Destroy(_enemies[i]);
+            }
+        }
 
     }
 

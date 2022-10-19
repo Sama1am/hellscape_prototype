@@ -53,6 +53,9 @@ MonoBehaviour:
   _maxDistFromSpawner: 0
   _spawnEnemyDelay: 60
   _EStransform: {fileID: 0}
+  _currentRoomManager: {fileID: 0}
+  _roomManage: 0
+  _respawn: 1
   active: 0
   returning: 0
   chasing: 0
