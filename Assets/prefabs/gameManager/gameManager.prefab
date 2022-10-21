@@ -50,10 +50,12 @@ MonoBehaviour:
   _rareItems:
   - {fileID: 4336792078456320962, guid: 828f73afcb937914a93cb84c8819a4dd, type: 3}
   - {fileID: 4336792078456320962, guid: 828f73afcb937914a93cb84c8819a4dd, type: 3}
+  - {fileID: 1394446466335643737, guid: 2b5ea5443c9098045b4f78292924e91c, type: 3}
+  - {fileID: 6497968722891759619, guid: 90e5135c03208224a9ece8ec0c84dd54, type: 3}
+  - {fileID: 8799332756417598890, guid: 1cfd69577a7ba364d8b8eb9bdb74ad32, type: 3}
   _holyshitRareItems:
   - {fileID: 5543928558535182025, guid: 153034d1ee61c7a4a9c930e907bedbfe, type: 3}
   - {fileID: 3447011136559900092, guid: 115d664299e4bcb4c87410cb0e5d0da1, type: 3}
-  - {fileID: 281040931147702096, guid: 03652e90880d123438f5811cf4ab7372, type: 3}
   heal: {fileID: 4336792078456320962, guid: 828f73afcb937914a93cb84c8819a4dd, type: 3}
 --- !u!1 &7693099981028129791
 GameObject:
@@ -99,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead69a0376380be4b8a9ad5a08d9e433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keys: 0
+  keys: 1
   keyImages:
   - {fileID: 0}
   - {fileID: 0}
@@ -112,6 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7693099981319096337}
+  - component: {fileID: 590408260}
   m_Layer: 0
   m_Name: gameManager
   m_TagString: Untagged
@@ -136,3 +139,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &590408260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7693099981319096336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d50d5de31906f44b740f68e6881645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
