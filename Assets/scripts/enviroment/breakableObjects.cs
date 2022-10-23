@@ -37,11 +37,11 @@ public class breakableObjects : MonoBehaviour
     {
         float num = Random.Range(0, 101);
 
-        if(num <= 75)
+        if(num <= 50)
         {
 
         }
-        else if(num < 75)
+        else if(num < 50)
         {
             Instantiate(_HealthItem, transform.position, Quaternion.identity);
         }

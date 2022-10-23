@@ -7,7 +7,7 @@ public class camera_shake : MonoBehaviour
     [SerializeField] private float duration;
     [SerializeField] private float magnitude;
 
-    public IEnumerator shake(float duration, float msgnitude)
+    public IEnumerator shake()
     {
         Vector3 originalPos = transform.localPosition;
 
@@ -15,8 +15,8 @@ public class camera_shake : MonoBehaviour
 
         while (elapsed < duration)
         {
-            float x = Random.Range(-1f, 1f) * msgnitude;
-            float y = Random.Range(-1f, 1f) * msgnitude;
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
 
             transform.localPosition = new Vector3(x, y, originalPos.z);
 
@@ -30,9 +30,6 @@ public class camera_shake : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            StartCoroutine(shake(duration, magnitude));
-        }
+       
     }
 }

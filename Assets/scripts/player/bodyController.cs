@@ -34,6 +34,7 @@ public class bodyController : MonoBehaviour
 
     [SerializeField] private SpriteRenderer _pointerSprite;
 
+    [SerializeField] private camera_shake _CS;
     private GameObject _player;
     private Rigidbody2D _rb;
     private playerManager _PM;
@@ -255,6 +256,7 @@ public class bodyController : MonoBehaviour
         {
             _bodyhit = true;
             _rb.velocity = Vector2.zero;
+            _CS.shake();
             crit();
             collision.gameObject.GetComponent<enemyManager>().takeDamage(_dam);
             StartCoroutine("critPopUp");
@@ -269,6 +271,7 @@ public class bodyController : MonoBehaviour
 
         if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("Boss2")) || (collision.gameObject.CompareTag("FinalBoss")))
         {
+            _CS.shake();
             crit();
             collision.gameObject.GetComponent<bossManager>().takeDamage(_dam);
             StartCoroutine("critPopUp");

@@ -23,7 +23,7 @@ public class heal : MonoBehaviour
         {
             if(collision.gameObject.GetComponentInChildren<playerManager>().currentHealth < collision.gameObject.GetComponentInChildren<playerManager>().health)
             {
-                collision.GetComponentInChildren<playerManager>().currentHealth += 1;
+                collision.GetComponentInChildren<playerManager>().currentHealth += 2;
                 Destroy(gameObject);
             }
            
