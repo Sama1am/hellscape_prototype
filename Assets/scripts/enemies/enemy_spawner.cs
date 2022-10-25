@@ -47,7 +47,7 @@ public class enemy_spawner : MonoBehaviour
     {
         _EStransform = gameObject.transform;
         _enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity, transform);
-        if (_roomManage)
+        if(_roomManage)
         {
             _currentRoomManager.GetComponent<roomManager>()._enemiesInRoom.Add(_enemy);
         }
@@ -152,7 +152,6 @@ public class enemy_spawner : MonoBehaviour
             
         }
     }
-
 
     public void goBack()
     {

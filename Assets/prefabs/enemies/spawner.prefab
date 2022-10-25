@@ -54,7 +54,7 @@ MonoBehaviour:
   _spawnEnemyDelay: 60
   _EStransform: {fileID: 0}
   _currentRoomManager: {fileID: 0}
-  _roomManage: 0
+  _roomManage: 1
   _respawn: 0
   active: 0
   returning: 0

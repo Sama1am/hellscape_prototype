@@ -180,6 +180,7 @@ public class bodyController : MonoBehaviour
         }
         else if(time <= 0.3f)
         {
+            
             _speed = 75f;
             // _PM.damage = 0.5f;
             _dam = 0.5f;
@@ -223,21 +224,26 @@ public class bodyController : MonoBehaviour
         attacking = false;
     }
 
-
     public void crit()
     {
         float temp;
 
-        temp = Random.Range(0, 100);
+        temp = Random.Range(0, 101);
 
         if(temp <= critChance)
         {
             _dam = 1;
             _critText.text = _dam.ToString();
         }
-        else if(temp > critChance && temp <= 100)
+        else if(temp > critChance && temp <= 80)
         {
             _dam = 2;
+            _critText.text = _dam.ToString();
+            Debug.Log("PLAYER CRITTED!");
+        }
+        else if(temp > 80)
+        {
+            _dam = 3;
             _critText.text = _dam.ToString();
             Debug.Log("PLAYER CRITTED!");
         }
@@ -249,15 +255,14 @@ public class bodyController : MonoBehaviour
         _speed += speed;
     }
 
-    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if((attacking) && (collision.gameObject.CompareTag("enemy")) && (!_bodyhit))
         {
             _bodyhit = true;
             _rb.velocity = Vector2.zero;
-            _CS.shake();
-            crit();
+            _CS.setShake(true);
+            //crit();
             collision.gameObject.GetComponent<enemyManager>().takeDamage(_dam);
             StartCoroutine("critPopUp");
             _PIM.setItemCharge();
@@ -271,8 +276,8 @@ public class bodyController : MonoBehaviour
 
         if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("Boss2")) || (collision.gameObject.CompareTag("FinalBoss")))
         {
-            _CS.shake();
-            crit();
+            _CS.setShake(true);
+            //crit();
             collision.gameObject.GetComponent<bossManager>().takeDamage(_dam);
             StartCoroutine("critPopUp");
             Debug.Log("BOSS TOOK DAMAGE " + _dam);

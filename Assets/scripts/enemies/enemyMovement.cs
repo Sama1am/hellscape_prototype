@@ -336,15 +336,5 @@ public class enemyMovement : MonoBehaviour
             
     }
 
-    //IEnumerator rushWait()
-    //{
-    //    Debug.Log("CORUTINE STARTED!");
-    //    _isRushing = true;
-    //    yield return new WaitForSeconds(2f);
-    //    Debug.Log("CORUTINE DONE!");
-    //    canMove = false;
-    //    _isRushing = false;
-    //    _rush = false;
-
-    //}
+   
 }

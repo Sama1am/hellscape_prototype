@@ -21,10 +21,10 @@ public class itemUIManager1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_AT.getBodyStatus() == false)
-        {
-            _itemUI.SetActive(false);
-        }
+        //if(_AT.getBodyStatus() == false)
+        //{
+        //    _itemUI.SetActive(false);
+        //}
     }
 
     IEnumerator UIPopUp()

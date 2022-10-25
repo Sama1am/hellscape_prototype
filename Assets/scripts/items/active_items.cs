@@ -37,6 +37,7 @@ public class active_items : MonoBehaviour
         itemCollider.enabled = false;
         SR.enabled = false;
         _currentActiveItem = true;
+        _onBody = true;
 
 
     }
@@ -46,5 +47,6 @@ public class active_items : MonoBehaviour
         itemCollider.enabled = true;
         SR.enabled = true;
         _currentActiveItem = false;
+        _onBody = false;
     }
 }

@@ -6,6 +6,7 @@ public class camera_shake : MonoBehaviour
 {
     [SerializeField] private float duration;
     [SerializeField] private float magnitude;
+    [SerializeField] private bool shakeStatus;
 
     public IEnumerator shake()
     {
@@ -26,10 +27,19 @@ public class camera_shake : MonoBehaviour
         }
 
         transform.localPosition = originalPos;
+        shakeStatus = false;
     }
 
     private void Update()
     {
-       
+       if(shakeStatus)
+        {
+            StartCoroutine("shake");
+        }
+    }
+
+    public void setShake(bool status)
+    {
+        shakeStatus = status;
     }
 }
