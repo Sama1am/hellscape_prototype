@@ -137,6 +137,7 @@ MonoBehaviour:
   itemCollider: {fileID: 281040931147702089}
   SR: {fileID: 281040931147702091}
   _onBody: 0
+  _UI: {fileID: 9150556781305102366}
 --- !u!114 &7649159177484579524
 MonoBehaviour:
   m_ObjectHideFlags: 0

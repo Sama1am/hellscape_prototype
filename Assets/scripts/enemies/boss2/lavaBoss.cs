@@ -78,7 +78,7 @@ public class lavaBoss : MonoBehaviour
         if(BM.attackStatus() == true)
         {
             bossTimer += Time.deltaTime;
-            if (bossTimer > 3)
+            if(bossTimer > 2)
             {
 
                 Debug.Log("State Change! " + state);

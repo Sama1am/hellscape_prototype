@@ -53,6 +53,7 @@ MonoBehaviour:
   itemCollider: {fileID: 999688166238736747}
   SR: {fileID: 999688166238736746}
   _onBody: 0
+  _UI: {fileID: 937319223363679359}
 --- !u!58 &999688166238736747
 CircleCollider2D:
   m_ObjectHideFlags: 0

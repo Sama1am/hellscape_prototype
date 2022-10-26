@@ -98,7 +98,7 @@ public class bossCombat : MonoBehaviour
             bossTimer += Time.deltaTime;
             if (BM.stageOne)
             {
-                if (bossTimer > 3)
+                if(bossTimer > 2)
                 {
 
                     Debug.Log("State Change! " + state);

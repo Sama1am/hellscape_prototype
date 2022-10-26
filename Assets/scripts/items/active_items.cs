@@ -10,6 +10,7 @@ public class active_items : MonoBehaviour
     public CircleCollider2D itemCollider;
     public SpriteRenderer SR;
     [SerializeField] private bool _onBody;
+    [SerializeField] private GameObject _UI;
    
     void Start()
     {
@@ -19,7 +20,10 @@ public class active_items : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(!_onBody)
+        {
+            _UI.SetActive(false);
+        }
     }
 
     public bool getBodyStatus()
