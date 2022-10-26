@@ -18,6 +18,7 @@ public class playerItemManager : MonoBehaviour
     [SerializeField] private GameObject _body;
     [SerializeField] private Slider _itemChargeSlider;
     [SerializeField] private GameObject _itemChargeUI;
+    [SerializeField] private GameObject _itemChargePanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +42,11 @@ public class playerItemManager : MonoBehaviour
         if(hasItem)
         {
             _itemChargeUI.SetActive(true);
+        }
+
+        if(hasItem && Input.GetMouseButtonDown(0) && _canUseItem == false)
+        {
+            StartCoroutine("chargeFeedback");
         }
 
         _itemChargeSlider.value = _itemCharge;
@@ -125,7 +131,16 @@ public class playerItemManager : MonoBehaviour
         }
     }
 
-
+    IEnumerator chargeFeedback()
+    {
+        _itemChargePanel.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        _itemChargePanel.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        _itemChargePanel.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        _itemChargePanel.SetActive(false);
+    }
 
 
 }

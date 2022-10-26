@@ -172,6 +172,7 @@ public class enemyManager : MonoBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             _rb.velocity = Vector2.zero;
+            StartCoroutine("velocityDelay");
         }
     }
 

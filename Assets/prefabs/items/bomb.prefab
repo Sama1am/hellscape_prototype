@@ -167,7 +167,7 @@ MonoBehaviour:
   _bombTime: 2
   _explodeDist: 3.12
   _damage: 1
-  _explodeTime: 5
+  _explodeTime: 2
   _explode: 0
   _enemies: []
   _bombCollider: {fileID: 5491874793984493755}
