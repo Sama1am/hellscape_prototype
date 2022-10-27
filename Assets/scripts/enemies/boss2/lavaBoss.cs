@@ -83,7 +83,7 @@ public class lavaBoss : MonoBehaviour
 
                 Debug.Log("State Change! " + state);
 
-                switch (state)
+                switch(state)
                 {
 
                     case 1:
