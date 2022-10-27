@@ -244,10 +244,19 @@ public class bodyController : MonoBehaviour
         else if(temp > 80)
         {
             _dam = 3;
+            
             _critText.text = _dam.ToString();
             Debug.Log("PLAYER CRITTED!");
         }
         
+    }
+
+    private void checkCrit()
+    {
+        if(_dam == 3)
+        {
+            _CS.setShake(true);
+        }
     }
 
     public void increaseSpeed(float speed)
@@ -260,9 +269,8 @@ public class bodyController : MonoBehaviour
         if((attacking) && (collision.gameObject.CompareTag("enemy")) && (!_bodyhit))
         {
             _bodyhit = true;
-            _rb.velocity = Vector2.zero;
-            _CS.setShake(true);
-            //crit();
+            //_rb.velocity = Vector2.zero;
+            checkCrit();
             collision.gameObject.GetComponent<enemyManager>().takeDamage(_dam);
             StartCoroutine("critPopUp");
             _PIM.setItemCharge();
@@ -271,13 +279,13 @@ public class bodyController : MonoBehaviour
         }
         else if((!attacking) && (collision.gameObject.CompareTag("enemy")))
         {
-            _rb.velocity = Vector2.zero;
+            //_rb.velocity = Vector2.zero;
         }
 
-        if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("Boss2")) || (collision.gameObject.CompareTag("FinalBoss")))
+        if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("FinalBoss")))
         {
-            _CS.setShake(true);
-            //crit();
+            //_CS.setShake(true);
+            checkCrit();
             collision.gameObject.GetComponent<bossManager>().takeDamage(_dam);
             StartCoroutine("critPopUp");
             Debug.Log("BOSS TOOK DAMAGE " + _dam);
