@@ -193,9 +193,9 @@ public class bossCombat : MonoBehaviour
         {
             
         }
-        else if(_enemies.Count <= 3)
+        else if(_enemies.Count <= 2)
         {
-            float a = Random.Range(1, 5);
+            float a = Random.Range(1, 4);
             spawnSimpleEnemies(a);
         }
 

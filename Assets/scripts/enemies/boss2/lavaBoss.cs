@@ -170,7 +170,7 @@ public class lavaBoss : MonoBehaviour
         if(_canSpawnLava)
         {
             _lavaAOE.SetActive(true);
-            _lavaAOE.GetComponent<Transform>().localScale += new Vector3(0.002f, 0.002f, 0);
+            _lavaAOE.GetComponent<Transform>().localScale += new Vector3(0.003f, 0.003f, 0);
         }
         
 
@@ -188,9 +188,9 @@ public class lavaBoss : MonoBehaviour
         {
             
         }
-        else if(_enemies.Count <= 5)
+        else if(_enemies.Count <= 3)
         {
-            float a = Random.Range(1, 5);
+            float a = Random.Range(1, 4);
             spawnEnemies(a);
         }
        
