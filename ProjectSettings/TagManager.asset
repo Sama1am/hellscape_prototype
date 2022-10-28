@@ -21,6 +21,7 @@ TagManager:
   - bodyPart
   - door
   - globalVolume
+  - profilePic
   layers:
   - Default
   - TransparentFX
