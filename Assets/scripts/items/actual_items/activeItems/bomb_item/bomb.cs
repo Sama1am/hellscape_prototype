@@ -11,6 +11,7 @@ public class bomb : MonoBehaviour
     [SerializeField] private float _explodeTime;
     [SerializeField] private bool _explode;
     [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
+    [SerializeField] private List<GameObject> _bosses = new List<GameObject>();
 
     [SerializeField] private CircleCollider2D _bombCollider;
 
@@ -56,6 +57,11 @@ public class bomb : MonoBehaviour
             Debug.Log("BOMB DID THE THINGS");
         }
 
+        for (int i = 0; i < _bosses.Count; i++)
+        {
+            _bosses[i].GetComponent<bossManager>().takeDamage(_damage);
+        }
+
         Destroy(gameObject);
     }
 
@@ -66,6 +72,11 @@ public class bomb : MonoBehaviour
         {
             _enemies.Add(collision.gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
+        {
+            _bosses.Add(collision.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -74,7 +85,12 @@ public class bomb : MonoBehaviour
         {
             _enemies.Remove(collision.gameObject);
         }
-        
+
+        if (collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
+        {
+            _bosses.Remove(collision.gameObject);
+        }
+
     }
 
     private void OnDrawGizmosSelected()

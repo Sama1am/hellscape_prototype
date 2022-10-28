@@ -146,7 +146,9 @@ public class enemyManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Body"))
+        StartCoroutine("velocityDelay");
+
+        if (collision.gameObject.CompareTag("Body"))
         {
             _rb.velocity = Vector2.zero;
             if((collision.gameObject.GetComponent<bodyController>().isAttacking() == false) && (_stunned == false))

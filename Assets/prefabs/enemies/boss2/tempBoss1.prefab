@@ -117,10 +117,10 @@ MonoBehaviour:
   target: {fileID: 0}
   _speed: 15
   closeEnough: 2
+  _canMove: 0
   simpleEnemy: {fileID: 306965073659788262, guid: 0fdca04cea3184947aa64238ddb667fa, type: 3}
   numOFEnemies: 0
   active: 0
-  _canMove: 0
   num: 8
   _numOfShots: 0
   _minX: -11
@@ -129,6 +129,7 @@ MonoBehaviour:
   _maxY: 9
   _enemies: []
   _posionAOEObject: {fileID: 148122987642008291, guid: 8606661068be9794dbb147e9d9b4625d, type: 3}
+  _spawnAOE: 0
 --- !u!114 &1121097026826002192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +148,14 @@ MonoBehaviour:
   stageTwo: 0
   _damage: 1
   isdead: 0
+  _attack: 0
+  sr: {fileID: 0}
+  _collider: {fileID: 0}
+  _BS: {fileID: 0}
+  _isfinalBoss: 0
+  _door: {fileID: 0}
+  _telaport: 0
+  _teleporter: {fileID: 0}
   _healthBar: {fileID: 0}
   _bossHealthSlider: {fileID: 0}
 --- !u!50 &1121097026826002286
@@ -165,7 +174,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ed314c024b48c7b43845c1e1c5c0d5c3, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -198,5 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172ca3502d497a84593bbd011891bb67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemManager: {fileID: 0}
   _isBoss: 1
   drop: 0

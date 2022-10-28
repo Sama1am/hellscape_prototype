@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 313700924501676899}
   - component: {fileID: 986959281758069155}
   - component: {fileID: 4894045792514200386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: lowerDamageBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

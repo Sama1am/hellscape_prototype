@@ -137,4 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0.5
+  lowerDam: 0
   lifeTime: 25
+  _lowerDamage: 0

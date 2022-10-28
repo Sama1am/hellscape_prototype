@@ -35,22 +35,18 @@ public class bossManager : MonoBehaviour
         sr = gameObject.GetComponent<SpriteRenderer>();
         currentHeaalth = _maxHealth;
         rb = GetComponent<Rigidbody2D>();
-       // GetComponentInParent<bossSpawner>()._bossSlider.minValue = 0;
-       // GetComponentInParent<bossSpawner>()._bossSlider.maxValue = _maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
         setUI();
-
-       // GetComponentInParent<bossSpawner>()._bossSlider.value = currentHeaalth;
-        if (currentHeaalth > _maxHealth / 2)
+        if(currentHeaalth > _maxHealth / 2)
         {
             stageOne = true;
             stageTwo = false;
         }
-        if (currentHeaalth <= _maxHealth / 2)
+        if(currentHeaalth <= _maxHealth / 2)
         {
             sr.color = Color.red;
             stageTwo = true;
@@ -69,13 +65,11 @@ public class bossManager : MonoBehaviour
         //_door.SetActive(false);
         _BS.isdead = true;
         _healthBar.SetActive(false);
+
         if(_telaport)
         {
             _teleporter.SetActive(true);
         }
-        //Debug.Log("spawned key!");
-
-        //StartCoroutine("deathDelay");
         Destroy(gameObject);
     }
 
@@ -118,7 +112,7 @@ public class bossManager : MonoBehaviour
                 collision.gameObject.GetComponent<playerManager>().takeDamage(_damage);
                 rb.velocity = Vector2.zero;
                 StartCoroutine("velocityDelay");
-                //knockBack();
+                
             }
             else if (collision.gameObject.GetComponent<bodyController>().attacking == true)
             {

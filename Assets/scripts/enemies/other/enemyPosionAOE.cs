@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class enemyPosionAOE : MonoBehaviour
 {
+    [SerializeField] private bool _perm;
     [SerializeField] private float _damage;
     [SerializeField] private float _maxTime;
     [SerializeField] private float _currentTime;
@@ -26,22 +27,30 @@ public class enemyPosionAOE : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _currentTime -= Time.deltaTime;
-
-        if (_currentTime <= 0)
-        {
-            Destroy(gameObject);
-        }
-        else
+        if(_perm)
         {
             AOEPoison();
         }
+        else if(!_perm)
+        {
+            _currentTime -= Time.deltaTime;
+
+            if (_currentTime <= 0)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                AOEPoison();
+            }
+        }
+       
     }
 
 
     void AOEPoison()
     {
-        if (doDamage)
+        if(doDamage)
         {
             for (int i = 0; i < _enemies.Count; i++)
             {
@@ -59,6 +68,7 @@ public class enemyPosionAOE : MonoBehaviour
         if (collision.gameObject.CompareTag("Body"))
         {
             _enemies.Add(collision.gameObject);
+            collision.gameObject.GetComponent<playerManager>().takeDamage(_damage);
         }
     }
 

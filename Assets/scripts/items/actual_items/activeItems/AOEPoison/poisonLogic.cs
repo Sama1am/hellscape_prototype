@@ -11,6 +11,7 @@ public class poisonLogic : MonoBehaviour
     private GameObject _body;
     private bool doDamage;
     [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
+    [SerializeField] private List<GameObject> _bosses = new List<GameObject>();
 
     private CircleCollider2D _collider;
     // Start is called before the first frame update
@@ -48,6 +49,11 @@ public class poisonLogic : MonoBehaviour
                 _enemies[i].GetComponent<enemyManager>().takeDamage(_damage);
             }
 
+            for (int i = 0; i < _bosses.Count; i++)
+            {
+                _bosses[i].GetComponent<bossManager>().takeDamage(_damage);
+            }
+
             StartCoroutine("damageWait");
         }
         
@@ -60,6 +66,11 @@ public class poisonLogic : MonoBehaviour
         {
             _enemies.Add(collision.gameObject);
         }
+
+        if(collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
+        {
+            _bosses.Add(collision.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -67,6 +78,11 @@ public class poisonLogic : MonoBehaviour
         if (collision.gameObject.CompareTag("enemy"))
         {
             _enemies.Remove(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
+        {
+            _bosses.Remove(collision.gameObject);
         }
     }
 

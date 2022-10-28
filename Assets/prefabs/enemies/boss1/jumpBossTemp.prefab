@@ -249,7 +249,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ed314c024b48c7b43845c1e1c5c0d5c3, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -281,6 +281,7 @@ MonoBehaviour:
   _maxy: 0
   _speed: 0
   _damage: 1
+  BM: {fileID: 0}
 --- !u!114 &782918043844617460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +300,14 @@ MonoBehaviour:
   stageTwo: 0
   _damage: 1
   isdead: 0
+  _attack: 0
+  sr: {fileID: 0}
+  _collider: {fileID: 0}
+  _BS: {fileID: 0}
+  _isfinalBoss: 0
+  _door: {fileID: 0}
+  _telaport: 0
+  _teleporter: {fileID: 0}
   _healthBar: {fileID: 0}
   _bossHealthSlider: {fileID: 0}
 --- !u!1 &170768597930195325

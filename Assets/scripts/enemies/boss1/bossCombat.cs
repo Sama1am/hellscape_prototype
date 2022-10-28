@@ -45,15 +45,16 @@ public class bossCombat : MonoBehaviour
     private GameObject _target;
     [SerializeField] private float _speed;
     [SerializeField] private float closeEnough;
-
+    private Vector3 _rushPos;
     private Vector3 _ogPos;
+    public bool _canMove;
     #endregion
 
     [SerializeField] private GameObject simpleEnemy;
     [SerializeField] private float numOFEnemies;
     public bool active;
     private Vector3 targetPos;
-    public bool _canMove;
+    
     public int num;
     [SerializeField] private int _numOfShots;
     bossManager BM;
@@ -67,6 +68,7 @@ public class bossCombat : MonoBehaviour
     private bool _circleShoot;
     private bool _clusterShoot;
     private bool _circleClusterShoot;
+    [SerializeField] private bool _spawnAOE;
     
     void Start()
     {
@@ -87,6 +89,9 @@ public class bossCombat : MonoBehaviour
         secdonryCircleShot(numberOfProjectiles);
         circularShot(numberOfProjectiles);
         removeEnemies();
+        rushToPos();
+        returnPos();
+        
         //AI
         bossAI();
     }
@@ -114,10 +119,12 @@ public class bossCombat : MonoBehaviour
                         case 2:
                             //Debug.Log("Laser state");
                             _circleShoot = false;
+                            pickRandomPoint();
                             spawnPosion();
                             break;
                         case 0:
                             //Debug.Log("Enemy State");
+                            _canMove = false;
                             spawnEnemy();
                             break;
                     }
@@ -141,19 +148,19 @@ public class bossCombat : MonoBehaviour
 
                         case 1:
                             //Debug.Log("State 1");
+                            _canMove = false;
                             _circleClusterShoot = true;
-
                             break;
                         case 2:
                             //Debug.Log("Laser state");
                             _circleClusterShoot = false;
                             _clusterShoot = true;
-
                             break;
                         case 0:
                             //Debug.Log("Enemy State");
                             _clusterShoot = false;
-                            spawnPosion();
+                            _speed = 20;
+                            pickRandomPoint();
                             break;
 
                     }
@@ -243,7 +250,7 @@ public class bossCombat : MonoBehaviour
                     proj.GetComponent<Rigidbody2D>().velocity =
                         new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
 
-                    proj.transform.SetParent(gameObject.transform);
+                    //proj.transform.SetParent(gameObject.transform);
 
                     angle += angleStep;
                 }
@@ -279,7 +286,7 @@ public class bossCombat : MonoBehaviour
                     var proj = Instantiate(projectile, startPoint, Quaternion.identity);
                     proj.GetComponent<Rigidbody2D>().velocity = new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
 
-                    proj.transform.SetParent(gameObject.transform);
+                    //proj.transform.SetParent(gameObject.transform);
                 }
 
                 nextShot = Time.time + timeBetweenShotsCluster;
@@ -315,7 +322,7 @@ public class bossCombat : MonoBehaviour
                     var proj = Instantiate(projectile, startPoint, Quaternion.identity);
                     proj.GetComponent<Rigidbody2D>().velocity = new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
 
-                    proj.transform.SetParent(gameObject.transform);
+                    //proj.transform.SetParent(gameObject.transform);
                 }
 
                 nextShot = Time.time + timeBetweenShotsCluster;
@@ -326,8 +333,39 @@ public class bossCombat : MonoBehaviour
 
     void spawnPosion()
     {
-        float a = Random.Range(4, 12);
+        float a = Random.Range(4, 10);
         posionAOE(a);
+        Debug.Log("SHOULD SPAWN POISION!");
+    }
+
+    void pickRandomPoint()
+    {
+        float randX = Random.Range(_minX, _maxX);
+        float randY = Random.Range(_minY, _maxY);
+        _rushPos = new Vector3(randX, randY, 0f);
+        _canMove = true;
+    }
+
+    void rushToPos()
+    {
+        if (_canMove)
+        {
+            Debug.Log("SHOULD BE RUSHING!");
+            transform.position = Vector3.MoveTowards(transform.position, _rushPos, _speed * Time.deltaTime);
+        }
+        
+    }
+
+    void returnPos()
+    {
+        if(!_canMove)
+        {
+            if (transform.position != _ogPos)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, _ogPos, _speed * Time.deltaTime);
+            }
+        }
+        
     }
 
     void posionAOE(float numOFEnemies)
@@ -344,8 +382,9 @@ public class bossCombat : MonoBehaviour
                 return;
             }
 
-            _enemies.Add(Instantiate(_posionAOEObject, spawnPoint, Quaternion.identity));
+            Instantiate(_posionAOEObject, spawnPoint, Quaternion.identity);
         }
+
     }
 
     void determineAngle()

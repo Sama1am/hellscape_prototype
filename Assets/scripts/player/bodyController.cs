@@ -279,7 +279,7 @@ public class bodyController : MonoBehaviour
         }
         else if((!attacking) && (collision.gameObject.CompareTag("enemy")))
         {
-            //_rb.velocity = Vector2.zero;
+            
         }
 
         if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("FinalBoss")))
