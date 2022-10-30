@@ -19,6 +19,9 @@ public class playerItemManager : MonoBehaviour
     [SerializeField] private Slider _itemChargeSlider;
     [SerializeField] private GameObject _itemChargeUI;
     [SerializeField] private GameObject _itemChargePanel;
+    [SerializeField] private float _spawnRadisu;
+
+    private Vector3 dir;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +73,13 @@ public class playerItemManager : MonoBehaviour
         
     }
 
+    private void getDirection()
+    {
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        dir = (worldPosition - gameObject.transform.position);
+    }
+
     public void useItemCharge()
     {
         _itemCharge -= _maxItemCharge;
@@ -83,9 +93,16 @@ public class playerItemManager : MonoBehaviour
             {
                 if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == true)
                 {
-                    GameObject temp = Instantiate(currentItem, transform.position + new Vector3(-2, 0, 0), Quaternion.identity);
-                    temp.GetComponent<active_items>().dropItem();
-                    Destroy(currentItem);
+                    //GameObject temp = Instantiate(currentItem, transform.position + new Vector3(-2, 0, 0), Quaternion.identity);
+                    getDirection();
+                    Vector3 direction = dir;
+                    direction = Vector3.ClampMagnitude(-direction, _spawnRadisu);
+
+                    currentItem.transform.position += direction;
+                    currentItem.transform.SetParent(null);
+                    currentItem.GetComponent<active_items>().dropItem();
+                    currentItem = null;
+                    //Destroy(currentItem);
                     collision.gameObject.transform.SetParent(_body.transform);
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();
@@ -94,9 +111,16 @@ public class playerItemManager : MonoBehaviour
                 }
                 else if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == false)
                 {
-                    GameObject temp = Instantiate(currentItem, transform.position + new Vector3(-2, 0, 0), Quaternion.identity);
-                    temp.GetComponent<active_items>().dropItem();
-                    Destroy(currentItem);
+                    //GameObject temp = Instantiate(currentItem, transform.position + new Vector3(-2, 0, 0), Quaternion.identity);
+                    getDirection();
+                    Vector3 direction = dir;
+                    direction = Vector3.ClampMagnitude(-direction, _spawnRadisu);
+
+                    currentItem.transform.position += direction;
+                    currentItem.transform.SetParent(null);
+                    currentItem.GetComponent<active_items>().dropItem();
+                    currentItem = null;
+                    //Destroy(currentItem);
                     collision.gameObject.transform.SetParent(this.gameObject.transform);
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();

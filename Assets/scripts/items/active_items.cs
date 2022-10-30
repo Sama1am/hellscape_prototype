@@ -11,10 +11,10 @@ public class active_items : MonoBehaviour
     public SpriteRenderer SR;
     [SerializeField] private bool _onBody;
     [SerializeField] private GameObject _UI;
-   
+    [SerializeField] private int _pickUpCounter;
     void Start()
     {
-
+        _pickUpCounter = 0;
     }
 
     // Update is called once per frame
@@ -38,6 +38,7 @@ public class active_items : MonoBehaviour
 
     public void pickedUpItem()
     {
+        _pickUpCounter++;
         itemCollider.enabled = false;
         SR.enabled = false;
         _currentActiveItem = true;
@@ -52,5 +53,12 @@ public class active_items : MonoBehaviour
         SR.enabled = true;
         _currentActiveItem = false;
         _onBody = false;
+
+        if(_pickUpCounter >= 2)
+        {
+            Destroy(gameObject);
+        }
+
+        
     }
 }
