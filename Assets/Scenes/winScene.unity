@@ -483,7 +483,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Over
+  m_text: WOW, you escaped!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ad3952af48b94934aa036d29a3de2893, type: 2}
   m_sharedMaterial: {fileID: 5545140544537776946, guid: ad3952af48b94934aa036d29a3de2893, type: 2}
