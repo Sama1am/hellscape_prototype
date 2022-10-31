@@ -63,7 +63,8 @@ public class bossCombat : MonoBehaviour
     [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
     [SerializeField] private GameObject _posionAOEObject;
     private int state = 0;
-    private float bossTimer = 0f;
+    [SerializeField] private float bossTimer = 0f;
+    [SerializeField] private float _stateTime = 2f;
 
     private bool _circleShoot;
     private bool _clusterShoot;
@@ -77,6 +78,7 @@ public class bossCombat : MonoBehaviour
         startPoint = gameObject.transform.position;
         _target = GameObject.FindGameObjectWithTag("Body");
         _ogPos = transform.position;
+        _stateTime = 2f;
         //target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
     }
@@ -103,7 +105,7 @@ public class bossCombat : MonoBehaviour
             bossTimer += Time.deltaTime;
             if (BM.stageOne)
             {
-                if(bossTimer > 2)
+                if(bossTimer > _stateTime)
                 {
 
                     Debug.Log("State Change! " + state);
@@ -113,17 +115,20 @@ public class bossCombat : MonoBehaviour
 
                         case 1:
                             //Debug.Log("State 1");
+                            _stateTime = 4;
                             _circleShoot = true;
 
                             break;
                         case 2:
                             //Debug.Log("Laser state");
+                            _stateTime = 3;
                             _circleShoot = false;
                             pickRandomPoint();
                             spawnPosion();
                             break;
                         case 0:
                             //Debug.Log("Enemy State");
+                            _stateTime = 4;
                             _canMove = false;
                             spawnEnemy();
                             break;
@@ -138,7 +143,7 @@ public class bossCombat : MonoBehaviour
             }
             else if (BM.stageTwo)
             {
-                if (bossTimer > 3)
+                if (bossTimer > _stateTime)
                 {
 
                     Debug.Log("State Change! " + state);
@@ -148,16 +153,24 @@ public class bossCombat : MonoBehaviour
 
                         case 1:
                             //Debug.Log("State 1");
+                            _stateTime = 5;
                             _canMove = false;
                             _circleClusterShoot = true;
                             break;
                         case 2:
                             //Debug.Log("Laser state");
+                            _stateTime = 3;
                             _circleClusterShoot = false;
                             _clusterShoot = true;
                             break;
+                        case 3:
+                            _stateTime = 4;
+                            _clusterShoot = false;
+                            spawnEnemy();
+                            break;
                         case 0:
                             //Debug.Log("Enemy State");
+                            _stateTime = 4;
                             _clusterShoot = false;
                             _speed = 20;
                             pickRandomPoint();
@@ -165,7 +178,7 @@ public class bossCombat : MonoBehaviour
 
                     }
                     state++;
-                    if (state > 2)
+                    if (state > 3)
                     {
                         state = -1;
                     }
@@ -244,6 +257,7 @@ public class bossCombat : MonoBehaviour
                     float projectileDirYposition = startPoint.y + Mathf.Cos((angle * Mathf.PI) / 180) * radius;
 
                     Vector2 projectileVector = new Vector2(projectileDirXposition, projectileDirYposition);
+                    startPoint = gameObject.transform.position;
                     Vector2 projectileMoveDirection = (projectileVector - startPoint).normalized * moveSpeed;
 
                     var proj = Instantiate(projectile, startPoint, Quaternion.identity);
@@ -277,6 +291,7 @@ public class bossCombat : MonoBehaviour
                 {
                     moveSpeedCluster = Random.Range(8, 12);
                     randomAngle = Random.Range(0, 360);
+                    startPoint = gameObject.transform.position;
                     float projectileDirXposition = startPoint.x + Mathf.Sin((randomAngle * Mathf.PI) / 180) * radiusCluster;
                     float projectileDirYposition = startPoint.y + Mathf.Cos((randomAngle * Mathf.PI) / 180) * radiusCluster;
 
@@ -311,6 +326,7 @@ public class bossCombat : MonoBehaviour
 
                 for (int i = 0; i <= numOfProjectiles - 1; i++)
                 {
+                    startPoint = gameObject.transform.position;
                     moveSpeedCluster = Random.Range(8, 12);
                     randomAngle = Random.Range(randomAngleRangeMin, randomAngleRangeMax);
                     float projectileDirXposition = startPoint.x + Mathf.Sin((randomAngle * Mathf.PI) / 180) * radiusCluster;
@@ -333,7 +349,7 @@ public class bossCombat : MonoBehaviour
 
     void spawnPosion()
     {
-        float a = Random.Range(4, 10);
+        float a = Random.Range(4, 13);
         posionAOE(a);
         Debug.Log("SHOULD SPAWN POISION!");
     }

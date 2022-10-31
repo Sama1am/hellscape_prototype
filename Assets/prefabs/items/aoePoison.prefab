@@ -52,6 +52,7 @@ MonoBehaviour:
   _currentTime: 0
   _radius: 2.87
   _enemies: []
+  _bosses: []
 --- !u!58 &4564716470590304616
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 78e4c3bee8f31c1448a8aab100dd6faa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

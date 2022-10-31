@@ -117,12 +117,22 @@ public class enemy_spawner : MonoBehaviour
     }
 
 
-    public void setActive()
+    public void setSpawnerStatus(bool state)
     {
         if(!isdead)
         {
-            _enemy.SetActive(true);
-            active = true;
+            if(state == true)
+            {
+                Debug.Log("SHOULD SET THE ENEMIES ACTIVE!");
+                _enemy.SetActive(true);
+                active = true;
+            }
+            else if(state == false)
+            {
+                _enemy.SetActive(false);
+                active = false;
+            }
+           
         }
         
     }
@@ -140,17 +150,20 @@ public class enemy_spawner : MonoBehaviour
         //    _enemy.SetActive(true);
         //    active = true;
         //}
-        
-        
-        if(_distFromPlayer > _activationDist)
+        if(active)
         {
-            if((!chasing) && (home == true))
+            if (_distFromPlayer > _activationDist)
             {
-                active = false;
-                _enemy.SetActive(false);
+                if ((!chasing) && (home == true))
+                {
+                    active = false;
+                    _enemy.SetActive(false);
+                }
+
             }
-            
         }
+        
+       
     }
 
     public void goBack()

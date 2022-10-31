@@ -15,6 +15,8 @@ public class roomManager : MonoBehaviour
         for (int i = 0; i < _enemySpawners.Length; i++)
         {
             _enemySpawners[i].GetComponent<enemy_spawner>()._currentRoomManager = this.gameObject;
+            _enemySpawners[i].SetActive(false);
+            _enemySpawners[i].GetComponent<enemy_spawner>().setSpawnerStatus(false);
         }
     }
 
@@ -32,7 +34,8 @@ public class roomManager : MonoBehaviour
         {
             for (int i = 0; i < _doors.Length; i++)
             {
-                _doors[i].SetActive(false); ;
+                _doors[i].SetActive(false);
+                Destroy(gameObject);
             }
         }
         else if(_enemiesInRoom.Count >= 1)
@@ -47,11 +50,13 @@ public class roomManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if((collision.gameObject.CompareTag("Body")))
         {
+            Debug.Log("PLAYER ENTERED ROOM!");
             for (int i = 0; i < _enemySpawners.Length; i++)
             {
-                _enemySpawners[i].GetComponent<enemy_spawner>().setActive();
+                _enemySpawners[i].SetActive(true);
+                _enemySpawners[i].GetComponent<enemy_spawner>().setSpawnerStatus(true);
             }
         }
     }

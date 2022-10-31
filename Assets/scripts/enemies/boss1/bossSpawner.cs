@@ -16,7 +16,7 @@ public class bossSpawner : MonoBehaviour
     [SerializeField] private float xValue;
     //[SerializeField] private GameObject _bossDoor;
     [SerializeField] private GameObject key;
-    [SerializeField] private GameObject _bossDoor;
+    [SerializeField] private GameObject[] _bossDoor;
 
 
     [SerializeField] private GameObject actualBoss;
@@ -27,7 +27,7 @@ public class bossSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DM = gameObject.GetComponent<dropManager>();
+        //DM = gameObject.GetComponentInChildren<dropManager>();
         _target = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -55,11 +55,15 @@ public class bossSpawner : MonoBehaviour
 
         if(isdead)
         {
-            Destroy(_bossDoor);
+            for (int i = 0; i < _bossDoor.Length; i++)
+            {
+                Destroy(_bossDoor[i]);
+            }
+            
             DM.determineDrop();
             if(!_spawnedKey)
             {
-                Instantiate(key, transform.position + new Vector3(1, 0, 0), Quaternion.identity);
+                Instantiate(key, DM.transform.position, Quaternion.identity);
                 _spawnedKey = true;
             }
         }
@@ -106,7 +110,10 @@ public class bossSpawner : MonoBehaviour
             }
             else if (actualBoss.GetComponent<bossManager>().isdead)
             {
-                Destroy(_bossDoor);
+                for (int i = 0; i < _bossDoor.Length; i++)
+                {
+                    Destroy(_bossDoor[i]);
+                }
 
             }
         }
@@ -127,7 +134,10 @@ public class bossSpawner : MonoBehaviour
         {
             if(!isdead)
             {
-                _bossDoor.SetActive(true);
+                for (int i = 0; i < _bossDoor.Length; i++)
+                {
+                    _bossDoor[i].SetActive(true);
+                }
                 _BossHealthSlider.SetActive(true);
                 actualBoss.SetActive(true);
                 actualBoss.GetComponent<bossManager>().currentHeaalth = actualBoss.GetComponent<bossManager>()._maxHealth;

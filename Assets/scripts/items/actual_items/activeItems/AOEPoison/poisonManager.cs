@@ -5,7 +5,8 @@ using UnityEngine;
 public class poisonManager : MonoBehaviour
 {
     [SerializeField] private GameObject _poisonObject;
-
+    [SerializeField] private GameObject _objectIndicator;
+    private bool _showIndicator;
     private GameObject _body;
     private bool hasSpawned;
     private playerItemManager _PIM;
@@ -23,27 +24,54 @@ public class poisonManager : MonoBehaviour
     {
         if(_AI.getCurrentStatus() == true)
         {
-            if (Input.GetMouseButton(0))
+            if(Input.GetMouseButtonUp(0))
             {
-                if (_PIM.getItemStatus() == true)
+
+                if(_PIM.getItemStatus() == true)
                 {
 
-                    if (!hasSpawned)
+                    if(!hasSpawned)
                     {
                         Instantiate(_poisonObject, _body.transform.position, Quaternion.identity);
                         hasSpawned = true;
                         StartCoroutine("spawnWait");
                         _PIM.useItemCharge();
+                        _showIndicator = false;
+                        _objectIndicator.SetActive(false);
 
                     }
                 }
 
+                _objectIndicator.SetActive(false);
             }
+            else if(Input.GetMouseButtonDown(0))
+            {
+                if (_PIM.getItemStatus() == true)
+                {
+                    _showIndicator = true;
+                }
+                    
+            }
+
+
+
         }
         
     }
 
+    private void FixedUpdate()
+    {
+        showIndicator();
+    }
 
+    private void showIndicator()
+    {
+        if(_showIndicator)
+        {
+            _objectIndicator.transform.position = _body.transform.position;
+            _objectIndicator.SetActive(true);
+        }
+    }
     public void setSpawnedStatus(bool status)
     {
         hasSpawned = status;

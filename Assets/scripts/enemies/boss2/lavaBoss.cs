@@ -18,13 +18,14 @@ public class lavaBoss : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _increasedSpeed;
     [SerializeField] private GameObject _lavaAOE;
+    [SerializeField] private float _stateTime;
     private Vector3 randomPos;
 
     private int state = 0;
-    private float bossTimer = 0f;
+    [SerializeField] private float bossTimer = 0f;
     private bool canRotateLaser = false;
     private bool _canSpawnLava;
-
+    private bool _goHome;
     #region position stuff
     private Vector3 ogPos;
     private Vector3 _ogRightPos;
@@ -63,6 +64,7 @@ public class lavaBoss : MonoBehaviour
 
         //GFX
         rotatePoints();
+        goToCenter();
 
         //Engine things
         removeEnemies();
@@ -85,7 +87,7 @@ public class lavaBoss : MonoBehaviour
             bossTimer += Time.deltaTime;
             if(BM.stageOne)
             {
-                if (bossTimer > 2)
+                if(bossTimer > _stateTime)
                 {
 
                     Debug.Log("State Change! " + state);
@@ -95,24 +97,30 @@ public class lavaBoss : MonoBehaviour
 
                         case 1:
                             //Debug.Log("State 1");
+                            _stateTime = 4;
                             activateLasers();
                             canRotateLaser = false;
                             break;
                         case 2:
                             //Debug.Log("Laser state");
-                            bossTimer += 1.5f;
+                            //bossTimer += 1.5f;
+                            _stateTime = 5;
                             canRotateLaser = true;
                             break;
-                        case 0:
-                            //Debug.Log("Enemy State");
+                        case 3:
+                            _stateTime = 4;
                             canRotateLaser = false;
-                            this.transform.position = ogPos;
+                            _goHome = true;
+                            break;
+                        case 0:
+                            _stateTime = 5;
+                            _goHome = false;
                             deactivateLasers();
                             spawnEnemy();
                             break;
                     }
                     state++;
-                    if (state > 2)
+                    if(state > 3)
                     {
                         state = -1;
                     }
@@ -121,7 +129,7 @@ public class lavaBoss : MonoBehaviour
             }
             else if(BM.stageTwo)
             {
-                if (bossTimer > 2)
+                if (bossTimer > _stateTime)
                 {
 
                     Debug.Log("State Change! " + state);
@@ -131,28 +139,35 @@ public class lavaBoss : MonoBehaviour
 
                         case 1:
                             //Debug.Log("State 1");
+                            _stateTime = 4;
                             _canSpawnLava = true;
                             canRotateLaser = false;
                             break;
                         case 2:
                             //Debug.Log("Laser state");
+                            _stateTime = 5;
                             _speed = _increasedSpeed;
                             _canSpawnLava = false;
                             resetLava();
                             activateLasers();
-                            bossTimer += 1.5f;
+                            //bossTimer += 1.5f;
                             canRotateLaser = true;
                             break;
-                        case 0:
-                            //Debug.Log("Enemy State");
+                        case 3:
+                            _stateTime = 4;
                             canRotateLaser = false;
-                            this.transform.position = ogPos;
+                            _goHome = true;
+                            break;
+                        case 0:
+                            //this.transform.position = ogPos;
+                            _stateTime = 5;
+                            _goHome = false;
                             deactivateLasers();
                             spawnEnemy();
                             break;
                     }
                     state++;
-                    if (state > 2)
+                    if (state > 3)
                     {
                         state = -1;
                     }
@@ -170,7 +185,7 @@ public class lavaBoss : MonoBehaviour
         if(_canSpawnLava)
         {
             _lavaAOE.SetActive(true);
-            _lavaAOE.GetComponent<Transform>().localScale += new Vector3(0.003f, 0.003f, 0);
+            _lavaAOE.GetComponent<Transform>().localScale += new Vector3(0.008f, 0.008f, 0);
         }
         
 
@@ -184,7 +199,7 @@ public class lavaBoss : MonoBehaviour
 
     void spawnEnemy()
     {
-        if(_enemies.Count > 5)
+        if(_enemies.Count >= 4)
         {
             
         }
@@ -268,6 +283,20 @@ public class lavaBoss : MonoBehaviour
         }
        
 
+    }
+
+    void goToCenter()
+    {
+        if(_goHome)
+        {
+            _lasers[0].transform.RotateAround(gameObject.transform.position, Vector3.forward, _OrbitSpeed * Time.deltaTime);
+            _lasers[1].transform.RotateAround(gameObject.transform.position, Vector3.forward, _OrbitSpeed * Time.deltaTime);
+            _lasers[2].transform.RotateAround(gameObject.transform.position, Vector3.forward, _OrbitSpeed * Time.deltaTime);
+            _lasers[3].transform.RotateAround(gameObject.transform.position, Vector3.forward, _OrbitSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, ogPos, _speed * Time.deltaTime);
+
+            
+        }
     }
 
     private void getOgPos()

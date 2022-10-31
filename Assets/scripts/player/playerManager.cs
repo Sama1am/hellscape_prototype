@@ -92,7 +92,7 @@ public class playerManager : MonoBehaviour
     {
         if(currentHealth <= 0)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
     }
 

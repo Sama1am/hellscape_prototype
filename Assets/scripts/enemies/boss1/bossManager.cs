@@ -22,7 +22,7 @@ public class bossManager : MonoBehaviour
     public bossSpawner _BS;
 
     [SerializeField] private bool _isfinalBoss;
-    [SerializeField] private GameObject _door;
+    //[SerializeField] private GameObject[] _door;
     [SerializeField] private bool _telaport;
     [SerializeField] private GameObject _teleporter;
     [SerializeField] private GameObject _healthBar;
@@ -70,7 +70,13 @@ public class bossManager : MonoBehaviour
         {
             _teleporter.SetActive(true);
         }
+
         Destroy(gameObject);
+
+        if(_isfinalBoss)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
     private void setUI()
