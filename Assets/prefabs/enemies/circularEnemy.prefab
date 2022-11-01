@@ -240,9 +240,9 @@ MonoBehaviour:
   transformMove: 1
   moveWaitDone: 0
   damage: 1
-  _activationDist: 46.8
-  _chaseDist: 16.5
-  _maxChaseDist: 20.55
+  _activationDist: 43.5
+  _chaseDist: 25
+  _maxChaseDist: 30
   _dist: 0
   active: 0
   retreatRange: 5

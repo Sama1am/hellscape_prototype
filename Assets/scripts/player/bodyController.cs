@@ -286,6 +286,7 @@ public class bodyController : MonoBehaviour
         {
             //_CS.setShake(true);
             checkCrit();
+            _PIM.setItemCharge();
             collision.gameObject.GetComponent<bossManager>().takeDamage(_dam);
             StartCoroutine("critPopUp");
             Debug.Log("BOSS TOOK DAMAGE " + _dam);

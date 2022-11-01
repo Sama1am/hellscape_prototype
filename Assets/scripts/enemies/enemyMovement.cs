@@ -37,9 +37,6 @@ public class enemyMovement : MonoBehaviour
     private float maxMoveSpeed;
 
     [SerializeField]
-    private bool velocityMove;
-
-    [SerializeField]
     private bool transformMove, moveWaitDone;
     #endregion
 
@@ -62,7 +59,7 @@ public class enemyMovement : MonoBehaviour
     [SerializeField] private float _rushSpeed;
     //[SerializeField] private bool _rush;
     [SerializeField] private bool _isRushing;
-    [SerializeField] private Vector3 _targetVect;
+  
     public GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
@@ -88,7 +85,7 @@ public class enemyMovement : MonoBehaviour
         }
         
         target = GameObject.FindGameObjectWithTag("Body");
-        //InvokeRepeating("updatePath", 0f, .5f);
+        
 
     }
 
@@ -137,7 +134,7 @@ public class enemyMovement : MonoBehaviour
         }
 
         //enemy will still chase player if they are out of max dist if the player is in chase range 
-        if ((Vector2.Distance(transform.position, ES.transform.position) > ES._maxDistFromSpawner) && (_dist <= _chaseDist))
+        if((Vector2.Distance(transform.position, ES.transform.position) > ES._maxDistFromSpawner) && (_dist <= _chaseDist))
         {
             ES.chasing = true;
             ES.returning = false;
@@ -145,6 +142,7 @@ public class enemyMovement : MonoBehaviour
         }
         else if((Vector2.Distance(transform.position, ES.transform.position) > ES._maxDistFromSpawner) && (_dist > _chaseDist))
         {
+            Debug.Log("SHOULD RETURN HOME!");
             ES.goBack();
         }
 
@@ -251,27 +249,6 @@ public class enemyMovement : MonoBehaviour
             
 
         }
-        else if(velocityMove)
-        {
-            Vector3 posA = target.transform.position;
-            Vector3 posB = rb.position;
-            Vector3 direction = (posA - posB).normalized;
-
-
-            Vector2 force = direction * speed * Time.deltaTime;
-            rb.velocity = rb.velocity + force;
-
-            if (Mathf.Abs(rb.velocity.x) >= maxMoveSpeed)
-            {
-                Debug.Log("AT MAX MOVE SPEED");
-                rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxMoveSpeed, maxMoveSpeed), rb.velocity.y);
-                Debug.Log("VELOCITY IS " + rb.velocity.x);
-            }
-
-
-            
-        }
-
     }
 
     void updatePath()
@@ -305,10 +282,12 @@ public class enemyMovement : MonoBehaviour
         if(ES.returning)
         {
             targetPos = ES._EStransform;
+            updatePath();
         }
         else if(ES.chasing)
         {
             targetPos = player;
+            updatePath();
         }
 
         if(transform.position == ES.GetComponent<Transform>().position && !ES.home)
@@ -325,12 +304,14 @@ public class enemyMovement : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, _chaseDist);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _attackDist);
+        Gizmos.color = Color.green;
+
     }
 
     IEnumerator stunnedwait()
     {
         canMove = false;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         canMove = true;
         em.setStunStatus(false);
             

@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  _attackDist: 22
+  _attackDist: 25
   active: 0
   stunned: 0
   radiusCluster: 5

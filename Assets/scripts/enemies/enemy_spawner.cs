@@ -54,6 +54,8 @@ public class enemy_spawner : MonoBehaviour
         isdead = false;
         _player = GameObject.FindGameObjectWithTag("Body");
         _currentTime = _spawnEnemyDelay;
+        setSpawnerStatus(false);
+        this.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -87,7 +89,7 @@ public class enemy_spawner : MonoBehaviour
         if ((isdead == true) && (_enemy == null) && (!spawnedNewEnemy))
         {
             _currentTime -= Time.deltaTime;
-            if (_roomManage)
+            if(_roomManage)
             {
                 _currentRoomManager.GetComponent<roomManager>()._enemiesInRoom.Remove(_enemy);
             }
@@ -116,7 +118,6 @@ public class enemy_spawner : MonoBehaviour
 
     }
 
-
     public void setSpawnerStatus(bool state)
     {
         if(!isdead)
@@ -129,8 +130,16 @@ public class enemy_spawner : MonoBehaviour
             }
             else if(state == false)
             {
-                _enemy.SetActive(false);
-                active = false;
+                try
+                {
+                    _enemy.SetActive(false);
+                    active = false;
+                }
+                catch
+                {
+                    Debug.Log("cuaght error");
+                }
+                
             }
            
         }
@@ -152,7 +161,7 @@ public class enemy_spawner : MonoBehaviour
         //}
         if(active)
         {
-            if (_distFromPlayer > _activationDist)
+            if(_distFromPlayer > _activationDist)
             {
                 if ((!chasing) && (home == true))
                 {

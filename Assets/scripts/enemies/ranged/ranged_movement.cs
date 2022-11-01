@@ -249,27 +249,6 @@ public class ranged_movement : MonoBehaviour
 
 
         }
-        else if (velocityMove)
-        {
-            Vector3 posA = target.transform.position;
-            Vector3 posB = rb.position;
-            Vector3 direction = (posA - posB).normalized;
-
-
-            Vector2 force = direction * speed * Time.deltaTime;
-            rb.velocity = rb.velocity + force;
-
-            if (Mathf.Abs(rb.velocity.x) >= maxMoveSpeed)
-            {
-                Debug.Log("AT MAX MOVE SPEED");
-                rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxMoveSpeed, maxMoveSpeed), rb.velocity.y);
-                Debug.Log("VELOCITY IS " + rb.velocity.x);
-            }
-
-
-
-        }
-
     }
 
     void updatePath()

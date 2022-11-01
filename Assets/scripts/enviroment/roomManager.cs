@@ -12,12 +12,13 @@ public class roomManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < _enemySpawners.Length; i++)
-        {
-            _enemySpawners[i].GetComponent<enemy_spawner>()._currentRoomManager = this.gameObject;
-            _enemySpawners[i].SetActive(false);
-            _enemySpawners[i].GetComponent<enemy_spawner>().setSpawnerStatus(false);
-        }
+
+        //for (int i = 0; i < _enemySpawners.Length; i++)
+        //{
+        //    _enemySpawners[i].GetComponent<enemy_spawner>()._currentRoomManager = this.gameObject;
+        //    _enemySpawners[i].SetActive(false);
+        //    _enemySpawners[i].GetComponent<enemy_spawner>().setSpawnerStatus(false);
+        //}
     }
 
     // Update is called once per frame

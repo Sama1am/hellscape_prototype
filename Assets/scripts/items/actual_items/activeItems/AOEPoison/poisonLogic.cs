@@ -73,6 +73,19 @@ public class poisonLogic : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            _enemies.Add(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
+        {
+            _bosses.Add(collision.gameObject);
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("enemy"))
@@ -89,7 +102,7 @@ public class poisonLogic : MonoBehaviour
     private IEnumerator damageWait()
     {
         doDamage = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         doDamage = true;
     }
 

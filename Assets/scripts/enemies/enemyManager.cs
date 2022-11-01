@@ -61,7 +61,7 @@ public class enemyManager : MonoBehaviour
         _currentHealth -= dam;
         StartCoroutine("changeColour");
 
-        if (!_UIActive)
+        if(!_UIActive)
         {
             _UIActive = true;
         }

@@ -298,7 +298,7 @@ MonoBehaviour:
   transformMove: 1
   moveWaitDone: 0
   damage: 1
-  _chaseDist: 18.08
+  _chaseDist: 28
   _explodeDist: 6
   _dist: 0
   active: 0

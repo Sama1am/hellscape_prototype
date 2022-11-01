@@ -101,26 +101,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  speed: 3
+  speed: 3.5
   nextWaypointDistance: 0.5
   reachedEndOfPath: 0
   targetPos: {fileID: 0}
   player: {fileID: 0}
   knockBackForce: 15
   maxMoveSpeed: 3
-  velocityMove: 0
   transformMove: 1
   moveWaitDone: 0
   damage: 1
-  _chaseDist: 52
+  _chaseDist: 32
   _dist: 0
-  _attackDist: 2.37
+  _attackDist: 3
   active: 0
   stunned: 0
   _closeEnough: 1
   _rushSpeed: 6
   _isRushing: 0
-  _targetVect: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
 --- !u!114 &6494923697806264580
 MonoBehaviour:
