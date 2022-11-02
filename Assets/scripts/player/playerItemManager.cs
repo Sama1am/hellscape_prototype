@@ -104,6 +104,10 @@ public class playerItemManager : MonoBehaviour
                     currentItem = null;
                     //Destroy(currentItem);
                     collision.gameObject.transform.SetParent(_body.transform);
+
+                    collision.gameObject.transform.position = this.gameObject.transform.position;
+
+
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();
                     _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
@@ -122,6 +126,7 @@ public class playerItemManager : MonoBehaviour
                     currentItem = null;
                     //Destroy(currentItem);
                     collision.gameObject.transform.SetParent(this.gameObject.transform);
+                    collision.gameObject.transform.position = this.gameObject.transform.position;
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();
                     _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
@@ -135,6 +140,7 @@ public class playerItemManager : MonoBehaviour
                 if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == true)
                 {
                     collision.gameObject.transform.SetParent(_body.transform);
+                    collision.gameObject.transform.position = this.gameObject.transform.position;
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();
                     _UISprite.sprite = collision.GetComponent<active_items>().UISprite;
@@ -144,6 +150,7 @@ public class playerItemManager : MonoBehaviour
                 else if(collision.gameObject.GetComponent<active_items>().getBodyStatus() == false)
                 {
                     collision.gameObject.transform.SetParent(this.gameObject.transform);
+                    collision.gameObject.transform.position = this.gameObject.transform.position;
                     currentItem = collision.gameObject;
                     currentItem.GetComponent<active_items>().pickedUpItem();
                     _UISprite.sprite = collision.GetComponent<active_items>().UISprite;

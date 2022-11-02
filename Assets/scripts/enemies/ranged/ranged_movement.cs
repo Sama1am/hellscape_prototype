@@ -307,7 +307,6 @@ public class ranged_movement : MonoBehaviour
         }
     }
 
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

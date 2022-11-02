@@ -19,10 +19,11 @@ public class normalShoot : MonoBehaviour
     private bool canShoot;
 
     GameObject player;
-
+    enemyManager em;
     // Start is called before the first frame update
     void Start()
     {
+        em = GetComponent<enemyManager>();
         player = GameObject.FindGameObjectWithTag("Body");
         StartCoroutine("startDelay");
         canShoot = true;
@@ -39,6 +40,13 @@ public class normalShoot : MonoBehaviour
                 }
             }
         }
+
+        if(em.checkStunStatus() == true)
+        {
+            canShoot = false;
+            StartCoroutine("stunnedwait");
+        }
+        
     }
 
     private void FixedUpdate()
@@ -67,6 +75,15 @@ public class normalShoot : MonoBehaviour
         pos = transform.position;
         enemyToPlayer = playerPos - pos;
         enemyToPlayer.Normalize();
+    }
+
+    IEnumerator stunnedwait()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(1f);
+        canShoot = true;
+        em.setStunStatus(false);
+
     }
 
     IEnumerator startDelay()

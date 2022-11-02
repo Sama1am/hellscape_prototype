@@ -142,7 +142,7 @@ public class enemyMovement : MonoBehaviour
         }
         else if((Vector2.Distance(transform.position, ES.transform.position) > ES._maxDistFromSpawner) && (_dist > _chaseDist))
         {
-            Debug.Log("SHOULD RETURN HOME!");
+            //Debug.Log("SHOULD RETURN HOME!");
             ES.goBack();
         }
 

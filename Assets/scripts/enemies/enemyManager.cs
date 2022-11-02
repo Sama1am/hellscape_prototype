@@ -49,7 +49,6 @@ public class enemyManager : MonoBehaviour
         }
     }
 
-
     private void setUI()
     {
         _enemyHealthBar.value = _currentHealth;
@@ -122,6 +121,7 @@ public class enemyManager : MonoBehaviour
 
     public void setStunStatus(bool status)
     {
+        Debug.Log("STUN IS " + status);
         _stunned = status;
     }
 

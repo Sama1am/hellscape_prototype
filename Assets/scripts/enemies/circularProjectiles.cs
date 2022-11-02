@@ -27,15 +27,18 @@ public class circularProjectiles : MonoBehaviour
 	private GameObject _body;
 	[SerializeField] private float _shootDist;
 
-	enemy_spawner EM;
+	enemy_spawner ES;
+	enemyManager em;
 	// Use this for initialization
 	void Start()
 	{
+		em = GetComponent<enemyManager>();
 		_player = GameObject.FindGameObjectWithTag("Player");
 		_body = GameObject.FindGameObjectWithTag("Body");
 		startPoint = gameObject.transform.position;
 		//StartCoroutine("startDelay");
-		EM = GetComponentInParent<enemy_spawner>();
+		ES = GetComponentInParent<enemy_spawner>();
+		canShoot = true;
 	}
 
 	// Update is called once per frame
@@ -56,6 +59,14 @@ public class circularProjectiles : MonoBehaviour
 				shoot(numberOfProjectiles);
 			}
 		}
+
+		if(em.checkStunStatus() == true)
+        {
+			canShoot = false;
+			StartCoroutine("stunnedwait");
+
+		}
+		
 	}
 
     private void FixedUpdate()
@@ -111,6 +122,15 @@ public class circularProjectiles : MonoBehaviour
 	{
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(transform.position, _shootDist);
+	}
+
+	IEnumerator stunnedwait()
+	{
+		canShoot = false;
+		yield return new WaitForSeconds(1f);
+		canShoot = true;
+		em.setStunStatus(false);
+
 	}
 
 	IEnumerator startDelay()

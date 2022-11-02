@@ -23,6 +23,7 @@ TagManager:
   - globalVolume
   - profilePic
   - gameManager
+  - playerBullet
   layers:
   - Default
   - TransparentFX
@@ -38,7 +39,7 @@ TagManager:
   - pointer
   - bodyParts
   - boss
-  - 
+  - playerBullet
   - 
   - 
   - 

@@ -13,12 +13,12 @@ public class poisonLogic : MonoBehaviour
     [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
     [SerializeField] private List<GameObject> _bosses = new List<GameObject>();
 
-    private CircleCollider2D _collider;
+    //private PolygonCollider2D _collider;
     // Start is called before the first frame update
     void Start()
     {
-        _collider = GetComponent<CircleCollider2D>();
-        _collider.radius = _radius;
+        //_collider = GetComponent<PolygonCollider2D>();
+        //_collider.radius = _radius;
         _body = GameObject.FindGameObjectWithTag("Body");
         _currentTime = _maxTime;
         doDamage = true;
@@ -46,7 +46,16 @@ public class poisonLogic : MonoBehaviour
         {
             for (int i = 0; i < _enemies.Count; i++)
             {
-                _enemies[i].GetComponent<enemyManager>().takeDamage(_damage);
+                if (_enemies[i] == null)
+                {
+                    _enemies.Remove(_enemies[i]);
+                }
+                else
+                {
+                    _enemies[i].GetComponent<enemyManager>().takeDamage(_damage);
+                }
+
+               
             }
 
             for (int i = 0; i < _bosses.Count; i++)
@@ -62,8 +71,10 @@ public class poisonLogic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if(collision.gameObject.CompareTag("enemy"))
         {
+            Debug.Log(collision.name);
             _enemies.Add(collision.gameObject);
         }
 
@@ -75,8 +86,10 @@ public class poisonLogic : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        
         if (collision.gameObject.CompareTag("enemy"))
         {
+            Debug.Log(collision.name);
             _enemies.Add(collision.gameObject);
         }
 
@@ -88,6 +101,7 @@ public class poisonLogic : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+       
         if (collision.gameObject.CompareTag("enemy"))
         {
             _enemies.Remove(collision.gameObject);

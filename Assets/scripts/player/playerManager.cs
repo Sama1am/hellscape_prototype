@@ -96,6 +96,11 @@ public class playerManager : MonoBehaviour
         }
     }
 
+    public void increaseHealth(float healthIncrease)
+    {
+        health += healthIncrease;
+    }
+
     public void setFalseHeart()
     {
         hasfalseheart = true;

@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class stun_logic : MonoBehaviour
 {
+    [SerializeField] private GameObject _stunItem;
     [SerializeField] private float _stunRadius;
     [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
-
+    [SerializeField] private GameObject _stunIndecator;
+    private bool _showIndicator;
     private bool _stunning;
+    private GameObject _body;
     [SerializeField] private CircleCollider2D _collider;
     private playerItemManager _PIM;
     [SerializeField] private active_items _AI;
+    private bool hasSpawned;
+
     // Start is called before the first frame update
     void Start()
     {
         _PIM = GameObject.FindGameObjectWithTag("Player").GetComponent<playerItemManager>();
         _collider.radius = _stunRadius;
         _AI = gameObject.GetComponent<active_items>();
+        _body = GameObject.FindGameObjectWithTag("Body");
     }
 
     // Update is called once per frame
@@ -24,33 +30,51 @@ public class stun_logic : MonoBehaviour
     {
         if (_AI.getCurrentStatus() == true)
         {
-            if (Input.GetMouseButton(0))
+            if(Input.GetMouseButtonUp(0))
             {
+                _showIndicator = false;
+                _stunIndecator.SetActive(false);
                 if (_PIM.getItemStatus() == true)
                 {
+                    _showIndicator = false;
                     _stunning = true;
-                    if (_stunning)
+                    if(_stunning)
                     {
-                        stun();
+                        if(!hasSpawned)
+                        {
+                            _showIndicator = false;
+                            Instantiate(_stunItem, _body.transform.position, Quaternion.identity);
+                            hasSpawned = true;
+                            _PIM.useItemCharge();
+                            StartCoroutine("spawnWait");
+                        }
+                        
                     }
                 }
+            }
+            else if(Input.GetMouseButtonDown(0))
+            {
+                if (_PIM.getItemStatus() == true)
+                    _showIndicator = true;
             }
         }
             
     }
 
-    void stun()
+    private void FixedUpdate()
     {
-        for (int i = 0; i < _enemies.Count; i++)
-        {
-            _enemies[i].GetComponent<enemyManager>().setStunStatus(true);
-            Debug.Log("SHOULD OF STUNNED ENEMY1");
-        }
-
-        _stunning = false;
-        _PIM.useItemCharge();
-
+        showIndicator();
     }
+
+    private void showIndicator()
+    {
+        if (_showIndicator)
+        {
+            _stunIndecator.transform.position = _body.transform.position;
+            _stunIndecator.SetActive(true);
+        }
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -71,7 +95,12 @@ public class stun_logic : MonoBehaviour
 
     }
 
-
+    private IEnumerator spawnWait()
+    {
+        hasSpawned = true;
+        yield return new WaitForSeconds(5f);
+        hasSpawned = false;
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

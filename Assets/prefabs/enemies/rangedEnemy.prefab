@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7262279780499625219}
   - component: {fileID: 5450304712383700987}
   - component: {fileID: 2330381088930163040}
+  - component: {fileID: 4434715350207782747}
   m_Layer: 10
   m_Name: rangedEnemy
   m_TagString: enemy
@@ -169,7 +170,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7262279780499625243}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -193,6 +194,22 @@ MonoBehaviour:
   _itemManager: {fileID: 0}
   _isBoss: 0
   drop: 0
+--- !u!70 &4434715350207782747
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7262279780499625243}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03764121, y: -0.11615022}
+  m_Size: {x: 0.57528245, y: 0.9937293}
+  m_Direction: 0
 --- !u!1 &7262279780698227975
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +262,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 09ad6be233e32a8489c28b7e43384e42, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -266,7 +283,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 8642d208da7a3754d94fa464130406da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1670f773edd2c80479e00f0e6e5c6ccc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

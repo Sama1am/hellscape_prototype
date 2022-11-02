@@ -27,7 +27,7 @@ public class increaseSpeed : MonoBehaviour
 
         if((collision.gameObject.CompareTag("Player")))
         {
-            collision.GetComponentInChildren<bodyController>().increaseSpeed(10);
+            collision.GetComponentInChildren<bodyController>().increaseSpeed(25f, 25f, 25f);
             StartCoroutine("UIPopUp");
             //Destroy(gameObject);
         }

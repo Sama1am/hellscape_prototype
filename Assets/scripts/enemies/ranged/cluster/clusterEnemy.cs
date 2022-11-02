@@ -20,6 +20,7 @@ public class clusterEnemy : MonoBehaviour
     [SerializeField] private GameObject _projectile;
     [SerializeField] private bool _center;
 
+    private bool _canShoot;
     private float angle, rawAngle, dirRight, dirUp;
     private bool spawnEnemies, error;
     private int randomAngle;
@@ -39,7 +40,7 @@ public class clusterEnemy : MonoBehaviour
         _rb = gameObject.GetComponent<Rigidbody2D>();
         
         _ES = GetComponentInParent<enemy_spawner>();
-       
+        _canShoot = true;
         try
         {
             _targetPos = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
@@ -64,7 +65,18 @@ public class clusterEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        shoot();
+        if(_canShoot)
+        {
+            shoot();
+        }
+
+        if(_em.checkStunStatus() == true)
+        {
+            _canShoot = false;
+            StartCoroutine("stunnedwait");
+        }
+        
+        
     }
 
     private void shoot()
@@ -198,4 +210,12 @@ public class clusterEnemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, _attackDist);
     }
 
+    IEnumerator stunnedwait()
+    {
+        _canShoot = false;
+        yield return new WaitForSeconds(1f);
+        _canShoot = true;
+        _em.setStunStatus(false);
+
+    }
 }

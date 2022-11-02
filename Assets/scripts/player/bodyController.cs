@@ -12,6 +12,9 @@ public class bodyController : MonoBehaviour
     private float _vertical;
     private bool _changeDir;
     [SerializeField] private float _dragForce;
+    [SerializeField] private float _maxSpeed;
+    [SerializeField] private float _mediumSpeed;
+    [SerializeField] private float _minimuimSpeed;
     #endregion
 
     #region Throw body stuff
@@ -47,6 +50,7 @@ public class bodyController : MonoBehaviour
         _PM = gameObject.GetComponent<playerManager>();
         //dam = _PM.damage;
         _rb = gameObject.GetComponent<Rigidbody2D>();
+        setSpeed();
     }
 
     // Update is called once per frame
@@ -121,7 +125,6 @@ public class bodyController : MonoBehaviour
 
     }
 
-
     void shootOut()
     {
         if(Input.GetMouseButtonUp(1))
@@ -164,24 +167,34 @@ public class bodyController : MonoBehaviour
         attacking = status;
     }
 
+    private void setSpeed()
+    {
+        _maxSpeed = 125f;
+        _mediumSpeed = 100f;
+        _minimuimSpeed = 75f;
+    }
+
     void determineVelocity(float time)
     {
         if(time >= 0.6f)
         {
-            _speed = 125f;
+            _speed = _maxSpeed;
+            //125
             //PM.damage = 2;
             crit();
         }
         else if((time < 06f) && (time >= 0.4f))
         {
-            _speed = 100f;
+            _speed = _mediumSpeed;
+            //100
             // _PM.damage = 1;
             _dam = 1;
         }
         else if(time <= 0.3f)
         {
             
-            _speed = 75f;
+            _speed = _minimuimSpeed;
+            //75
             // _PM.damage = 0.5f;
             _dam = 0.5f;
         }
@@ -259,9 +272,26 @@ public class bodyController : MonoBehaviour
         }
     }
 
-    public void increaseSpeed(float speed)
+    public void increaseSpeed(float maxSpeed, float medSpeed, float minSpeed)
     {
-        _speed += speed;
+        _maxSpeed += maxSpeed;
+        _mediumSpeed += medSpeed;
+        _minimuimSpeed += minSpeed;
+
+        if(_maxSpeed >= 225f)
+        {
+            _maxSpeed = 225f;
+        }
+
+        if(_mediumSpeed >= 200f)
+        {
+            _mediumSpeed = 200f;
+        }
+
+        if(_minimuimSpeed >= 175f)
+        {
+            _minimuimSpeed = 175f;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
