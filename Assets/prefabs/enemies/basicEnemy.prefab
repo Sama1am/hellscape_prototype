@@ -169,6 +169,8 @@ MonoBehaviour:
   isdead: 0
   _enemyHealthBar: {fileID: 1875505324675283791}
   _enemyUI: {fileID: 3563898818441276187}
+  _glow: {fileID: 2100000, guid: 0aa79ef8a3c94b74d8ff16ac46dc6a4d, type: 2}
+  _glitch: {fileID: 2100000, guid: dd2c0b35de67bd94d8d54fb90a65bba9, type: 2}
 --- !u!114 &785314809118037189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +297,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: a01c87504f1a5fc488ea33979596dd63, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

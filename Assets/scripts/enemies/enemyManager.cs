@@ -12,6 +12,8 @@ public class enemyManager : MonoBehaviour
     [SerializeField] private bool isdead;
     [SerializeField] private Slider _enemyHealthBar;
     [SerializeField] private GameObject _enemyUI;
+    //[SerializeField] private Material _glow;
+    //[SerializeField] private Material _glitch;
     private bool _UIActive;
 
     private GameObject _player;
@@ -34,6 +36,7 @@ public class enemyManager : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Body");
         ogColor = _sp.color;
         _enemyHealthBar.maxValue = _maxHealth;
+        //_sp.material = _glow;
         _enemyUI.SetActive(false);
     }
 
@@ -73,6 +76,15 @@ public class enemyManager : MonoBehaviour
             die();
            
         }
+
+        //if(_stunned)
+        //{
+        //    StartCoroutine("stunEffect");
+        //}
+        //else if(!_stunned)
+        //{
+        //    _sp.material = _glow;
+        //}
     }
 
     public bool checkDead()
@@ -200,4 +212,12 @@ public class enemyManager : MonoBehaviour
         // _sp.color = Color.white;
         _sp.color = ogColor;
     }
+
+    //private IEnumerator stunEffect()
+    //{
+    //    //_sp.material = _glitch;
+    //    //Debug.Log("SHOULD GLITCH");
+    //    //yield return new WaitForSeconds(1f);
+    //    //_sp.material = _glow;
+    //}
 }
