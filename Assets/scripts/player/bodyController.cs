@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class bodyController : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class bodyController : MonoBehaviour
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _mediumSpeed;
     [SerializeField] private float _minimuimSpeed;
+   
+    
     #endregion
 
     #region Throw body stuff
@@ -342,5 +346,7 @@ public class bodyController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _textObject.SetActive(false);
     }
+
+   
 
 }

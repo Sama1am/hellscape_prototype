@@ -28,12 +28,18 @@ public class playerManager : MonoBehaviour
     [SerializeField] private float falseHeartHealth;
     [SerializeField] private Volume _globalVolume;
     [SerializeField] private Vignette _vin;
+    private ChromaticAberration _CA;
+    private DepthOfField _DOF;
+    private bodyController _BC;
 
     // Start is called before the first frame update
     void Start()
     {
+        _BC = gameObject.GetComponent<bodyController>();
         _globalVolume = GameObject.FindGameObjectWithTag("globalVolume").GetComponent<Volume>();
         _globalVolume.profile.TryGet<Vignette>(out _vin);
+        _globalVolume.profile.TryGet<ChromaticAberration>(out _CA);
+        _globalVolume.profile.TryGet<DepthOfField>(out _DOF);
         _sp = GetComponentInChildren<SpriteRenderer>();
         _rb = gameObject.GetComponent<Rigidbody2D>();
         ogColor = _sp.color;
@@ -54,6 +60,7 @@ public class playerManager : MonoBehaviour
 
     public void takeDamage(float dam)
     {
+        
         if(hasfalseheart)
         {
             falseHeartHealth -= dam;
@@ -74,7 +81,14 @@ public class playerManager : MonoBehaviour
             checkHealth();
         }
 
-        
+        if(_BC.attacking == true)
+        {
+
+        }
+        else if(!_BC.attacking)
+        {
+            StartCoroutine("damageEffect");
+        }
 
     }
 
@@ -161,4 +175,13 @@ public class playerManager : MonoBehaviour
         playerHealth.value = currentHealth;
     }
 
+    public IEnumerator damageEffect()
+    {
+        _CA.intensity.value = 1f;
+        _DOF.focalLength.value = 300f;
+        yield return new WaitForSeconds(0.1f);
+        _DOF.focalLength.value = 1;
+        _CA.intensity.value = 0f;
+
+    }
 }
