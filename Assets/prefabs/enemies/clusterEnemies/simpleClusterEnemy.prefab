@@ -98,6 +98,8 @@ MonoBehaviour:
   isdead: 0
   _enemyHealthBar: {fileID: 9193160257529954973}
   _enemyUI: {fileID: 6117590044878312137}
+  _glow: {fileID: 2100000, guid: aa11c5ce2136d2a4f95db449c761cc8a, type: 2}
+  _glitch: {fileID: 2100000, guid: dd2c0b35de67bd94d8d54fb90a65bba9, type: 2}
 --- !u!50 &6635919111664660335
 Rigidbody2D:
   serializedVersion: 4

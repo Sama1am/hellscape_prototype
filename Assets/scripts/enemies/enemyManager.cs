@@ -12,22 +12,24 @@ public class enemyManager : MonoBehaviour
     [SerializeField] private bool isdead;
     [SerializeField] private Slider _enemyHealthBar;
     [SerializeField] private GameObject _enemyUI;
-    //[SerializeField] private Material _glow;
-    //[SerializeField] private Material _glitch;
+    [SerializeField] private Material _glow;
+    [SerializeField] private Material _glitch;
     private bool _UIActive;
 
     private GameObject _player;
     private SpriteRenderer _sp;
     private Color ogColor;
     private bool _stunned;
+    private bool _changedMaterial;
 
     private Rigidbody2D _rb;
     private dropManager _DM;
-    private SpriteRenderer _SR;
+    //private SpriteRenderer _SR;
+    //private Renderer _rend;
     // Start is called before the first frame update
     void Start()
     {
-        _SR = GetComponentInChildren<SpriteRenderer>();
+        //_SR = GetComponentInChildren<SpriteRenderer>();
         isdead = false;
         _currentHealth = _maxHealth;
         _DM = gameObject.GetComponent<dropManager>();
@@ -36,7 +38,7 @@ public class enemyManager : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Body");
         ogColor = _sp.color;
         _enemyHealthBar.maxValue = _maxHealth;
-        //_sp.material = _glow;
+        _sp.material = _glow;
         _enemyUI.SetActive(false);
     }
 
@@ -45,10 +47,27 @@ public class enemyManager : MonoBehaviour
     {
         flipSprite();
         setUI();
+        changeMaterial();
 
-        if(_UIActive)
+        if (_UIActive)
         {
             _enemyUI.SetActive(true);
+        }
+
+        
+    }
+
+    private void changeMaterial()
+    {
+        if (_stunned)
+        {
+            _sp.material = _glitch;
+            _changedMaterial = false;
+        }
+        else if (!_stunned && !_changedMaterial)
+        {
+            _sp.material = _glow;
+            _changedMaterial = true;
         }
     }
 
@@ -77,14 +96,9 @@ public class enemyManager : MonoBehaviour
            
         }
 
-        //if(_stunned)
-        //{
-        //    StartCoroutine("stunEffect");
-        //}
-        //else if(!_stunned)
-        //{
-        //    _sp.material = _glow;
-        //}
+        
+
+
     }
 
     public bool checkDead()
@@ -146,13 +160,13 @@ public class enemyManager : MonoBehaviour
     {
         if(_rb.velocity.x > 0)
         {
-            
-            _SR.flipX = false;
+
+            _sp.flipX = false;
         }
         else if (_rb.velocity.x < 0)
         {
-            
-            _SR.flipX = true;
+
+            _sp.flipX = true;
         }
     }
 
@@ -215,9 +229,9 @@ public class enemyManager : MonoBehaviour
 
     //private IEnumerator stunEffect()
     //{
-    //    //_sp.material = _glitch;
-    //    //Debug.Log("SHOULD GLITCH");
-    //    //yield return new WaitForSeconds(1f);
-    //    //_sp.material = _glow;
+    //    _SR.material = _glitch;
+    //    Debug.Log("SHOULD GLITCH");
+    //    yield return new WaitForSeconds(1f);
+    //    _SR.material = _glow;
     //}
 }

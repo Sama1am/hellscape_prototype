@@ -271,6 +271,8 @@ MonoBehaviour:
   isdead: 0
   _enemyHealthBar: {fileID: 3592196819760857199}
   _enemyUI: {fileID: 1920973023857184827}
+  _glow: {fileID: 2100000, guid: 0690501981943e341a4b974f770fd21b, type: 2}
+  _glitch: {fileID: 2100000, guid: dd2c0b35de67bd94d8d54fb90a65bba9, type: 2}
 --- !u!114 &200924420136446911
 MonoBehaviour:
   m_ObjectHideFlags: 0
