@@ -15,6 +15,7 @@ public class bossManager : MonoBehaviour
     [SerializeField] private float _damage;
     public bool isdead;
 
+    private bool _stunned;
     [SerializeField] private bool _attack;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Collider2D _collider;
@@ -27,6 +28,10 @@ public class bossManager : MonoBehaviour
     [SerializeField] private GameObject _teleporter;
     [SerializeField] private GameObject _healthBar;
     [SerializeField] private Slider _bossHealthSlider;
+    [SerializeField] private Material _glow;
+    [SerializeField] private Material _glitch;
+
+    private bool _changedMaterial;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,13 +40,17 @@ public class bossManager : MonoBehaviour
         sr = gameObject.GetComponent<SpriteRenderer>();
         currentHeaalth = _maxHealth;
         rb = GetComponent<Rigidbody2D>();
+        sr.material = _glow;
     }
 
     // Update is called once per frame
     void Update()
     {
         setUI();
-        if(currentHeaalth > _maxHealth / 2)
+        changeMaterial();
+        stun();
+
+        if (currentHeaalth > _maxHealth / 2)
         {
             stageOne = true;
             stageTwo = false;
@@ -57,7 +66,24 @@ public class bossManager : MonoBehaviour
         {
             die();
         }
+
+        
     }
+
+    private void changeMaterial()
+    {
+        if (_stunned)
+        {
+            sr.material = _glitch;
+            _changedMaterial = false;
+        }
+        else if (!_stunned && !_changedMaterial)
+        {
+            sr.material = _glow;
+            _changedMaterial = true;
+        }
+    }
+
     void die()
     {
         isdead = true;
@@ -79,9 +105,26 @@ public class bossManager : MonoBehaviour
         }
     }
 
+    private void stun()
+    {
+        if(_stunned)
+        {
+            StartCoroutine("stunDelay");
+        }
+        //else if(!_stunned)
+        //{
+        //    _attack = false;
+        //}
+    }
+
     private void setUI()
     {
         _bossHealthSlider.value = currentHeaalth;
+    }
+
+    public void setStunnStatus(bool attack)
+    {
+        _stunned = attack;
     }
 
     public bool attackStatus()
@@ -160,5 +203,12 @@ public class bossManager : MonoBehaviour
         }
         Destroy(gameObject);
         
+    }
+
+    private IEnumerator stunDelay()
+    {
+        _attack = false;
+        yield return new WaitForSeconds(1f);
+        _attack = false;
     }
 }

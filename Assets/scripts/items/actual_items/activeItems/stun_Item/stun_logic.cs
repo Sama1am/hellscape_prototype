@@ -84,11 +84,21 @@ public class stun_logic : MonoBehaviour
             _enemies.Add(collision.gameObject);
         }
 
+        if(collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
+        {
+            _enemies.Add(collision.gameObject);
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("enemy"))
+        {
+            _enemies.Remove(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
         {
             _enemies.Remove(collision.gameObject);
         }

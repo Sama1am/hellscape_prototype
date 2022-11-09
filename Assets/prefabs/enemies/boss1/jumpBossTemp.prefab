@@ -466,6 +466,8 @@ MonoBehaviour:
   _teleporter: {fileID: 0}
   _healthBar: {fileID: 0}
   _bossHealthSlider: {fileID: 0}
+  _glow: {fileID: 2100000, guid: 76f53413a87041d4e9ad38c5e807a791, type: 2}
+  _glitch: {fileID: 2100000, guid: dd2c0b35de67bd94d8d54fb90a65bba9, type: 2}
 --- !u!1 &170768597930195325
 GameObject:
   m_ObjectHideFlags: 0

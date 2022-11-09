@@ -10,6 +10,7 @@ public class stunItem : MonoBehaviour
     private GameObject _body;
     private bool doDamage;
     [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
+    [SerializeField] private List<GameObject> _bosses = new List<GameObject>();
     private playerItemManager _PIM;
     private bool _stunning;
 
@@ -47,6 +48,11 @@ public class stunItem : MonoBehaviour
             _enemies[i].GetComponent<enemyManager>().setStunStatus(true);
             Debug.Log("SHOULD OF STUNNED ENEMY1");
         }
+
+        for (int i = 0; i < _bosses.Count; i++)
+        {
+            _bosses[i].GetComponent<bossManager>().setStunnStatus(true);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -58,6 +64,10 @@ public class stunItem : MonoBehaviour
             _enemies.Add(collision.gameObject);
         }
 
+        if (collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
+        {
+            _bosses.Add(collision.gameObject);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -69,7 +79,11 @@ public class stunItem : MonoBehaviour
             _enemies.Add(collision.gameObject);
         }
 
-       
+        if (collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
+        {
+            _bosses.Add(collision.gameObject);
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -80,6 +94,10 @@ public class stunItem : MonoBehaviour
             _enemies.Remove(collision.gameObject);
         }
 
-        
+        if (collision.gameObject.CompareTag("Boss1") || collision.gameObject.CompareTag("FinalBoss"))
+        {
+            _bosses.Remove(collision.gameObject);
+        }
+
     }
 }
