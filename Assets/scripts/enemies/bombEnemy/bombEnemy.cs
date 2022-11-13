@@ -64,6 +64,7 @@ public class bombEnemy : MonoBehaviour
     [SerializeField] private List<GameObject> _enemies = new List<GameObject>();
     //[SerializeField] private GameObject _bombEffect;
     [SerializeField] private CircleCollider2D _explodeRadius;
+    [SerializeField] private SpriteRenderer _SR;
     public GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
@@ -100,6 +101,8 @@ public class bombEnemy : MonoBehaviour
         changeTarget();
         stateChecks();
     }
+
+    
 
     void stateChecks()
     {
@@ -148,6 +151,8 @@ public class bombEnemy : MonoBehaviour
             updatePath();
         }
 
+
+        flip();
     }
 
     void pathFinding()
@@ -299,6 +304,22 @@ public class bombEnemy : MonoBehaviour
         }
 
         em.die();
+    }
+
+    void flip()
+    {
+
+        var dir = transform.position - targetPos.position;
+
+        if (dir.x >= 0)
+        {
+            _SR.flipX = true;
+        }
+        else if (dir.x < 0)
+        {
+            _SR.flipX = false;
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

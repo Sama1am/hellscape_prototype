@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad085bc9672d6224fb34cb7fae8e2c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UISprite: {fileID: 21300000, guid: d6a4c44d8b2d8334b8cef5b35f9393fc, type: 3}
+  UISprite: {fileID: 21300000, guid: 75dd406448032284b9160390bb7c6704, type: 3}
   itemCollider: {fileID: 999688166238736747}
   SR: {fileID: 999688166238736746}
   _onBody: 0
@@ -70,9 +70,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.012610912, y: -0.50183845}
+  m_Offset: {x: 0.006960869, y: -0.04294197}
   serializedVersion: 2
-  m_Radius: 0.5433962
+  m_Radius: 0.4237229
 --- !u!212 &999688166238736746
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7482667652216324306, guid: b25d2c3924ef5be46ae5cb60f2698a4b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4bc42329e337804fbd5743827b89d62, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -252,8 +252,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.42830187, g: 0.5761445, b: 1, a: 0.39607844}
+  m_Sprite: {fileID: 21300000, guid: 75dd406448032284b9160390bb7c6704, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -300,7 +300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2881267311197911842, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2881267311197911843, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_SizeDelta.x
@@ -308,15 +308,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2881267311197911843, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 55.65
+      value: 94.5429
       objectReference: {fileID: 0}
     - target: {fileID: 2881267311197911843, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2881267311197911843, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -173
+      value: -153.55356
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312133539184, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_SizeDelta.x
@@ -328,15 +328,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312133539184, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -7.9999638
+      value: -0.000024319
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312133539184, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -104.70998
+      value: -103
       objectReference: {fileID: 0}
+    - target: {fileID: 2881267312133539185, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 75dd406448032284b9160390bb7c6704, type: 3}
     - target: {fileID: 2881267312133539187, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312508304320, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_Pivot.x
@@ -464,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312592355803, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 225
+      value: -84
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312892065460, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_IsActive

@@ -164,6 +164,7 @@ MonoBehaviour:
   returning: 0
   chasing: 0
   retreating: 0
+  _SR: {fileID: 7262279780698227973}
   target: {fileID: 0}
 --- !u!58 &5450304712383700987
 CircleCollider2D:

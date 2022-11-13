@@ -138,6 +138,7 @@ MonoBehaviour:
   velocityMove: 0
   transformMove: 1
   moveWaitDone: 0
+  _SR: {fileID: 306965074711791285}
 --- !u!114 &306965073659788261
 MonoBehaviour:
   m_ObjectHideFlags: 0

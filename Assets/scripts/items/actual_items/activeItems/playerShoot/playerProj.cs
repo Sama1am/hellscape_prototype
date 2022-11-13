@@ -56,6 +56,11 @@ public class playerProj : MonoBehaviour
             collision.gameObject.GetComponent<bossManager>().takeDamage(damage);
             Destroy(gameObject);
         }
+
+        if(collision.gameObject.CompareTag("obstacle"))
+        {
+            die();
+        }
     }
 
     void die()

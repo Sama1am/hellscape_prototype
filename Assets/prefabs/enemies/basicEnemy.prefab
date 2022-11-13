@@ -120,6 +120,7 @@ MonoBehaviour:
   _closeEnough: 1
   _rushSpeed: 6
   _isRushing: 0
+  _SR: {fileID: 6494923698170952100}
   target: {fileID: 0}
 --- !u!114 &6494923697806264580
 MonoBehaviour:

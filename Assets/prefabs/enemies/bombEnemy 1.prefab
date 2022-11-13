@@ -309,6 +309,7 @@ MonoBehaviour:
   _bombEffect: {fileID: 2318957209111870229}
   _enemies: []
   _explodeRadius: {fileID: 6466047393517691946}
+  _SR: {fileID: 2833878378546393136}
   target: {fileID: 0}
 --- !u!58 &6466047393517691946
 CircleCollider2D:

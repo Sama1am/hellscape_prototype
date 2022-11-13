@@ -70,6 +70,7 @@ public class ranged_movement : MonoBehaviour
     public bool retreating;
     #endregion
 
+    [SerializeField] private SpriteRenderer _SR;
     public GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
@@ -78,6 +79,7 @@ public class ranged_movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         em = GetComponent<enemyManager>();
         player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         active = false;
@@ -136,6 +138,8 @@ public class ranged_movement : MonoBehaviour
         {
             updatePath();
         }
+
+        flip();
 
     }
 
@@ -288,6 +292,21 @@ public class ranged_movement : MonoBehaviour
 
     }
 
+    void flip()
+    {
+
+        var dir = transform.position - targetPos.position;
+
+        if (dir.x >= 0)
+        {
+            _SR.flipX = true;
+        }
+        else if (dir.x < 0)
+        {
+            _SR.flipX = false;
+        }
+
+    }
     void changeTarget()
     {
         if (ES.returning || retreating)

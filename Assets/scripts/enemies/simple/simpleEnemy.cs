@@ -46,7 +46,7 @@ public class simpleEnemy : MonoBehaviour
     private float damage;
     #endregion
 
-
+    [SerializeField] private SpriteRenderer _SR;
     GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
@@ -139,6 +139,11 @@ public class simpleEnemy : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        flip();
+    }
+
     public void OnPathComplete(Path p)
     {
 
@@ -177,6 +182,22 @@ public class simpleEnemy : MonoBehaviour
         if (seeker.IsDone())
         {
             seeker.StartPath(transform.position, targetPos.position, OnPathComplete);
+        }
+
+    }
+
+    void flip()
+    {
+
+        var dir = transform.position - targetPos.position;
+
+        if (dir.x >= 0)
+        {
+            _SR.flipX = true;
+        }
+        else if (dir.x < 0)
+        {
+            _SR.flipX = false;
         }
 
     }

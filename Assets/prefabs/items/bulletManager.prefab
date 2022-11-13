@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d6a4c44d8b2d8334b8cef5b35f9393fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1d91d488cb5b11044a0987f1b497cca5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.4392157}
   m_FlipX: 0
   m_FlipY: 0
@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 6074397859391270812}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.452296, y: -16.204361, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6093657690582944398}
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad085bc9672d6224fb34cb7fae8e2c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UISprite: {fileID: 21300000, guid: d6a4c44d8b2d8334b8cef5b35f9393fc, type: 3}
+  UISprite: {fileID: 21300000, guid: 1d91d488cb5b11044a0987f1b497cca5, type: 3}
   itemCollider: {fileID: 6074397859391270808}
   SR: {fileID: 6074397859391270809}
   _onBody: 0
@@ -153,9 +153,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0028794408, y: -0.10941768}
+  m_Offset: {x: 0.004114469, y: -0.004357815}
   serializedVersion: 2
-  m_Radius: 0.44529086
+  m_Radius: 0.4773253
 --- !u!212 &6074397859391270809
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: d6a4c44d8b2d8334b8cef5b35f9393fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1d91d488cb5b11044a0987f1b497cca5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -236,8 +236,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 953574782616006613, guid: 6b481fc36b618c644bb3fa0f0f94d1e0, type: 3}
-  speed: 0
+  speed: 35
   _AI: {fileID: 0}
+  _speed: 10
+  _rotationModifirt: 0
+  _itemIndicator: {fileID: 2945844809721852483}
 --- !u!1001 &8317396689120293198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -262,6 +265,10 @@ PrefabInstance:
       value: 79
       objectReference: {fileID: 0}
     - target: {fileID: 2881267311187836511, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
+      propertyPath: m_text
+      value: shoot out a bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881267311187836511, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_fontSize
       value: 40
       objectReference: {fileID: 0}
@@ -279,7 +286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2881267311197911843, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2881267311197911843, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -291,16 +298,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312133539184, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 159.09
+      value: 148.8522
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312133539184, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -7.9999638
+      value: -0.000024319
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312133539184, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -104.70998
+      value: -98
       objectReference: {fileID: 0}
+    - target: {fileID: 2881267312133539185, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1d91d488cb5b11044a0987f1b497cca5, type: 3}
     - target: {fileID: 2881267312508304320, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -387,7 +398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312508304322, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_Name
-      value: bombItemUI
+      value: bulletUI
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312508304322, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_IsActive
@@ -400,6 +411,10 @@ PrefabInstance:
     - target: {fileID: 2881267312508304323, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_RenderMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881267312592355800, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
+      propertyPath: m_text
+      value: SOUL BULLET
       objectReference: {fileID: 0}
     - target: {fileID: 2881267312592355800, guid: 5d3c68204340b104cb0a3393902c5b59, type: 3}
       propertyPath: m_fontSize

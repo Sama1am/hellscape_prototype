@@ -59,7 +59,8 @@ public class enemyMovement : MonoBehaviour
     [SerializeField] private float _rushSpeed;
     //[SerializeField] private bool _rush;
     [SerializeField] private bool _isRushing;
-  
+    [SerializeField] private SpriteRenderer _SR;
+
     public GameObject target;
     Rigidbody2D rb;
     Seeker seeker;
@@ -118,7 +119,10 @@ public class enemyMovement : MonoBehaviour
         {
             updatePath();
         }
-        
+
+        flip();
+
+
     }
 
     void checkstates()
@@ -296,6 +300,22 @@ public class enemyMovement : MonoBehaviour
             targetPos = player;
             ES.returning = false;
         }
+    }
+
+    void flip()
+    {
+       
+        var dir = transform.position - targetPos.position;
+
+        if(dir.x >= 0)
+        {
+            _SR.flipX = true;
+        }
+        else if(dir.x < 0)
+        {
+            _SR.flipX = false;
+        }
+
     }
 
     private void OnDrawGizmosSelected()
