@@ -33,13 +33,14 @@ public class NPCdialog : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && playerInRange == true)
         {
+            interact.text = "";
+
             if (dialogPanel.activeInHierarchy)
             {
                 zeroBars();
             }
             else
             {
-                interact.text = "";
                 dialogPanel.SetActive(true);
                 StartCoroutine(TypingEffect());
             }
