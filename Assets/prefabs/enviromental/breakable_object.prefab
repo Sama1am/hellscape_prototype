@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2536859754607703134}
   - component: {fileID: 2536859754607703135}
   - component: {fileID: 2536859754607703132}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: breakable_object
-  m_TagString: Untagged
+  m_TagString: obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +48,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.023751318, y: -0.058058858}
+  m_Offset: {x: -0.033711493, y: 0.029062271}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -59,7 +59,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.76248705, y: 0.6516478}
+  m_Size: {x: 0.8774127, y: 0.5737953}
   m_EdgeRadius: 0
 --- !u!114 &2536859754607703132
 MonoBehaviour:
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2536859755775836964}
   - component: {fileID: 2536859755775836967}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6491835240479942315}
   - component: {fileID: 5372223529011839539}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GFX (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
