@@ -8,13 +8,15 @@ public class menuLighting : MonoBehaviour
     public float a = 0.3f;
     public float maxVal = 2f;
     public bool flickIntensity = true;
-    Light _light;
-
+    public Light lightFlick;
+    //[SerializeField] Light lightFlick;
 
     private void Start()
     {
-        _light = GetComponent<Light>();
         FlickIntensity();
+
+        // Set color and position
+        lightFlick = GameObject.FindGameObjectWithTag("light_menu").GetComponent<Light>();
     }
 
     private IEnumerator FlickIntensity()
@@ -30,7 +32,7 @@ public class menuLighting : MonoBehaviour
             {
                 t0 = Time.time;
                 float r = Random.Range(a, maxVal);
-                _light.intensity = r;
+                lightFlick.intensity = r;
                 t = Random.Range(0, 0.5f);
                 yield return wait;
             }

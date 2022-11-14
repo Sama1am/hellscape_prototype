@@ -85,7 +85,7 @@ public class NPCdialog : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        interact.text = "";
+        interact.text = "[press space to interact]";
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
@@ -94,7 +94,7 @@ public class NPCdialog : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        interact.text = "[press space to interact]";
+        interact.text = "";
         if (other.CompareTag("Player"))
         {
             playerInRange = false;

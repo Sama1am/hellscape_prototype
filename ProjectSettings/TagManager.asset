@@ -24,6 +24,7 @@ TagManager:
   - profilePic
   - gameManager
   - playerBullet
+  - light_menu
   layers:
   - Default
   - TransparentFX
