@@ -92,10 +92,10 @@ public class bossManager : MonoBehaviour
         _BS.isdead = true;
         _healthBar.SetActive(false);
 
-        if(_telaport)
-        {
-            _teleporter.SetActive(true);
-        }
+        //if(_telaport)
+        //{
+        //    _teleporter.SetActive(true);
+        //}
 
         Destroy(gameObject);
 

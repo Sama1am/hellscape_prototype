@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class breakableObjects : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _collisionParticle;
     [SerializeField] private float _health;
     [SerializeField] private GameObject _HealthItem;
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class breakableObjects : MonoBehaviour
         if(collision.gameObject.CompareTag("Body"))
         {
             _health -= 1;
+            Instantiate(_collisionParticle, transform.position, Quaternion.identity);
         }
     }
 

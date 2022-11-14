@@ -42,6 +42,8 @@ public class bodyController : MonoBehaviour
     [SerializeField] private SpriteRenderer _pointerSprite;
 
     [SerializeField] private camera_shake _CS;
+    [SerializeField] private AudioSource _AS;
+    [SerializeField] private AudioClip[] _impact;
     private GameObject _player;
     private Rigidbody2D _rb;
     private playerManager _PM;
@@ -276,6 +278,18 @@ public class bodyController : MonoBehaviour
         }
     }
 
+    private void determineImpact()
+    {
+        if(_speed == _maxSpeed)
+        {
+            _AS.PlayOneShot(_impact[0]);
+        }
+        else if(_speed == _minimuimSpeed || _speed == _mediumSpeed)
+        {
+            _AS.PlayOneShot(_impact[1]);
+        }
+    }
+
     public void increaseSpeed(float maxSpeed, float medSpeed, float minSpeed)
     {
         _maxSpeed += maxSpeed;
@@ -300,8 +314,11 @@ public class bodyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if((attacking) && (collision.gameObject.CompareTag("enemy")) && (!_bodyhit))
+       
+
+        if ((attacking) && (collision.gameObject.CompareTag("enemy")) && (!_bodyhit))
         {
+            determineImpact();
             _bodyhit = true;
             //_rb.velocity = Vector2.zero;
             checkCrit();
@@ -313,11 +330,12 @@ public class bodyController : MonoBehaviour
         }
         else if((!attacking) && (collision.gameObject.CompareTag("enemy")))
         {
-            
+            determineImpact();
         }
 
         if((collision.gameObject.CompareTag("Boss1")) || (collision.gameObject.CompareTag("FinalBoss")))
         {
+            determineImpact();
             //_CS.setShake(true);
             checkCrit();
             _PIM.setItemCharge();
@@ -326,6 +344,13 @@ public class bodyController : MonoBehaviour
             Debug.Log("BOSS TOOK DAMAGE " + _dam);
             _rb.velocity = Vector2.zero;
         }
+
+        if(collision.gameObject.CompareTag("obstacle"))
+        {
+            determineImpact();
+        }
+
+        
     }
 
     public IEnumerator velocityDelay()

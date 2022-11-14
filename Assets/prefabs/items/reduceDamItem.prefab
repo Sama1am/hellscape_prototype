@@ -247,6 +247,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8799332756417598895}
     m_Modifications:
+    - target: {fileID: 313618381240512712, guid: 8f00782554153b841bdb9eef1148b18a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6f32ddf49c30a224b8eea04c2affd184, type: 3}
     - target: {fileID: 1357737531421189056, guid: 8f00782554153b841bdb9eef1148b18a, type: 3}
       propertyPath: m_Name
       value: reduceDamage_UI

@@ -244,6 +244,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5543928558535182024}
     m_Modifications:
+    - target: {fileID: 1919334828592152060, guid: 3d4166de87a979d4f86a0961f0eeb341, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6f32ddf49c30a224b8eea04c2affd184, type: 3}
     - target: {fileID: 1919334828766228620, guid: 3d4166de87a979d4f86a0961f0eeb341, type: 3}
       propertyPath: m_Name
       value: poisonAOE_UI
