@@ -14,6 +14,7 @@ public class enemyManager : MonoBehaviour
     [SerializeField] private GameObject _enemyUI;
     [SerializeField] private Material _glow;
     [SerializeField] private Material _glitch;
+    [SerializeField] private AudioClip _deathSound;
     private bool _UIActive;
 
     private GameObject _player;
@@ -22,6 +23,7 @@ public class enemyManager : MonoBehaviour
     private bool _stunned;
     private bool _changedMaterial;
 
+    private AudioSource _AS;
     private Rigidbody2D _rb;
     private dropManager _DM;
     //private SpriteRenderer _SR;
@@ -29,6 +31,7 @@ public class enemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _AS = GetComponent<AudioSource>();
         //_SR = GetComponentInChildren<SpriteRenderer>();
         isdead = false;
         _currentHealth = _maxHealth;
@@ -116,6 +119,8 @@ public class enemyManager : MonoBehaviour
         if (!simpleEnemy)
         {
             //_DM.determineDrop();
+            // _AS.PlayOneShot(_deathSound);
+            AudioSource.PlayClipAtPoint(_deathSound, transform.position, 0.5f);
             Destroy(gameObject);
             GetComponentInParent<enemy_spawner>().setDeadStatus(true);
             GetComponentInParent<enemy_spawner>().isdead = true;
@@ -124,6 +129,8 @@ public class enemyManager : MonoBehaviour
         }
         else
         {
+            AudioSource.PlayClipAtPoint(_deathSound, transform.position, 0.4f);
+            _AS.PlayOneShot(_deathSound);
             Destroy(gameObject);
         }
     }

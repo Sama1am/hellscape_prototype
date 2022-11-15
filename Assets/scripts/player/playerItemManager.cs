@@ -20,11 +20,14 @@ public class playerItemManager : MonoBehaviour
     [SerializeField] private GameObject _itemChargeUI;
     [SerializeField] private GameObject _itemChargePanel;
     [SerializeField] private float _spawnRadisu;
+    [SerializeField] private AudioClip _audioClip;
 
+    private AudioSource _AS;
     private Vector3 dir;
     // Start is called before the first frame update
     void Start()
     {
+        _AS = GetComponent<AudioSource>();
         _body = GameObject.FindGameObjectWithTag("Body");
 
         _itemChargeSlider.maxValue = _maxItemCharge;
@@ -52,7 +55,24 @@ public class playerItemManager : MonoBehaviour
             StartCoroutine("chargeFeedback");
         }
 
+        notEnoughCharge();
+
         _itemChargeSlider.value = _itemCharge;
+    }
+
+    void notEnoughCharge()
+    {
+        if(hasItem)
+        {
+            if(Input.GetMouseButtonUp(0))
+            {
+                if (_itemCharge < _maxItemCharge)
+                {
+                    _AS.PlayOneShot(_audioClip);
+                }
+            }
+            
+        }
     }
 
     public bool getItemStatus()

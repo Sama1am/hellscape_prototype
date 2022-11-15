@@ -15,6 +15,7 @@ public class dropManager : MonoBehaviour
     private bool _hasDropped;
     [SerializeField] private bool _isBoss;
     [SerializeField] private bool drop;
+    [SerializeField] private bool _isFinalBoss;
 
     private bool spanwedHeal = false;
     // Start is called before the first frame update
@@ -50,6 +51,10 @@ public class dropManager : MonoBehaviour
 
             _hasDropped = true;
         }
+        else if(_isFinalBoss)
+        {
+
+        }
         else if (!_hasDropped)
         {
             //Debug.Log("SHOULD DETERMINE DROP!");
@@ -57,16 +62,16 @@ public class dropManager : MonoBehaviour
             _itemChance = Random.Range(0, 101);
             //Debug.Log("ITEM DROP CHANCE IS " + _itemChance);
 
-            if (_itemChance <= 45)
+            if (_itemChance <= 40)
             {
                 // return;
             }
-            else if (_itemChance > 45)
+            else if (_itemChance > 40)
             {
                 _chance = Random.Range(0, 101);
                 //Debug.Log(_chance);
 
-                if(_chance <= 60)
+                if(_chance <= 50)
                 {
 
                     _common = Random.Range(0, _itemManager._commonItems.Length);
@@ -76,7 +81,7 @@ public class dropManager : MonoBehaviour
                     _hasDropped = true;
                     _common = 0;
                 }
-                else if(_chance > 60 && _chance < 80)
+                else if(_chance > 50 && _chance < 75)
                 {
                     _rare = Random.Range(0, _itemManager._rareItems.Length);
                     //Debug.Log(_itemManager._rareItems.Length);
@@ -84,7 +89,7 @@ public class dropManager : MonoBehaviour
                     Instantiate(_itemManager._rareItems[_rare], transform.position, Quaternion.identity);
                     _hasDropped = true;
                 }
-                else if (_chance > 80)
+                else if (_chance > 75)
                 {
                     _holyShit = Random.Range(0, _itemManager._holyshitRareItems.Length);
                     //Debug.Log(_itemManager._holyshitRareItems.Length);

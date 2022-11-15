@@ -30,11 +30,15 @@ public class bossManager : MonoBehaviour
     [SerializeField] private Slider _bossHealthSlider;
     [SerializeField] private Material _glow;
     [SerializeField] private Material _glitch;
+    [SerializeField] private AudioClip _dieSound;
+    [SerializeField] private ParticleSystem _dieEffect;
 
+    private AudioSource _AS;
     private bool _changedMaterial;
     // Start is called before the first frame update
     void Start()
     {
+        _AS = GetComponent<AudioSource>();
         _bossHealthSlider.maxValue = _maxHealth;
         _player = GameObject.FindGameObjectWithTag("Body");
         sr = gameObject.GetComponent<SpriteRenderer>();
@@ -49,6 +53,7 @@ public class bossManager : MonoBehaviour
         setUI();
         changeMaterial();
         stun();
+        setMaterial();
 
         if (currentHeaalth > _maxHealth / 2)
         {
@@ -86,6 +91,9 @@ public class bossManager : MonoBehaviour
 
     void die()
     {
+        
+        AudioSource.PlayClipAtPoint(_dieSound, transform.position, 0.5f);
+        Instantiate(_dieEffect, transform.position, Quaternion.identity);
         isdead = true;
         _attack = false;
         //_door.SetActive(false);
@@ -149,6 +157,18 @@ public class bossManager : MonoBehaviour
         transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y);
         
 
+    }
+
+    void setMaterial()
+    {
+        if((stageOne == true) && (!_stunned) && (sr.material != _glow))
+        {
+            sr.material = _glow;
+        }
+        else if((stageTwo == true) && (!_stunned) && (sr.material != _glitch))
+        {
+            sr.material = _glitch;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
