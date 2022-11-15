@@ -58,6 +58,8 @@ public class bossSpawner : MonoBehaviour
         if(isdead)
         {
             _camAS.clip = _defualtMusic;
+            _camAS.Play();
+
             for (int i = 0; i < _bossDoor.Length; i++)
             {
                 Destroy(_bossDoor[i]);
@@ -113,6 +115,9 @@ public class bossSpawner : MonoBehaviour
             }
             else if (actualBoss.GetComponent<bossManager>().isdead)
             {
+                _camAS.clip = _defualtMusic;
+                _camAS.Play();
+
                 for (int i = 0; i < _bossDoor.Length; i++)
                 {
                     Destroy(_bossDoor[i]);
@@ -138,6 +143,7 @@ public class bossSpawner : MonoBehaviour
             if(!isdead)
             {
                 _camAS.clip = _fightMusic;
+                _camAS.Play();
                 for (int i = 0; i < _bossDoor.Length; i++)
                 {
                     _bossDoor[i].SetActive(true);

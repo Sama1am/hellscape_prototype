@@ -32,6 +32,8 @@ public class bossManager : MonoBehaviour
     [SerializeField] private Material _glitch;
     [SerializeField] private AudioClip _dieSound;
     [SerializeField] private ParticleSystem _dieEffect;
+    [SerializeField] private AudioClip _defualtMusic;
+    [SerializeField] private AudioSource _camAS;
 
     private gameManager _GM;
     private AudioSource _AS;
@@ -99,6 +101,10 @@ public class bossManager : MonoBehaviour
             //SceneManager.LoadScene(2);
 
         }
+
+        _camAS.clip = _defualtMusic;
+        _camAS.Play();
+        _GM.setminiBoss(true);
 
         AudioSource.PlayClipAtPoint(_dieSound, transform.position, 0.5f);
         Instantiate(_dieEffect, transform.position, Quaternion.identity);

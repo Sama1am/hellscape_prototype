@@ -6,7 +6,11 @@ using UnityEngine.SceneManagement;
 public class gameManager : MonoBehaviour
 {
     [SerializeField] private GameObject _haloLight;
+    [SerializeField] private AudioClip _defualtMusic;
+    [SerializeField] private AudioSource _camAS;
 
+    private bool _miniBossDead;
+    private bool _isPlaying;
     private GameObject _player;
     private bool win;
     // Start is called before the first frame update
@@ -23,6 +27,15 @@ public class gameManager : MonoBehaviour
             //SceneManager.LoadScene(2);
             StartCoroutine("spawnHalo");
         }
+
+        if(_miniBossDead && !_isPlaying)
+        {
+            //_camAS.clip = _defualtMusic;
+            _camAS.Play();
+            _isPlaying = true;
+            Debug.Log("AUDIO SHOULD BE PLAYING!");
+        }
+       
     }
 
     public void setWin(bool state)
@@ -32,7 +45,12 @@ public class gameManager : MonoBehaviour
         
     }
 
+    public void setminiBoss(bool state)
+    {
+        _miniBossDead = state;
+    }
 
+   
     private IEnumerator spawnHalo()
     {
         Instantiate(_haloLight, _player.transform.position, Quaternion.identity);
