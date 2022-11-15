@@ -20,6 +20,7 @@ public class lavaBoss : MonoBehaviour
     [SerializeField] private GameObject _lavaAOE;
     [SerializeField] private float _stateTime;
     private Vector3 randomPos;
+    [SerializeField] private AudioClip _laserSound;
 
     private int state = 0;
     [SerializeField] private float bossTimer = 0f;
@@ -42,12 +43,13 @@ public class lavaBoss : MonoBehaviour
     [SerializeField] private float _damage;
     private float _dist;
     private GameObject target;
-
+    private AudioSource _AS;
     public bossManager BM;
 
     // Start is called before the first frame update
     void Start()
     {
+        _AS = GetComponent<AudioSource>();
         BM = GetComponent<bossManager>();
         ogPos = this.transform.position;
         target = GameObject.FindGameObjectWithTag("Body");
@@ -213,6 +215,7 @@ public class lavaBoss : MonoBehaviour
 
     void activateLasers()
     {
+        _AS.PlayOneShot(_laserSound);
         for (int i = 0; i < _lasers.Length; i++)
         {
             _lasers[i].SetActive(true);

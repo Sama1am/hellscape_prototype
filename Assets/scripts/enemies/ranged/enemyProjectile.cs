@@ -6,6 +6,7 @@ public class enemyProjectile : MonoBehaviour
 {
     [SerializeField] private float damage;
     [SerializeField] private float lowerDam;
+    [SerializeField] private ParticleSystem _effect;
 
     [SerializeField]
     private float lifeTime;
@@ -48,10 +49,12 @@ public class enemyProjectile : MonoBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             //collision.gameObject.GetComponent<playerManager>().takeDamage(damage);
+            Instantiate(_effect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         else if(collision.gameObject.CompareTag("Body"))
         {
+            Instantiate(_effect, transform.position, Quaternion.identity);
             if ((collision.gameObject.GetComponent<bodyController>().isAttacking() == false))
             {
                 Debug.Log("PLAYER TOOK DAMAGE" + damage);
@@ -67,6 +70,7 @@ public class enemyProjectile : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("obstacle"))
         {
+            Instantiate(_effect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

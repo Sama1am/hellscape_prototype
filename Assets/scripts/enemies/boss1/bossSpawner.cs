@@ -17,13 +17,15 @@ public class bossSpawner : MonoBehaviour
     //[SerializeField] private GameObject _bossDoor;
     [SerializeField] private GameObject key;
     [SerializeField] private GameObject[] _bossDoor;
-
+    [SerializeField] private AudioClip _fightMusic;
+    [SerializeField] private AudioClip _defualtMusic;
 
     [SerializeField] private GameObject actualBoss;
     private bool hasSpanwedBoss;
     private bool _spawnedKey;
     public bool isdead;
     [SerializeField] private dropManager DM;
+    [SerializeField] private AudioSource _camAS;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +57,7 @@ public class bossSpawner : MonoBehaviour
 
         if(isdead)
         {
+            _camAS.clip = _defualtMusic;
             for (int i = 0; i < _bossDoor.Length; i++)
             {
                 Destroy(_bossDoor[i]);
@@ -134,6 +137,7 @@ public class bossSpawner : MonoBehaviour
         {
             if(!isdead)
             {
+                _camAS.clip = _fightMusic;
                 for (int i = 0; i < _bossDoor.Length; i++)
                 {
                     _bossDoor[i].SetActive(true);

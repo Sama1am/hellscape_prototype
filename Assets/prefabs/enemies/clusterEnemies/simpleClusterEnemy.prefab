@@ -79,6 +79,7 @@ MonoBehaviour:
   randomAngleRangeMax: 180
   _projectile: {fileID: 8021674084686046381, guid: 935622e20c17c9840852bf1e78c81aca, type: 3}
   _center: 0
+  _sound: {fileID: 8300000, guid: 888ac40d2ac871a478d38d7b89feac40, type: 3}
 --- !u!114 &6635919111664660338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +139,7 @@ MonoBehaviour:
   _itemManager: {fileID: 0}
   _isBoss: 0
   drop: 0
+  _isFinalBoss: 0
 --- !u!82 &-6068779379315727749
 AudioSource:
   m_ObjectHideFlags: 0

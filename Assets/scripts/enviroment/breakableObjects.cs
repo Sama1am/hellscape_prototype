@@ -7,10 +7,13 @@ public class breakableObjects : MonoBehaviour
     [SerializeField] private ParticleSystem _collisionParticle;
     [SerializeField] private float _health;
     [SerializeField] private GameObject _HealthItem;
+    [SerializeField] private AudioClip _audio;
+
+    private AudioSource _AS;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _AS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,6 +32,7 @@ public class breakableObjects : MonoBehaviour
         if(collision.gameObject.CompareTag("Body"))
         {
             _health -= 1;
+            AudioSource.PlayClipAtPoint(_audio, transform.position, 0.5f);
             Instantiate(_collisionParticle, transform.position, Quaternion.identity);
         }
     }

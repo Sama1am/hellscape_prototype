@@ -10,12 +10,12 @@ public class normalShoot : MonoBehaviour
     [SerializeField] private float timeBetweenShots;
     [SerializeField] private float speed;
     [SerializeField] private float shootRange;
-
+    [SerializeField] private AudioClip _sound;
 
     private Vector2 playerPos;
     private Vector2 pos;
     private Vector2 enemyToPlayer;
-
+    private AudioSource _AS;
     private bool canShoot;
 
     GameObject player;
@@ -23,6 +23,7 @@ public class normalShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _AS = GetComponent<AudioSource>();
         em = GetComponent<enemyManager>();
         player = GameObject.FindGameObjectWithTag("Body");
         StartCoroutine("startDelay");
@@ -57,6 +58,7 @@ public class normalShoot : MonoBehaviour
 
     void shoot()
     {
+        _AS.PlayOneShot(_sound);
         GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity);
         bullet.transform.parent = gameObject.transform;
         findDirection();

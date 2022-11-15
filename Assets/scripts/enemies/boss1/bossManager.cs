@@ -25,7 +25,7 @@ public class bossManager : MonoBehaviour
     [SerializeField] private bool _isfinalBoss;
     //[SerializeField] private GameObject[] _door;
     [SerializeField] private bool _telaport;
-    [SerializeField] private GameObject _teleporter;
+    //[SerializeField] private GameObject _teleporter;
     [SerializeField] private GameObject _healthBar;
     [SerializeField] private Slider _bossHealthSlider;
     [SerializeField] private Material _glow;
@@ -33,11 +33,13 @@ public class bossManager : MonoBehaviour
     [SerializeField] private AudioClip _dieSound;
     [SerializeField] private ParticleSystem _dieEffect;
 
+    private gameManager _GM;
     private AudioSource _AS;
     private bool _changedMaterial;
     // Start is called before the first frame update
     void Start()
     {
+        _GM = GameObject.FindGameObjectWithTag("gameManager").GetComponent<gameManager>();
         _AS = GetComponent<AudioSource>();
         _bossHealthSlider.maxValue = _maxHealth;
         _player = GameObject.FindGameObjectWithTag("Body");
@@ -91,7 +93,13 @@ public class bossManager : MonoBehaviour
 
     void die()
     {
-        
+        if (_isfinalBoss)
+        {
+            _GM.setWin(true);
+            //SceneManager.LoadScene(2);
+
+        }
+
         AudioSource.PlayClipAtPoint(_dieSound, transform.position, 0.5f);
         Instantiate(_dieEffect, transform.position, Quaternion.identity);
         isdead = true;
@@ -107,10 +115,7 @@ public class bossManager : MonoBehaviour
 
         Destroy(gameObject);
 
-        if(_isfinalBoss)
-        {
-            SceneManager.LoadScene(2);
-        }
+       
     }
 
     private void stun()

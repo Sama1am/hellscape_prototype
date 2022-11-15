@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0.5
   lowerDam: 0
+  _effect: {fileID: 7418576018944422146, guid: ec415882e32d5cf4d8eccb821dfdaf33, type: 3}
   lifeTime: 25
   _lowerDamage: 0
 --- !u!114 &3706463735037146018

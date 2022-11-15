@@ -131,6 +131,7 @@ MonoBehaviour:
   timeBetweenShots: 0.8
   speed: 12
   shootRange: 15
+  _sound: {fileID: 8300000, guid: 888ac40d2ac871a478d38d7b89feac40, type: 3}
 --- !u!114 &7262279780499625219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +200,7 @@ MonoBehaviour:
   _itemManager: {fileID: 0}
   _isBoss: 0
   drop: 0
+  _isFinalBoss: 0
 --- !u!70 &4434715350207782747
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

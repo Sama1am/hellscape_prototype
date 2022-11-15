@@ -19,6 +19,7 @@ public class clusterEnemy : MonoBehaviour
     [SerializeField] private int randomAngleRangeMin, randomAngleRangeMax;
     [SerializeField] private GameObject _projectile;
     [SerializeField] private bool _center;
+    [SerializeField] private AudioClip _sound;
 
     private bool _canShoot;
     private float angle, rawAngle, dirRight, dirUp;
@@ -31,9 +32,10 @@ public class clusterEnemy : MonoBehaviour
     private Rigidbody2D _rb;
     private enemy_spawner _ES;
     private enemyManager _em;
-
+    private AudioSource _AS;
     void Start()
     {
+        _AS = GetComponent<AudioSource>();
         _em = GetComponent<enemyManager>();
         _player = GameObject.FindGameObjectWithTag("Body").GetComponent<Transform>();
         active = false;
@@ -112,7 +114,7 @@ public class clusterEnemy : MonoBehaviour
 
     void clusterShoot(int numOfProjectiles)
     {
-
+        _AS.PlayOneShot(_sound);
         startPoint = gameObject.transform.position;
 
         numOfProjectiles = numberOfProjectiles;

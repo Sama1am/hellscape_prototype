@@ -21,17 +21,19 @@ public class circularProjectiles : MonoBehaviour
 	[SerializeField]
 	private float radius, moveSpeed;
 
+	[SerializeField] private AudioClip _sound;
 	[SerializeField] private bool canShoot;
 	private float _distFromPlayer;
 	private GameObject _player;
 	private GameObject _body;
 	[SerializeField] private float _shootDist;
-
+	private AudioSource _AS;
 	enemy_spawner ES;
 	enemyManager em;
 	// Use this for initialization
 	void Start()
 	{
+		_AS = GetComponent<AudioSource>();
 		em = GetComponent<enemyManager>();
 		_player = GameObject.FindGameObjectWithTag("Player");
 		_body = GameObject.FindGameObjectWithTag("Body");
@@ -88,6 +90,7 @@ public class circularProjectiles : MonoBehaviour
 
     void shoot(int numberOfProjectiles)
 	{
+		_AS.PlayOneShot(_sound);
 		float angleStep = 360f / numberOfProjectiles;
 		float angle = 0f;
 
