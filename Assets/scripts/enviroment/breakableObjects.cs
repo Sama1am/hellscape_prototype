@@ -44,11 +44,11 @@ public class breakableObjects : MonoBehaviour
         float num = Random.Range(0, 101);
         float rand = Random.Range(0, 101);
 
-        if(num <= 50)
+        if(num <= 75)
         {
 
         }
-        else if(num > 50)
+        else if(num > 75)
         {
             if(rand <= 50)
             {

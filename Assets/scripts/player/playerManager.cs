@@ -12,6 +12,7 @@ public class playerManager : MonoBehaviour
     [Header("set")]
     [SerializeField] public float health;
     public float falseHeart;
+    [SerializeField] private float maxFalseHeart;
     public bool hasFalseHeart;
 
     [Header("do not set")]
@@ -19,7 +20,8 @@ public class playerManager : MonoBehaviour
     public float currentHealth;
     [SerializeField] public float damageTakenOffset;
     [SerializeField] private Slider playerHealth;
-
+    [SerializeField] private Slider armourHealth;
+    [SerializeField] private GameObject _armourObject;
     private Rigidbody2D _rb;
     private SpriteRenderer _sp;
     private Color ogColor;
@@ -56,6 +58,31 @@ public class playerManager : MonoBehaviour
         {
             currentHealth = health;
         }
+
+        if(hasfalseheart)
+        {
+            _armourObject.SetActive(true);
+            armourHealth.value = falseHeartHealth;
+        }
+        else if (hasfalseheart)
+        {
+            _armourObject.SetActive(false);
+        }
+
+        if(hasfalseheart)
+        {
+            if (falseHeartHealth > maxFalseHeart)
+            {
+                falseHeartHealth = maxFalseHeart;
+            }
+        }
+
+        if(falseHeartHealth <= 0)
+        {
+            hasfalseheart = false;
+            _armourObject.SetActive(false);
+        }
+
     }
 
     public void takeDamage(float dam)
@@ -63,6 +90,7 @@ public class playerManager : MonoBehaviour
         
         if(hasfalseheart)
         {
+            
             falseHeartHealth -= dam;
 
             if (falseHeartHealth <= 0)
@@ -119,6 +147,7 @@ public class playerManager : MonoBehaviour
     {
         hasfalseheart = true;
         falseHeartHealth++;
+        Debug.Log("FALSE HEART " + falseHeartHealth);
     }
 
     private void healthFeedback()

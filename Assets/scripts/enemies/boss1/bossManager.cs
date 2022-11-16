@@ -240,6 +240,11 @@ public class bossManager : MonoBehaviour
     {
         _attack = false;
         yield return new WaitForSeconds(1f);
-        _attack = false;
+        _attack = true;
+        if(stageOne)
+        {
+            sr.material = _glow;
+        }
+        
     }
 }
