@@ -5217,8 +5217,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 568.36, y: 758.38}
+  m_AnchoredPosition: {x: 4.2200554e-10, y: 44.325012}
+  m_SizeDelta: {x: 892.83, y: 683.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &997214071
 MonoBehaviour:
@@ -5240,13 +5240,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Code: Sam
-
-    UI/ UX: Sam
-
-    Narrative: Yesh
-
-    Level Design: Yesh'
+  m_text: "Code: Samantha Von Staden\nUI/ UX: Samantha Von Staden\nNarrative: Yeshria
+    Pillay \nLevel Design: Samantha Von Staden & Yeshria Pillay "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5391fcf925efc4c46a68595662c099d5, type: 2}
   m_sharedMaterial: {fileID: 2510112007376983927, guid: 5391fcf925efc4c46a68595662c099d5, type: 2}

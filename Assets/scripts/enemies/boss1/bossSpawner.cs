@@ -58,7 +58,7 @@ public class bossSpawner : MonoBehaviour
         if(isdead)
         {
             _camAS.clip = _defualtMusic;
-            _camAS.Play();
+            //_camAS.Play();
 
             for (int i = 0; i < _bossDoor.Length; i++)
             {

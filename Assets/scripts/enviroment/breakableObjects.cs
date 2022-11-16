@@ -6,7 +6,7 @@ public class breakableObjects : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _collisionParticle;
     [SerializeField] private float _health;
-    [SerializeField] private GameObject _HealthItem;
+    [SerializeField] private GameObject[] _HealthItem;
     [SerializeField] private AudioClip _audio;
 
     private AudioSource _AS;
@@ -42,14 +42,23 @@ public class breakableObjects : MonoBehaviour
     private void determineDrop()
     {
         float num = Random.Range(0, 101);
+        float rand = Random.Range(0, 101);
 
-        if(num <= 40)
+        if(num <= 50)
         {
 
         }
-        else if(num < 40)
+        else if(num > 50)
         {
-            Instantiate(_HealthItem, transform.position, Quaternion.identity);
+            if(rand <= 50)
+            {
+                Instantiate(_HealthItem[0], transform.position, Quaternion.identity);
+            }
+            else if(rand > 50)
+            {
+                Instantiate(_HealthItem[1], transform.position, Quaternion.identity);
+            }
+            
         }
     }
 }

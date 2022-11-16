@@ -161,7 +161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collisionParticle: {fileID: 4418936018879879716, guid: a4e034e326cacf14aab758d59304b87f, type: 3}
   _health: 2
-  _HealthItem: {fileID: 4336792078456320962, guid: 828f73afcb937914a93cb84c8819a4dd, type: 3}
+  _HealthItem:
+  - {fileID: 4336792078456320962, guid: 828f73afcb937914a93cb84c8819a4dd, type: 3}
+  - {fileID: 6497968722891759619, guid: 90e5135c03208224a9ece8ec0c84dd54, type: 3}
   _audio: {fileID: 8300000, guid: ff7f01eac6292e3418ee747072def91c, type: 3}
 --- !u!114 &2769017701286883639
 MonoBehaviour:

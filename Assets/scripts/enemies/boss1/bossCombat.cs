@@ -65,14 +65,18 @@ public class bossCombat : MonoBehaviour
     private int state = 0;
     [SerializeField] private float bossTimer = 0f;
     [SerializeField] private float _stateTime = 2f;
+    [SerializeField] private AudioClip _popSound;
+    [SerializeField] private AudioClip _secondPopSound;
 
     private bool _circleShoot;
     private bool _clusterShoot;
     private bool _circleClusterShoot;
     [SerializeField] private bool _spawnAOE;
-    
+
+    private AudioSource _AS;
     void Start()
     {
+        _AS = GetComponent<AudioSource>();
         active = false;
         BM = GetComponent<bossManager>();
         startPoint = gameObject.transform.position;
@@ -240,6 +244,7 @@ public class bossCombat : MonoBehaviour
         {
             if (Time.time > nextShot)
             {
+                _AS.PlayOneShot(_popSound);
                 Vector3 heading = _target.transform.position - transform.position;
                 dirRight = checkLeftRight(transform.forward, heading, transform.up);
                 dirUp = checkUpDown(transform.up, heading);
@@ -282,6 +287,7 @@ public class bossCombat : MonoBehaviour
         {
             if (Time.time > nextShot)
             {
+                _AS.PlayOneShot(_popSound);
                 startPoint = gameObject.transform.position;
 
                 numOfProjectiles = Random.Range(8, 15);
@@ -317,6 +323,7 @@ public class bossCombat : MonoBehaviour
         {
             if(Time.time > nextShot)
             {
+                _AS.PlayOneShot(_secondPopSound);
                 startPoint = gameObject.transform.position;
                 Vector3 heading = _target.transform.position - transform.position;
                 dirRight = checkLeftRight(transform.forward, heading, transform.up);
